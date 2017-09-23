@@ -33,7 +33,9 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             var TIXIN = value.TIXIN.replace("[","");
             TIXIN = TIXIN.replace("]","");
             TIXIN = TIXIN.split(',')[0];
@@ -61,7 +63,9 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             var TIXIN = value.TIXIN.replace("[","");
             TIXIN = TIXIN.replace("]","");
             TIXIN = TIXIN.split(',')[0];
@@ -86,15 +90,21 @@ function initTable() {
             "      </div>");
         $.each(table3Datas,function (i,value) {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
-            var tixin = value.TIXIN ==null?'--':value.TIXIN;
+            var tixin = value.VIEW_NAME ==null?'--':value.VIEW_NAME;
+            tixin = tixin.replace("[","");
+            tixin = tixin.replace("]","");
+            tixin = tixin.split(',')[0];
+            var price = value.PRICE_NUM ==null?'--':value.PRICE_NUM;
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             $('#table3').append("<div class=\"table-tr\">\n" +
                 "        <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width: 20%\">"+tixin+"</div>\n" +
-                "        <div class=\"table-td\" style=\"width: 25%;\">"+value.PRICE_NUM+"</div>\n" +
+                "        <div class=\"table-td\" style=\"width: 25%;\">"+price+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width: 30%\">"+follow+"</div>\n" +
                 "      </div>");
         });
@@ -108,15 +118,21 @@ function initTable() {
             "      </div>");
         $.each(table4Datas,function (i,value) {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
-            var tixin = value.TIXIN ==null?'--':value.TIXIN;
+            var tixin = value.VIEW_NAME ==null?'--':value.VIEW_NAME;
+            var price = value.PRICE_NUM ==null?'--':value.PRICE_NUM;
+            tixin = tixin.replace("[","");
+            tixin = tixin.replace("]","");
+            tixin = tixin.split(',')[0];
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             $('#table4').append("<div class=\"table-tr\">\n" +
                 "        <div class=\"table-td\" style=\"width: 25% !important;\">"+belongOf+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width: 20%\">"+tixin+"</div>\n" +
-                "        <div class=\"table-td\" style=\"width: 25%\">"+value.PRICE_NUM+"</div>\n" +
+                "        <div class=\"table-td\" style=\"width: 25%\">"+price+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width:30%;\">"+follow+"</div>\n" +
                 "      </div>");
         });
@@ -129,13 +145,19 @@ function initTable() {
             "          </div>");
         $.each(table5Datas,function (i,value) {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
+            var propName = value.PROP_NAME==null?"--":value.PROP_NAME;
+            propName = propName.replace("[","");
+            propName = propName.replace("]","");
+            propName = propName.split(',')[0];
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             $('#table5').append("<div class=\"table-tr\">\n" +
                 "            <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
-                "            <div class=\"table-td\" style=\"width: 20%\">"+value.PROP_NAME+"</div>\n" +
+                "            <div class=\"table-td\" style=\"width: 20%\">"+propName+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 25%;\">"+value.PRICE_NUM+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 30%\">"+follow+"</div>\n" +
                 "          </div>");
@@ -149,13 +171,19 @@ function initTable() {
             "          </div>");
         $.each(table6Datas,function (i,value) {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
+            var propName = value.PROP_NAME==null?"--":value.PROP_NAME;
+            propName = c.replace("[","");
+            propName = propName.replace("]","");
+            propName = propName.split(',')[0];
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
-            belongOf = replace(belongOf);
+            if(belongOf.length>6) {
+                belongOf = replace(belongOf);
+            }
             $('#table6').append("<div class=\"table-tr\">\n" +
                 "            <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
-                "            <div class=\"table-td\" style=\"width: 20%\">"+value.PROP_NAME+"</div>\n" +
+                "            <div class=\"table-td\" style=\"width: 20%\">"+propName+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 25%;\">"+value.PRICE_NUM+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 30%\">"+follow+"</div>\n" +
                 "          </div>");
