@@ -61,6 +61,7 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
+            belongOf = replace(belongOf);
             var TIXIN = value.TIXIN.replace("[","");
             TIXIN = TIXIN.replace("]","");
             TIXIN = TIXIN.split(',')[0];
@@ -89,6 +90,7 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
+            belongOf = replace(belongOf);
             $('#table3').append("<div class=\"table-tr\">\n" +
                 "        <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width: 20%\">"+tixin+"</div>\n" +
@@ -110,6 +112,7 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
+            belongOf = replace(belongOf);
             $('#table4').append("<div class=\"table-tr\">\n" +
                 "        <div class=\"table-td\" style=\"width: 25% !important;\">"+belongOf+"</div>\n" +
                 "        <div class=\"table-td\" style=\"width: 20%\">"+tixin+"</div>\n" +
@@ -129,6 +132,7 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
+            belongOf = replace(belongOf);
             $('#table5').append("<div class=\"table-tr\">\n" +
                 "            <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 20%\">"+value.PROP_NAME+"</div>\n" +
@@ -148,6 +152,7 @@ function initTable() {
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
             belongOf = belongOf.split(',')[0];
+            belongOf = replace(belongOf);
             $('#table6').append("<div class=\"table-tr\">\n" +
                 "            <div class=\"table-td\" style=\"width: 25% !important\">"+belongOf+"</div>\n" +
                 "            <div class=\"table-td\" style=\"width: 20%\">"+value.PROP_NAME+"</div>\n" +
