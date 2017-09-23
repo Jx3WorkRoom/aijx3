@@ -1,0 +1,235 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>金币交易-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/bt.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/goldExchangeList.js}"></script>
+</head>
+<style>
+    .inputtitle {
+        font-size: 16px;
+        display: inline-block;
+        text-align: left;
+    }
+    .madalHide {
+        display: block;
+        opacity: 1;
+        background: rgba(0,0,0,.5);
+    }
+    .modal-header {
+        text-align: center;
+    }
+    .madalHide .modal-dialog {
+        margin: 130.5px auto;
+    }
+    .group-item input {
+        border-radius: 4px;
+        border: 1px solid #dadada;
+        padding-left: 10px;
+        height: 34px;
+    }
+
+</style>
+
+<body>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="maincontent">
+  <div id="mcon"> 
+    
+    <!-- top content -->
+    <div class="topContent"> 
+      <!-- Convenient entrance -->
+      <div class="searchcon">
+        <div class="s_top">
+          <ul>
+            <li class="cur">金币收售</li>
+          </ul>
+          <div class="clear"></div>
+          <div class="sline"></div>
+        </div>
+        <div class="searchinput">
+          <div class="logincon searccon levecon">
+            <table>
+                <tr>
+                    <td align="right" class="wr ft1">收售：</td>
+                    <td><ul class="nav nav-pills">
+                        <li class="dropdown all-camera-dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">出售<b class="caret"></b> </a>
+                            <ul class="dropdown-menu">
+                                <li data-filter-camera-type="all"><a data-toggle="tab" href="javascript:void(0)">求购</a></li>
+                                <li data-filter-camera-type="Alpha"><a data-toggle="tab" href="javascript:void(0)">出售</a></li>
+                            </ul>
+                        </li>
+                    </ul></td>
+                </tr>
+              <tr>
+                <td align="right" class="wr ft1">大区：</td>
+                  <td onLoad="setup()" style="margin:0">
+                      <form name="frm" class="areaSelect">
+                          <select style="width: 100px;" id="pre" onchange="chg(this);">
+                              <option value="-1">请选择</option>
+                          </select>
+                          <select style="width: 100px;" id="city" onchange="chg2(this)" ;>
+                              <option value="-1">请选择</option>
+                          </select>
+                          <select style="width: 100px;" id="area">
+                              <option value="-1">请选择</option>
+                          </select>
+
+              </tr>
+                <tr>
+                    <td class="wr ft1"></td><td colspan="2"><a href="javascript:void(0)" class="query-l">查询</a><a href="accountTransaction" class="issue-l">发布</a></td>
+                </tr>
+            </table>
+            <div class="table-th11"></div>
+            <!-- 查询结果为空 -->
+            <div style="display: none" class="searchNull">暂无查询结果！</div>
+            <div style="display: none" class="table">
+           <div class="table-tr tablered">
+            <div class="table-th table-th11">区服</div>
+            <div class="table-th">金币总量</div>
+               <div class="table-th">单价(G/R)</div>
+               <div class="table-th">可否拆分</div>
+            <div class="table-th">购买/出售</div>
+            <div class="table-th">关注度</div>
+            <div class="table-th">上架时间</div>
+               <div class="table-th">联系交易</div>
+            <div class="table-th">状态报告</div>
+            <div class="table-th">收藏</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td">电五唯满侠</div>
+            <div class="table-td">1000</div>
+              <div class="table-td">1</div>
+              <div class="table-td">可拆分交易</div>
+              <div class="table-td">出售</div>
+            <div class="table-td ">1</div>
+            <div class="table-td">3天前</div>
+              <div class="table-td"><a class="modalBtn" href="javascript:;">卖方QQ</a></div>
+            <div class="table-td">正常</div>
+            <div class="table-td"><i class="icon-save"></i></div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td">电五唯满侠</div>
+              <div class="table-td">1000</div>
+              <div class="table-td">1</div>
+              <div class="table-td">整单交易</div>
+              <div class="table-td">购买</div>
+            <div class="table-td ">1</div>
+            <div class="table-td">3天前</div>
+              <div class="table-td">买方QQ</div>
+              <div class="table-td">正常</div>
+            <div class="table-td"><i class="icon-save"></i></div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td">电五唯满侠</div>
+            <div class="table-td">1000</div>
+              <div class="table-td">1</div>
+              <div class="table-td">整单交易</div>
+              <div class="table-td">出售</div>
+            <div class="table-td ">1</div>
+            <div class="table-td">3天前</div>
+              <div class="table-td">卖方QQ</div>
+              <div class="table-td">正常</div>
+            <div class="table-td"><i class="icon-save"></i></div>
+          </div>
+          <div class="table-tr last">
+            <div class="table-td">电五唯满侠</div>
+            <div class="table-td">1000</div>
+              <div class="table-td">1</div>
+              <div class="table-td">整单交易</div>
+              <div class="table-td">出售</div>
+            <div class="table-td ">1</div>
+            <div class="table-td">3天前</div>
+              <div class="table-td">卖方QQ</div>
+            <div class="table-td">正常</div>
+            <div class="table-td"><i class="icon-save"></i></div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+      <div class="classifiedList">
+        <div class="table">
+        </div>
+      </div>
+      <div class="pagers">
+          <ul class="pagination">
+              <li class="disabled"><a href="javascript:void(0)">首页</a></li>
+              <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
+              <li class="active"><a href="javascript:void(0)">1</a></li>
+              <li><a href="javascript:void(0)">2</a></li>
+              <li><a href="javascript:void(0)">3</a></li>
+              <li><a href="javascript:void(0)">...</a></li>
+              <li><a href="javascript:void(0)">40</a></li>
+              <li><a href="javascript:void(0)">41</a></li>
+              <li><a href="javascript:void(0)">下一页</a></li>
+              <li><a href="javascript:void(0)">尾页</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle">本条账号信息由平台用户上传：</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <table border="1">
+                </table>
+            </div>
+            <div class="modal-footer"><span class="inputtitle"></span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script type="text/javascript">
+    $('.table-th').click(function () {
+        if($(this).children('.sort').length>0){
+            $(this).children('.sort').toggleClass('active');
+        }
+    });
+$().ready(function(e) {
+    $(".s_top ul li").click(function(){
+		$(".s_top ul li").removeClass('cur');
+		$(this).addClass('cur')
+	});
+	$(".nav-pills ul li").click(function(){
+	  var sefont=$(this).find('a').text();
+	  $(this).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
+	})
+});
+</script>
+</html>

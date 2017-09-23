@@ -1,0 +1,153 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>常见问题-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link th:href="@{/dist/css/jx3/base.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link type="text/css" th:href="@{/dist/css/bootstrap.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+</head>
+
+<body class="home">
+<style>
+    h4{
+        font-size: 18px;
+        line-height: 32px;
+    }
+    h3{font-size: 22px}
+    .align{
+        margin-bottom: 20px;
+    }
+    .content{
+        margin-left: 20px;
+        width: 100%;
+    }
+</style>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+    <div class="userBox" style="display: none">
+        <p>Jack</p>
+        <span><img th:src="@{/dist/css/images/jx3/loginimg.png}"></span>
+    </div>
+    <!--<div  class="account"><a href="login.html">登录</a> / <a href="register.html">注册</a></div>-->
+</div>
+</div>
+<div id="maincontent">
+    <div id="mcon">
+        <!-- login content -->
+        <div class="login">
+            <div class="inputcon">
+                <img class="contopimg" th:src="@{/dist/css/images/jx3/loginimg.png}" />
+                <div class="logincon" style="margin-top: 145px;width: 728px;padding-left: 40px;padding-right: 60px;">
+                    <h2 style="text-align: center;    margin-top: -60px;">【爱剑三】常见问题</h2>
+                    <div class="align" style="    margin-top: 72px;">
+                        <h3>1.为何必须手机号注册？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            根据国家相关法规要求，必须实名制注册。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>2.手机号注册会有风险吗？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            用户使用手机号在【爱剑三】注册，仅用于注册密码管理接收验证码，【爱剑三】承诺不会向用户手机号推送任何无关信息，承诺不会泄露用户手机号等个人资料，并承担相关法律责任。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>3.【爱剑三】是一个什么样的网站？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            【爱剑三】仅是一个互联网信息聚合平台，同时方便剑三玩家发布各类交易信息。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>4.【爱剑三】能解决交易的买家和卖家哪些问题？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            我们希望能解决买家每天翻贴、蹲守之苦，在【爱剑三】网站一键搜索；我们希望解决卖家每天发贴、顶贴之累，在【爱剑三】网站快速发布。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>5.【爱剑三】会抢“代售”的生意么？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            【爱剑三】不是要抢“代售”生意，反而是为了帮代售解决重复发贴顶贴之累，据后台数据监测，某“代售”发布一个账号信息多达485次！不仅自己累，还影响买号人的查找。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>6.【爱剑三】会抢“代售”的生意么？</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            一方面，【爱剑三】不是要抢“代售”生意，反而是为了帮代售解决重复发贴顶贴之累，据后台数据监测，某“代售”发布一个账号信息多达485次！不仅自己累，还影响买号人的查找。
+                        </h4>
+                        <h4>
+                            另一方面，如当前【爱剑三】提供的功能与服务，我们都是直接跳转到“代售”发布在贴吧的贴子或直接给出发布者的联系方式，这说明我们并不是要取代“代售”，我们是要为“代售”提供服务。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>7.【爱剑三】特别提示</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            当前我们只有唯一的QQ号：205392704，如有问题咨询，请主动添加，不要接爱任何加好友申请，以免有人冒充。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>8.剑三黑榜</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            剑三黑榜【爱剑三】提供的公益性服务，用于曝光和记录与剑三相关的骗子。欢迎广大剑三玩家上传骗子资料和聊天记录截图等，特别注意，不要把骗子资料弄成图片上传啊，无法让其他玩家搜索到。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>9.【爱剑三】防骗指南</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            A.在各类交易网站买号，一要注意是否为正规网站，二要注意自行主动加QQ，不要接受别的人申请（经常有骗子把个人资料呢称改为正规交易网站的客服QQ）；
+                        </h4>
+                        <h4>
+                            B.贴吧交易注意看贴吧等级，搜他个人的电话、QQ号等查证是否有黑历史；
+                        </h4>
+                        <h4>
+                            C.代练代打坚持一定坚持 先做后钱，实在不行可以拆成付一点做一点，不要一次性全付
+                        </h4>
+                        <h4>
+                            D.最近比较流行的骗局是：以资历为例，骗子先帮你做一些资历取得信任后，不断以大降价、急用钱来诱惑付全款。
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a> <br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+</html>
+

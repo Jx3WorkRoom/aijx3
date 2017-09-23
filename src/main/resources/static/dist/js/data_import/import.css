@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.tableBox thead th {
+    text-align: left;
+    background-color:#EBF3FD;
+    white-space: nowrap;
+}
+
+.tableBox thead th select{
+    margin:2px;
+}
+
+.tableBox tbody td {
+    text-align: left;
+}

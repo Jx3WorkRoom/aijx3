@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>账号出售详细发布</title>
+<link rel="stylesheet" type="text/css" href="../../css/jx3/base.css">
+<link rel="stylesheet" type="text/css" href="../../css/jx3/drop.css">
+<link rel="stylesheet" type="text/css" href="../../css/jx3/user.css">
+<script src="../../js/jx3/jquery.js"></script>
+<script src="../../js/jx3/bt.js"></script>
+<script src="../../js/jx3/base.js"></script>
+<script src="../../js/jx3/dropdown.js"></script>
+</head>
+
+<body>
+<!-- top logo -->
+<div class="topLogo"><img src="../../css/images/jx3/logo_2.png" /></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="maincontent">
+  <div id="mcon"> 
+    <!-- usercon -->
+    <div class="usercon input1">
+      <div class="tb">
+        <div class="tr">
+          <div class="td menue"> <img src="../../css/images/jx3/uctop.png" />
+            <div class="menuelist">
+              <dt>我的服务</dt>
+              <dd><a href="11dataAndSecurity.html">资料与安全</a></dd>
+              <dd><a href="12myCollection.html">我的收藏</a></dd>
+              <dd><a href="13myRelease.html">我的发布</a></dd>
+              <dd><a href="14myService.html">我的服务</a></dd>
+              <dd><a href="15serviceSetting.html">服务设置</a></dd>
+              <dt>我要发布</dt>
+              <dd><a href="21report.html">我要举报</a></dd>
+              <dd><a href="22appearanceTransaction.html">外观交易</a></dd>
+              <dd><a href="23propTransaction.html">道具交易</a></dd>
+              <dd><a href="24accountTransaction.html">金币交易</a></dd>
+                <dd><a href="25accountExchange.html">代练代打</a></dd>
+              <dd><a href="26quickRelease.html">账号收售快速发布</a></dd>
+              <dd class="cur"><a href="27detailRelease.html">账号收售详细发布</a></dd>
+              <dt>后台管理</dt>
+              <dd><a href="userList.html">用户列表</a></dd>
+              <dd><a href="userManage.html">用户管理</a></dd>
+            </div>
+          </div>
+          <div class="td">
+            <div class="rightcon">
+              <div class="title">
+                <div class="ht"><span>基本资料</span><span class="cur">外观发型</span><span>坐骑奇趣</span><span>橙色装备</span><span>珍稀挂件</span><span>奇遇奇珍</span><span>其它补充</span></div>
+              </div>
+               <div class="title2">发型</div>
+               <div class="conlist">
+              　<div class="iconcon">
+               <span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span></div>
+              </div>
+              <div class="title2">披风</div>
+               <div class="conlist">
+              　<div class="iconcon">
+               <span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span></div>
+              </div>
+              <div class="title2">成衣-限量</div>
+               <div class="conlist">
+              　<div class="iconcon">
+               <span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span></div>
+              </div>
+              <div class="title2">成衣-限时</div>
+               <div class="conlist">
+              　<div class="iconcon">
+               <span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span></div>
+              </div>
+              <div class="title2">套装盒子</div>
+               <div class="conlist">
+              　<div class="iconcon">
+               <span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span><span><i class="icon0"></i>济世菩萨</span><span><i class="icon0"></i>红尘</span></div>
+              </div>
+              <div class="title2">外观拓印</div>
+              <table class="mt15">
+             	  <tr>
+                  <td align="right" class="wr ft1">白发数量：</td>
+                  <td><input type="text" value="" /></td>
+                  <td class="wr ft1">黑发数量：</td>
+                  <td><input type="text" value="" /></td>
+                  <td class="wr ft1">易容数量：</td>
+                  <td><input type="text" value="" /></td>
+                </tr>
+                 <tr>
+                  <td align="right" class="wr ft1">武器排印数量：</td>
+                  <td><input type="text" value="" /></td>
+                  <td class="wr ft1">散件拓印数量：</td>
+                  <td><input type="text" value="" /></td>
+                  <td class="wr ft1"></td>
+                  <td></td>
+                </tr>
+              </table>
+              <div class="title2">图片上传</div>
+              <table class="mt15">
+                <tr>
+                 <td align="right" class="wr ft1">上传图片：</td>
+                 <td colspan="7">
+                   <div class="imglist">
+                    <ul>
+                     <li class="upload"><img src="../../css/images/jx3/game02.jpg" width="167" height="99" /><i class="icon1"></i></li>
+                     <li class="upload"><img src="../../css/images/jx3/game02.jpg" width="167" height="99" /><i class="icon1"></i></li>
+                     <li class="upload"><img src="../../css/images/jx3/game02.jpg" width="167" height="99" /><i class="icon1"></i></li>
+                     <li class="addimg"><input id="file" type="file"  /><img src="../../css/images/jx3/addimgicon.png" width="167" height="99" /></li>
+                    </ul>
+                   </div>
+                 </td>
+                </tr>
+                <tr>
+                 <td align="right" class="wr ft1"></td>
+                 <td colspan="7"><span class="codebtn">保存</span>　<span class="codebtn">取消</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent"><a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+  Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号 </div>
+<!-- /.modal -->
+</body>
+<script type="text/javascript">
+$().ready(function(e) {
+	var typeid=''
+    $(".s_top ul li").click(function(){
+		$(".s_top ul li").removeClass('cur');
+		$(this).addClass('cur')
+	})
+	$(".icon1").click(function(){
+		$(this).parents('li').remove()
+	})
+	$('.rightcon .title span').click(function(){
+		var listindex=$('.rightcon .title span').index(this);
+		$('.rightcon .title span').removeClass('cur')
+		$(this).addClass('cur')
+	})
+	$('#addicon').click(function(){
+		var addft=$(this).parent().find('input').val();
+		if(addft!=''){
+			$('.iconcon').append('<span><i class="icon0"></i>'+addft+'</span>')
+		}
+	})
+	
+});
+</script>
+</html>

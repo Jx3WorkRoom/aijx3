@@ -1,0 +1,177 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>剑三黑榜-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/bt.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/blackList.js}"></script>
+</head>
+
+<body>
+<!-- top logo -->
+<div class="topLogo">
+    <img th:src="@{/dist/css/images/jx3/logo_2.png}" />
+</div>
+<div class="contactUs" style="position: absolute;top: 20px;right: 100px">
+    <h4>咨询QQ：824460354，3032254434</h4>
+    <h4>QQ群号：296733805</h4>
+</div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav">
+        <a href="index">首页</a>
+        <a href="accountList">账号交易</a>
+        <a href="appearanceSale">外观交易</a>
+        <a href="propSale">道具交易</a>
+        <a href="goldExchangeList">金币收售</a>
+        <a href="levelingList">代练代打</a>
+        <a href="blackList">剑三黑榜</a>
+        <a href="dataAndSecurity">用户中心</a>
+        <a class="last cur" href="login">登录 / 注册</a>
+        <a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a>
+        <a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}">
+    </div>
+</div>
+<div id="maincontent">
+  <div id="mcon"> 
+    
+    <!-- top content -->
+    <div class="topContent"> 
+      <!-- Convenient entrance -->
+      <div class="searchcon">
+        <div class="s_top">
+          <ul>
+            <li class="cur">剑三黑榜查询</li>
+          </ul>
+            <div style="font-size: 18px;padding-top: 14px;margin-left: 300px">如有错误、不当信息，请及时联系客服，一经核实，将给予以小红包奖励。</div>
+          <div class="clear"></div>
+          <div class="sline"></div>
+        </div>
+        <div class="searchinput">
+          <div class="logincon searccon levecon">
+            <table>
+              <tr>
+                <td align="right" class="wr ft1">验证内容：</td>
+                <td><input style="width: 300px;" type="text" placeholder="可输入 QQ号、支付宝、微信号、游戏角色名等" class="tixin"/></td>
+              </tr>
+                <tr>
+                    <td class="wr ft1"></td><td colspan="2"><a href="#" class="query-l">查询</a></td>
+                </tr>
+            </table>
+            <div class="table-th11"></div>
+            <!-- 查询结果为空 -->
+            <div style="display: none" class="searchNull">暂无查询结果！</div>
+            <div style="display: none" class="table">
+          <div class="table-tr tablered">
+            <div class="table-th table-th11" style="width: 11%">欺诈类型</div>
+            <div class="table-th table_lw" style="width: 62%;">黑鬼资料</div>
+            <div class="table-th" style="width: 6%;">涉及区服</div>
+            <div class="table-th" style="width: 10%;">上榜时间</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td">金币诈骗</div>
+            <div class="table-td table_lw">黑鬼资料：手机号：15454513214&#10微信号：115715_aqc&#10QQ号：7874677585</div>
+            <div class="table-td ">电五唯满侠</div>
+            <div class="table-td">2017年6月5日</div>
+          </div>
+           <div class="table-tr">
+                <div class="table-td">金币诈骗</div>
+                <div class="table-td table_lw">黑鬼资料：手机号：15454513214&#10微信号：115715_aqc&#10QQ号：7874677585</div>
+                <div class="table-td ">电五唯满侠</div>
+                <div class="table-td">2017年6月5日</div>
+          </div>
+          <div class="table-tr">
+              <div class="table-td">金币诈骗</div>
+              <div class="table-td table_lw">黑鬼资料：手机号：15454513214&#10微信号：115715_aqc&#10QQ号：7874677585</div>
+              <div class="table-td ">电五唯满侠</div>
+              <div class="table-td">2017年6月5日</div>
+          </div>
+          <div class="table-tr">
+              <div class="table-td">金币诈骗</div>
+              <div class="table-td table_lw">黑鬼资料：手机号：15454513214&#10微信号：115715_aqc&#10QQ号：7874677585</div>
+              <div class="table-td ">电五唯满侠</div>
+              <div class="table-td">2017年6月5日</div>
+          </div>
+        </div>
+              <div style="display: none" class="table">
+                  <div class="table-tr tablered">
+                      <div class="table-th table-th11" style="text-align: left;color: #fff;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 16px;padding-left: 20px;">友情提示</div>
+                  </div>
+                  <div class="table-tr" style="background: #fff!important;">
+                      <div class="table-td" style="white-space:inherit;text-align: left;color: #000;font-family: 华文楷体;font-weight: 600;font-size: 20px;line-height: 26px;border-bottom: none;">本站黑鬼为网络获取和玩家上传，通过搜索游戏角色名、支付宝账号、QQ号、微信号等可以验证是否存在不良记录，若未能找到，不代表信誉良好，线下交易仍需谨慎；若有被验经历，即刻暴光吧！</div>
+                  </div>
+              </div>
+              <div style="display: none" class="table">
+                  <div class="table-tr tablered">
+                      <div class="table-th table-th11" style="text-align: left;color: #fff;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 16px;padding-left: 20px;">搜索结果</div>
+                  </div>
+                  <div class="table-tr" style="background: #fff!important;">
+                      <div class="table-td" style="white-space:inherit;text-align: center;color: #f8955e;font-family: 华文楷体;font-weight: 600;font-size: 30px;border-bottom: none;padding: 20px 10px;">
+                          <img th:src="@{/dist/css/images/jx3/wujilu.png}" alt="">
+                          恭喜您！暂未发现黑榜记录
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="classifiedList">
+          <div class="title-l">剑三黑榜风云录</div>
+        <div class="table">
+        </div>
+      </div>
+      <div class="pagers">
+          <ul class="pagination">
+              <li class="disabled"><a href="#">首页</a></li>
+              <li class="disabled"><a href="#">上一页</a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">...</a></li>
+              <li><a href="#">40</a></li>
+              <li><a href="#">41</a></li>
+              <li><a href="#">下一页</a></li>
+              <li><a href="#">尾页</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+<script type="text/javascript">
+    $('.table-th').click(function () {
+        if($(this).children('.sort').length>0){
+            $(this).children('.sort').toggleClass('active');
+        }
+    });
+$().ready(function(e) {
+    $(".s_top ul li").click(function(){
+		$(".s_top ul li").removeClass('cur');
+		$(this).addClass('cur')
+	})
+	$(".nav-pills ul li").click(function(){
+	  var sefont=$(this).find('a').text();
+	  $('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
+	})
+});
+</script>
+</html>

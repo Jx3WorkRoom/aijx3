@@ -1,0 +1,266 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>外观交易-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/appearanceSale.js}"></script>
+</head>
+<style>
+    .inputtitle {
+        font-size: 16px;
+        display: inline-block;
+        text-align: left;
+    }
+    .madalHide {
+        display: block;
+        opacity: 1;
+        background: rgba(0,0,0,.5);
+    }
+    .modal-header {
+        text-align: center;
+    }
+    .madalHide .modal-dialog {
+        margin: 130.5px auto;
+    }
+    .group-item input {
+        border-radius: 4px;
+        border: 1px solid #dadada;
+        padding-left: 10px;
+        height: 34px;
+    }
+
+</style>
+<body>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+  <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale" class="cur">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="maincontent">
+ <div id="mcon">
+
+<!-- top content -->
+<div class="topContent"> 
+
+  <div class="searchcon">
+   <div class="s_top">
+     <ul>
+      <li class="cur">外观交易</li>
+      <!--<li>外观求购</li>-->
+     </ul>
+     <div class="clear"></div>
+     <div class="sline"></div>
+   </div>
+   <div class="searchinput">
+   <div class="logincon searccon">
+    <span class="show0">
+     <table>
+         <tr>
+                    <td align="right" class="wr ft1">收售：</td>
+                    <td><ul class="nav nav-pills">
+                        <li class="dropdown all-camera-dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 出售 <b class="caret"></b> </a>
+                            <ul class="dropdown-menu">
+                                <li data-filter-camera-type="all"><a data-toggle="tab" href="javascript:void(0)">求购</a></li>
+                                <li data-filter-camera-type="Alpha"><a data-toggle="tab" href="javascript:void(0)">出售</a></li>
+                            </ul>
+                        </li>
+                    </ul></td>
+                </tr>
+      <tr>
+       <td align="right" class="wr ft1">区服：</td>
+      <td onLoad="setup()" style="margin:0">
+              <form name="frm" class="areaSelect">
+                  <select style="width: 100px;" id="pre" onchange="chg(this);">
+                      <option value="-1">请选择</option>
+                  </select>
+                  <select style="width: 100px;" id="city" onchange="chg2(this)" ;>
+                      <option value="-1">请选择</option>
+                  </select>
+                  <select style="width: 100px;" id="area">
+                      <option value="-1">请选择</option>
+                  </select>
+
+      </tr>
+      <tr>
+       <td align="right" class="wr ft1">外观：</td>
+       <td colspan="2"><input type="text" placeholder="6红五红、一代白、青盒子、鹤影天青等外观词。"  class="tixin"/></td>
+      </tr>
+      <tr>
+       <td class="wr ft1"></td>
+       <td colspan="2"><a href="javascript:void(0)" class="query-l">查询</a><a href="appearanceTransaction" class="issue-l">我要发布</a></td>
+       <td></td>
+      </tr>
+     </table>
+	</span>
+     <div style="display: none" class="searchNull">暂无查询结果！</div>
+     <div style="display: none" class="table">
+      <div class="table-tr tablered">
+        <div class="table-th table-th11">区服</div>
+        <div class="table-th">外观名</div>
+        <div class="table-th table_lw">介绍说明</div>
+          <div class="table-th">收/售</div>
+        <div class="table-th">价格意向</div>
+        <div class="table-th">关注度</div>
+        <div class="table-th">上架时间</div>
+        <div class="table-th">状态报告</div>
+        <div class="table-th">收藏</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td">电五唯满侠</div>
+        <div class="table-td">花姐</div>
+        <div class="table-td table_lw"><a class="modalBtn" href="javascript:;">2k5出电点狐金蝶金鸡金猴红七红鸡红毒...</a></div>
+          <div class="table-td">出售</div>
+        <div class="table-td">4000</div>
+        <div class="table-td">20人</div>
+        <div class="table-td">3天前</div>
+        <div class="table-td warn">13人报告|<a href="###">提交失效</a></div>
+        <div class="table-td"><i class="icon-save"></i></div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td">电五唯满侠</div>
+        <div class="table-td">花姐</div>
+        <div class="table-td table_lw">2k5出电点狐金蝶金鸡金猴红七红鸡红毒...</div>
+          <div class="table-td">出售</div>
+        <div class="table-td">4000</div>
+        <div class="table-td">20人</div>
+        <div class="table-td">3天前</div>
+        <div class="table-td">正常</div>
+        <div class="table-td"><i class="icon-save"></i></div>
+      </div>
+      <div class="table-tr last">
+        <div class="table-td">电五唯满侠</div>
+        <div class="table-td">花姐</div>
+        <div class="table-td table_lw">2k5出电点狐金蝶金鸡金猴红七红鸡红毒...</div>
+          <div class="table-td">出售</div>
+        <div class="table-td">4000</div>
+        <div class="table-td">20人</div>
+        <div class="table-td">3天前</div>
+        <div class="table-td">正常</div>
+        <div class="table-td"><i class="icon-save"></i></div>
+      </div>
+    </div>
+    </div>
+   </div>
+  </div>
+  <div class="classifiedList">
+    <div class="table">
+    </div>
+  </div>
+  <div class="pagers">
+    <ul class="pagination">
+      <li class="disabled"><a href="#">首页</a></li>
+      <li class="disabled"><a href="#">上一页</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">...</a></li>
+      <li><a href="#">40</a></li>
+      <li><a href="#">41</a></li>
+      <li><a href="#">下一页</a></li>
+      <li><a href="#">尾页</a></li>
+    </ul>
+  </div>
+</div>
+</div></div>
+<!-- foot -->
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle">本账号来自百度贴吧：</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <table border="1" class="source1">
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">发布时间</td>
+                        <td align="center"  valign="middle" width="420px" height="30"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">所属区服</td>
+                        <td align="center"  valign="middle" width="420x" height="30"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">发布内容</td>
+                        <td align="center"  valign="middle" width="420x" height="30"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">页面链接</td>
+                        <td align="center"  valign="middle" width="420x" height="30"></td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">贴吧楼层</td>
+                        <td align="center"  valign="middle" width="420x" height="30"></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer"><span class="inputtitle">因有重复发帖会显示多条。若本账号已完成交易或不再交易，请点击上方失效报告，将提升您的信用</span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="identifier">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle">本条账号信息由平台用户上传：</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <table border="1">
+                </table>
+            </div>
+            <div class="modal-footer"><span class="inputtitle"></span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    $('.table-th').click(function () {
+        if($(this).children('.sort').length>0){
+            $(this).children('.sort').toggleClass('active');
+        }
+    });
+    //页签切换
+    $().ready(function(e) {
+        $(".nav-pills ul li").click(function(){
+            var sefont=$(this).find('a').text();
+            $(this).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
+        });
+        $(".s_top ul li").click(function(){
+            var listindex=$(".s_top ul li").index(this);
+            $(".s_top ul li").removeClass('cur');
+            $(this).addClass('cur');
+            $(".show0,.show1").hide();
+            $('.show'+listindex).show()
+        });
+    });
+</script>
+</html>

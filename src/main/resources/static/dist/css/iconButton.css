@@ -1,0 +1,112 @@
+/*回收站*/
+.icon-trash {
+    background: url('icons/trash.png') no-repeat;
+}
+
+/*下一个*/
+.icon-next {
+    background: url('icons/next.png') no-repeat;
+}
+
+/*统计*/
+.icon-stat {
+    background: url('icons/stat.png') no-repeat;
+}
+
+/*excel导出导入*/
+.icon-excel {
+    background: url('icons/excel.png') no-repeat;
+}
+
+/*txt导出导入*/
+.icon-txt {
+    background: url('icons/txt.png') no-repeat;
+}
+
+/*word导出导入*/
+.icon-word {
+    background: url('icons/word.png') no-repeat;
+}
+
+/*上传*/
+.icon-upload {
+    background: url('icons/upload.png') no-repeat;
+}
+
+/*添加数据*/
+.icon-importData {
+    background: url('icons/importData.png') no-repeat;
+}
+
+/*下载*/
+.icon-download {
+    background: url('icons/download.png') no-repeat;
+}
+
+/*修改密码*/
+.icon-key {
+    background: url('icons/key.png') no-repeat;
+}
+
+/*排序*/
+.icon-sort {
+    background: url('icons/sort.png') no-repeat;
+}
+
+/*收缩*/
+.icon-collapse {
+    background: url('icons/collapse.gif') no-repeat;
+}
+
+/*展开*/
+.icon-expand {
+    background: url('icons/expand.gif') no-repeat;
+}
+
+/*树节点打开*/
+.icon-tree-open {
+    background: url('icons/tree_open.gif') no-repeat;
+}
+
+/*树节点关闭*/
+.icon-tree-close {
+    background: url('icons/tree_close.gif') no-repeat;
+}
+
+/*下拉箭头*/
+.icon-drop {
+    background: url('icons/drop.gif') no-repeat;
+}
+
+/*选择用户*/
+.icon-user {
+    background: url('icons/mz.png') no-repeat;
+}
+
+/**/
+.icon-switch {
+    background: url('images/select_where.png') no-repeat;
+}
+
+/**/
+.icon-cross-script {
+    background: url('images/cross-script.png') no-repeat;
+}
+
+.icon-setting {
+    background: url('icons/jcsz.png') no-repeat;
+}
+
+.icon-chart-up-color {
+    background: url('icons/chart-up-color.png') no-repeat;
+}
+
+/*饼图*/
+.icon-pie-chart {
+    background: url('icons/zbrysltj.png') no-repeat;
+}
+
+/*预览*/
+.icon-fileview-preview {
+    background: url('icons/fileview-preview.png') no-repeat;
+}

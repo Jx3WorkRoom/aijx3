@@ -1,0 +1,201 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>账号交易-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link type="text/css" th:href="@{/dist/css/bootstrap.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <script th:src="@{/dist/js/jx3/bootstrap.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/accountDetail.js}"></script>
+<style>
+    .inputtitle {
+        font-size: 16px;
+        display: inline-block;
+        text-align: left;
+    }
+    .madalHide {
+        display: block;
+        opacity: 1;
+        background: rgba(0,0,0,.5);
+    }
+    .modal-header {
+        text-align: center;
+    }
+    .madalHide .modal-dialog {
+        margin: 130.5px auto;
+    }
+    .group-item input {
+        border-radius: 4px;
+        border: 1px solid #dadada;
+        padding-left: 10px;
+        height: 34px;
+    }
+    .scrollimg>img{
+        height: 147px;
+    }
+</style>
+</head>
+
+<body>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<div id="maincontent">
+ <div id="mcon">
+
+<!-- top content -->
+<div class="topContent"> 
+  <!-- Convenient entrance -->
+  <div class="searchcon">
+   <div class="s_top">
+       <div class="toprightmenue">
+           <label class="userIsvalid"></label>
+           <span><i class="icon-save"></i><label>收藏</label></span>   |
+           <a class="modalBtn" href="javascript:void(0);">查看源</a>
+           <a href="javascript:void(0)" class="sumbitIsvalid">提交失效</a></div>
+     <ul>
+      <li class="cur">账号详情</li>
+     </ul>
+     <div class="clear"></div>
+     <div class="sline"></div>
+   </div>
+   <div class="searchinput">
+   <div class="logincon searccon levecon">
+     <div class="account">
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="searchcon">
+   <div class="s_top">
+     <ul>
+      <li class="cur">游戏截图</li>
+     </ul>
+     <div class="clear"></div>
+     <div class="sline"></div>
+   </div>
+   <div class="searchinput">
+   <div class="logincon searccon levecon">
+     <div class="account1">
+       <div class="bigimgs"><img th:src="@{/dist/css/images/nopicture.jpg}" style="height: 506px"/></div>
+       <div class="scrollcon"><img class="lefttg" th:src="@{/dist/css/images/jx3/right.png}" width="47" height="147" /><img  class="righttg"  th:src="@{/dist/css/images/jx3/right0.png}" width="47" height="147" />
+         <div class="scrollimg"><img class="cur moveimg" th:src="@{/dist/css/images/jx3/game01.jpg}" /><img th:src="@{/dist/css/images/jx3/game02.jpg}" /><img th:src="@{/dist/css/images/jx3/game03.jpg}" /><img th:src="@{/dist/css/images/jx3/game04.jpg}" /><img th:src="@{/dist/css/images/jx3/game02.jpg}" /><img th:src="@{/dist/css/images/jx3/game03.jpg}" /></div>
+       </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- foot -->
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle">本账号来自百度贴吧：</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <table border="1" id="source1">
+                    <tr>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">发布时间</td>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="300px" height="30">页面链接</td>
+                        <td align="center"  valign="middle" bgcolor="#ccc" width="150px" height="30">贴吧楼层</td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" width="150px" height="30">2017-08-08</td>
+                        <td align="center"  valign="middle" width="300x" height="30"><a href="###">OrData/pages/accountDetail.html</a></td>
+                        <td align="center"  valign="middle" width="150px" height="30">5楼</td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" width="150px" height="30">2017-08-08</td>
+                        <td align="center"  valign="middle" width="300x" height="30"><a href="###">OrData/pages/accountDetail.html</a></td>
+                        <td align="center"  valign="middle" width="150px" height="30">5楼</td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" width="150px" height="30">2017-08-08</td>
+                        <td align="center"  valign="middle" width="300x" height="30"><a href="###">OrData/pages/accountDetail.html</a></td>
+                        <td align="center"  valign="middle" width="150px" height="30">5楼</td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" width="150px" height="30">2017-08-08</td>
+                        <td align="center"  valign="middle" width="300x" height="30"><a href="###">OrData/pages/accountDetail.html</a></td>
+                        <td align="center"  valign="middle" width="150px" height="30">5楼</td>
+                    </tr>
+                    <tr>
+                        <td align="center"  valign="middle" width="150px" height="30">2017-08-08</td>
+                        <td align="center"  valign="middle" width="300x" height="30"><a href="###">OrData/pages/accountDetail.html</a></td>
+                        <td align="center"  valign="middle" width="150px" height="30">5楼</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="pagers pagers2">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#">上一页</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">下一页</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer"><span class="inputtitle">因有重复发帖会显示多条。若本账号已完成交易或不再交易，请点击上方失效报告，将提升您的信用</span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="identifier">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle">本条账号信息由平台用户上传：</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <table border="1">
+                </table>
+            </div>
+            <div class="modal-footer"><span class="inputtitle"></span>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<iframe src="" id="sourceIfame" style="display: none;"></iframe>
+
+
+<script type="text/javascript">
+$().ready(function(e) {
+});
+</script>
+</html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+  <meta name="discription" content="剑三交易快速搜索">
+  <title>用户中心-爱剑三</title>
+  <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/user.css}">
+  <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+  <script th:src="@{/dist/js/jx3/bt.js}"></script>
+  <script th:src="@{/dist/js/jx3/base.js}"></script>
+  <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/dataAndSecurity.js}"></script>
+</head>
+
+<body>
+<style>
+  .getcode1,.getcode2{
+    cursor: pointer;
+  }
+</style>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+  <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+
+
+<div id="maincontent">
+  <div id="mcon"> 
+    <!-- usercon -->
+    <div class="usercon">
+      <div class="tb">
+        <div class="tr">
+          <div class="td menue"> <img th:src="@{/dist/css/images/jx3/uctop.png}" />
+            <div class="menuelist">
+              <dt>我的服务</dt>
+              <dd><a href="dataAndSecurity.html">资料与安全</a></dd>
+              <dd><a href="myCollection.html">我的收藏</a></dd>
+              <dd><a href="myRelease.html">我的发布</a></dd>
+              <dd class="cur"><a href="myService.html">查看信息服务</a></dd>
+
+              <dt>我要发布</dt>
+              <dd><a href="report.html">我要举报</a></dd>
+              <dd><a href="appearanceTransaction.html">外观交易</a></dd>
+              <dd><a href="propTransaction.html">道具交易</a></dd>
+              <dd><a href="accountTransaction.html">金币交易</a></dd>
+              <dd><a href="accountExchange.html">代练代打</a></dd>
+              <dd><a href="quickRelease.html">账号收售快速发布</a></dd>
+              <!--<dd><a href="detailRelease.html">账号收售详细发布</a></dd>-->
+              <dt>后台管理</dt>
+              <dd><a href="userList.html">用户管理</a></dd>
+              <dd><a href="userManage.html">功能权限设置</a></dd>
+              <dd><a href="userservice.html">用户查看权限管理</a></dd>
+
+              <dd><a href="userimgs.html">图文管理</a></dd>
+            </div>
+        </div>
+          <div class="td">
+            <div class="rightcon">
+              <div class="title">
+                <div class="ht">基本信息</div>
+              </div>
+              <div class="tb tcon">
+                <div class="tr">
+                  <div class="td name">账号：</div>
+                  <div class="td mid" id="loginName"></div>
+                  <div class="td"></div>
+                </div>
+                <div class="tr">
+                  <div class="td name">昵称：</div>
+                  <div class="td mid" id="user_Name"></div>
+                  <div class="td"><a href="#" id="nameBtn">修改</a></div>
+                </div>
+                <div class="tr">
+                  <div class="td name">性别：</div>
+                  <div class="td mid" id="userSex">
+                    <input name="sex" type="radio" checked value="男" />
+                    男
+                    <input name="sex" type="radio" value="女" />
+                    女</div>
+                  <div class="td"></div>
+                </div>
+              </div>
+              <div class="title">
+                <div class="ht">修改密码</div>
+              </div>
+              <div class="tb tcon">
+                <div class="tr">
+                  <div class="td name">请输入手机号：</div>
+                  <div class="td mid"><input type="text" id="telphone"/></div>
+                  <div class="td">
+                      <a href="javascript:void(0)" id="getCheckNum">获取验证码</a>
+                      <span id="getcodetime1" style="display: none">60S后重新获取</span>
+                  </div>
+                </div>
+                <div class="tr">
+                  <div class="td name">请输入验证码：</div>
+                  <div class="td mid">
+                    <input type="text" id="checkNum"/>
+                  </div>
+                  <div class="td" id="checkResult"></div>
+                </div>
+                <div class="tr">
+                  <div class="td name">请输入新密码：</div>
+                  <div class="td mid">
+                    <input type="text" id="newPassword"/>
+                  </div>
+                  <div class="td"></div>
+                </div>
+                <div class="tr">
+                  <div class="td name"></div>
+                  <div class="td mid"><a href="javascript:void(0)" class="sureSubmit"><img th:src="@{/dist/css/images/jx3/enter.png}" /></a>　<a href="javascript:void(0)" class="sureReset"><img th:src="@{/dist/css/images/jx3/cancle.png}" /></a></div>
+                  <div class="td"></div>
+                </div>
+              </div>
+              <div class="title">
+                <div class="ht">安全服务</div>
+              </div>
+              <div class="tb tcon">
+                 <div class="tr">
+                      <div class="td name"><span class="badge">绑定手机：</span></div>
+                      <div class="td mid" id="userTel"></div>
+                      <div class="td"><a href="###" id="phoneBtn">修改</a></div>
+                  </div>
+                  <div class="tr">
+                      <div class="td name"><span class="badge">绑定QQ号：</span></div>
+                      <div class="td mid" id="userQQ"></div>
+                      <div class="td"><a href="###" id="qqBtn">修改</a></div>
+                      <div class="td"><span class="label label-danger">（该项为您的交易联系方式）</span></div>
+                  </div>
+                  </div>
+                  <div class="title">
+                      <div class="ht">信誉提升</div>
+                  </div>
+                  <div class="tb tcon">
+                <div class="tr">
+                  <div class="td name"><span class="badge">绑定百度贴吧号：</span></div>
+                  <div class="td mid" id="userBar"></div>
+                    <div class="td"><span class="label label-info">（可选填）</span></div>
+                  <div class="td"><a href="###" id="tbBtn">修改</a></div>
+                </div>
+                <div class="tr">
+                  <div class="td name"><span class="badge">绑定邮箱：</span></div>
+                  <div class="td mid" id="userMail"></div>
+                    <div class="td"><span class="label label-info">（可选填）</span></div>
+                  <div class="td"><a href="###" id="emailBtn">修改</a></div>
+                </div>
+                <div class="tr">
+                  <div class="td name"><span class="badge">绑定支付宝：</span></div>
+                  <div class="td mid" id="userZFB"></div>
+                    <div class="td"><span class="label label-info">（可选填）</span></div>
+                  <div class="td"><a href="###" id="zfbBtn">修改</a></div>
+                </div>
+                <div class="tr">
+                  <div class="td name"><span class="badge">绑定微信号：</span></div>
+                  <div class="td mid" id="userWeixin"></div>
+                    <div class="td"><span class="label label-info">（可选填）</span></div>
+                  <div class="td"><a href="###" id="wechartBtn">修改</a></div>
+                </div>
+                <div class="tr">
+                  <div class="td name"><span class="badge">绑定身份证：</span></div>
+                  <div class="td mid" id="userSFZ"></div>
+                    <div class="td"><span class="label label-info">（可选填）</span></div>
+                  <div class="td"><a href="###" id="cardBtn">修改</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent"><a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+  Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号 </div>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"> <span class="inputtitle"></span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="pop01">
+        <span class="inputofnt"></span>
+        <input type="text" />
+        </div>
+        <div class="pop02">
+          <div class="changecon">
+     <table width="100%">
+      <tr>
+       <td class="wr ft1">注册手机号：</td>
+       <td><input type="text" placeholder="请输入" id="registerTel"/></td>
+        <td class="ft2"><img class="getcode1" th:src="@{/dist/css/images/jx3/getcode.png}" /><span id="getcodetime2"></span></td>
+      </tr>
+      <tr>
+       <td class="wr ft1">注册手机验证码：</td>
+       <td><input type="text" placeholder="请输入" id="getcodetime2Check"/></td>
+        <td class="ft2" id="getcodetime2Result"></td>
+      </tr>
+      <tr>
+       <td class="wr ft1">新手机号：</td>
+       <td><input type="text" placeholder="请输入" id="registerTel2"/></td>
+        <td class="ft2"><img class="getcode2" th:src="@{/dist/css/images/jx3/getcode.png}" /><span id="getcodetime3"></span></td>
+      </tr>
+       <tr>
+         <td class="wr ft1">新手机验证码：</td>
+         <td><input type="text" placeholder="请输入" id="getcodetime3Check"/></td>
+         <td class="ft2" id="getcodetime3Result"></td>
+       </tr>
+     </table>
+    </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="sureBtn">保存</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+  <!-- /.modal-dialog --> 
+</div>
+<!-- /.modal -->
+</body>
+<script type="text/javascript">
+$().ready(function(e) {
+	var typeid='';
+    $(".s_top ul li").click(function(){
+		$(".s_top ul li").removeClass('cur');
+		$(this).addClass('cur')
+	});
+	var $m_btn = $('#tbBtn,#phoneBtn,#emailBtn,#zfbBtn,#wechartBtn,#qqBtn,#cardBtn,#nameBtn');
+	var $modal = $('#myModal');
+	$m_btn.on('click', function(){
+	  $modal.modal({backdrop: 'static'});
+	  var $this = $("#myModal");
+	  var tid=$(this).attr("id");
+	  typeid=$(this).attr("id");
+	  $('.pop01').show()
+	  $('.pop02').hide()
+	  switch (tid){
+		  case "tbBtn":
+			$this.find('.inputtitle').html('修改贴吧账号');
+			$this.find('.inputofnt').html('请输入贴吧账号：');
+			return;
+          case "nameBtn":
+              $this.find('.inputtitle').html('修改昵称');
+              $this.find('.inputofnt').html('请输入昵称：');
+              return;
+		  case "emailBtn":
+			$this.find('.inputtitle').html('修改邮箱');
+			$this.find('.inputofnt').html('请输入邮箱：');
+			return;
+		  case "zfbBtn":
+			$this.find('.inputtitle').html('修改支付宝账号');
+			$this.find('.inputofnt').html('请输入支付宝账号：');
+			return;
+		  case "wechartBtn":
+			$this.find('.inputtitle').html('修改微信号');
+			$this.find('.inputofnt').html('请输入微信号：');
+			return;
+		  case "qqBtn":
+			$this.find('.inputtitle').html('修改新的QQ号码');
+			$this.find('.inputofnt').html('请输入新的QQ号码：');
+			return;
+		  case "cardBtn":
+			$this.find('.inputtitle').html('修改身份证');
+			$this.find('.inputofnt').html('请输入修改身份证：');
+			return;
+		  case "phoneBtn":
+			$this.find('.inputtitle').html('修改手机号码');
+			$('.pop01').hide()
+	  		$('.pop02').show()
+			return;
+		  
+	  }
+	});
+	//修改bootstrap居中
+	$modal.on('shown.bs.modal', function(){
+	  var $this = $(this);
+	  var $modal_dialog = $this.find('.modal-dialog');
+	  var m_top = ( $(window).height() - $modal_dialog.height() )/2;
+	  $modal_dialog.css({'margin': m_top + 'px auto'});
+	  
+	});
+});
+</script>
+</html>

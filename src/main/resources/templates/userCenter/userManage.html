@@ -1,0 +1,589 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>用户中心-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/user.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/bt.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+    <script th:src="@{/dist/js/page/userManage.js}"></script>
+</head>
+
+<body>
+<style>
+    .modId{
+        color: blue;
+        text-decoration: underline;
+    }
+    .moreDetail{
+        float: right;
+        border-radius: 6px;
+        background: #fc8453;
+        cursor: pointer;
+        font-size: 12px;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 15px;
+        text-align: center;
+        color: #fff;
+        display: inline-block;
+    }
+</style>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="maincontent">
+    <div id="mcon">
+        <!-- usercon -->
+        <div class="usercon input1">
+            <div class="tb">
+                <div class="tr">
+                    <div class="td menue"> <img th:src="@{/dist/css/images/jx3/uctop.png}" />
+                        <div class="menuelist">
+                            <dt>我的服务</dt>
+                            <dd><a href="dataAndSecurity.html">资料与安全</a></dd>
+                            <dd><a href="myCollection.html">我的收藏</a></dd>
+                            <dd><a href="myRelease.html">我的发布</a></dd>
+                            <dd class="cur"><a href="myService.html">查看信息服务</a></dd>
+
+                            <dt>我要发布</dt>
+                            <dd><a href="report.html">我要举报</a></dd>
+                            <dd><a href="appearanceTransaction.html">外观交易</a></dd>
+                            <dd><a href="propTransaction.html">道具交易</a></dd>
+                            <dd><a href="accountTransaction.html">金币交易</a></dd>
+                            <dd><a href="accountExchange.html">代练代打</a></dd>
+                            <dd><a href="quickRelease.html">账号收售快速发布</a></dd>
+                            <!--<dd><a href="detailRelease.html">账号收售详细发布</a></dd>-->
+                            <dt>后台管理</dt>
+                            <dd><a href="userList.html">用户管理</a></dd>
+                            <dd><a href="userManage.html">功能权限设置</a></dd>
+                            <dd><a href="userservice.html">用户查看权限管理</a></dd>
+
+                            <dd><a href="userimgs.html">图文管理</a></dd>
+                        </div>
+                    </div>
+                    <div class="td">
+                        <div class="rightcon">
+                            <div class="title">
+                                <div class="ht">功能权限管理</div>
+                            </div>
+                            <div class="userManage">
+                                <ul class="tab-nav">
+                                    <li class="cur">用户功能权限管理</li>
+                                    <!--<li>用户信息定制权限</li>-->
+                                </ul>
+                                <td class="wr ft1" align="right"><span class="codebtn" style="float: right;margin-right: 24px;margin-top: -50px;">新增</span></td>
+                                <div class="tab-content">
+                                    <div class="group">
+                                        <div class="classifiedList3">
+                                            <div class="table table1">
+                                                <div class="table-tr tablech1">
+                                                    <div class="table-th table-th3">页面模块</div>
+                                                    <div class="table-th">功能ID</div>
+                                                    <div class="table-th">功能名称</div>
+                                                    <div class="table-th">权限类别</div>
+                                                    <div class="table-th">游客是否可用</div>
+                                                    <div class="table-th">注册是否可用</div>
+                                                    <div class="table-th">付费金额</div>
+                                                    <div class="table-th">可用条数</div>
+                                                    <div class="table-th">启用日期</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">账号交易</div>
+                                                    <div class="table-td">11</div>
+                                                    <div class="table-td">查询搜索</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">12</div>
+                                                    <div class="table-td">提交失效</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">14</div>
+                                                    <div class="table-td">收藏</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td warn">15</div>
+                                                    <div class="table-td warn">查看详细</div>
+                                                    <div class="table-td"><a class="modalBtn warn" href="#identifier" data-toggle="modal">2-特许</a></div>
+                                                    <div class="table-td warn">不可用</div>
+                                                    <div class="table-td warn">可用</div>
+                                                    <div class="table-td warn">10元</div>
+                                                    <div class="table-td warn">50条</div>
+                                                    <div class="table-td warn">2017-8-1</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">外观交易</div>
+                                                    <div class="table-td">16</div>
+                                                    <div class="table-td">查询搜索</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">17</div>
+                                                    <div class="table-td">提交失效</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">18</div>
+                                                    <div class="table-td">收藏</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td warn">19</div>
+                                                    <div class="table-td warn">查看详细</div>
+                                                    <div class="table-td"><a class="modalBtn warn" href="#identifier" data-toggle="modal">2-特许</a></div>
+                                                    <div class="table-td warn">不可用</div>
+                                                    <div class="table-td warn">可用</div>
+                                                    <div class="table-td warn">10元</div>
+                                                    <div class="table-td warn">50条</div>
+                                                    <div class="table-td warn">2017-8-1</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">道具交易</div>
+                                                    <div class="table-td">20</div>
+                                                    <div class="table-td">查询搜索</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">21</div>
+                                                    <div class="table-td">提交失效</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">22</div>
+                                                    <div class="table-td">收藏</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td warn">23</div>
+                                                    <div class="table-td warn">查看详细</div>
+                                                    <div class="table-td"><a class="modalBtn warn" href="#identifier" data-toggle="modal">2-特许</a></div>
+                                                    <div class="table-td warn">不可用</div>
+                                                    <div class="table-td warn">可用</div>
+                                                    <div class="table-td warn">10元</div>
+                                                    <div class="table-td warn">50条</div>
+                                                    <div class="table-td warn">2017-8-1</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">金币收售</div>
+                                                    <div class="table-td">24</div>
+                                                    <div class="table-td">查询搜索</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">25</div>
+                                                    <div class="table-td">提交失效</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">26</div>
+                                                    <div class="table-td">收藏</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td warn">27</div>
+                                                    <div class="table-td warn">查看详细</div>
+                                                    <div class="table-td"><a class="modalBtn warn" href="#identifier" data-toggle="modal">2-特许</a></div>
+                                                    <div class="table-td warn">不可用</div>
+                                                    <div class="table-td warn">可用</div>
+                                                    <div class="table-td warn">10元</div>
+                                                    <div class="table-td warn">50条</div>
+                                                    <div class="table-td warn">2017-8-1</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">代练代打交易</div>
+                                                    <div class="table-td">28</div>
+                                                    <div class="table-td">查询搜索</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">29</div>
+                                                    <div class="table-td">提交失效</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">30</div>
+                                                    <div class="table-td">收藏</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td warn">31</div>
+                                                    <div class="table-td warn">查看详细</div>
+                                                    <div class="table-td"><a class="modalBtn warn" href="#identifier" data-toggle="modal">2-特许</a></div>
+                                                    <div class="table-td warn">不可用</div>
+                                                    <div class="table-td warn">可用</div>
+                                                    <div class="table-td warn">10元</div>
+                                                    <div class="table-td warn">50条</div>
+                                                    <div class="table-td warn">2017-8-1</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">剑三黑榜</div>
+                                                    <div class="table-td">32</div>
+                                                    <div class="table-td">查询</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td">用户中心-我要发布</div>
+                                                    <div class="table-td">33</div>
+                                                    <div class="table-td">上传黑帮</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">34</div>
+                                                    <div class="table-td">上传账号</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">35</div>
+                                                    <div class="table-td">上传外观</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">36</div>
+                                                    <div class="table-td">上传道具</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">37</div>
+                                                    <div class="table-td">上传代练</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td">38</div>
+                                                    <div class="table-td">上传金币</div>
+                                                    <div class="table-td">1-普通</div>
+                                                    <div class="table-td">不可用</div>
+                                                    <div class="table-td">可用</div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </br>
+                                    </div>
+                                    <div class="group">
+                                        <div class="classifiedList3">
+                                            <div class="table table2">
+                                                <div class="table-tr tablech1">
+                                                    <div class="table-th table-th3">页面模块</div>
+                                                    <div class="table-th">功能ID</div>
+                                                    <div class="table-th">功能名称</div>
+                                                    <div class="table-th">付费金额</div>
+                                                    <div class="table-th">可用条数</div>
+                                                    <div class="table-th">启用日期</div>
+                                                    <div class="table-th">操作</div>
+                                                </div>
+                                                <div class="table-tr">
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                    <div class="table-td"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- foot -->
+<div class="footcontent"><a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号 </div>
+<!-- /.modal -->
+</body>
+<div class="modal fade" id="myModal" style="top: 40px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增权限</h4>
+            </div>
+            <div class="modal-body">
+                <div class="pop02">
+                    <div class="changecon">
+                        <table width="100%">
+                            <tr>
+                                <td class="wr ft1">页面模块：</td>
+                                <td><input type="text" placeholder="" id="BELONG_WEB"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">功能ID：</td>
+                                <td><input type="text" placeholder="" id="MOD_ID"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">功能名称：</td>
+                                <td><input type="text" placeholder="" id="MOD_NAME"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">权限类别：</td>
+                                <td><input type="radio" name="modType" value="1" style="width:100px!important;"/>1-普通<input type="radio" name="modType" value="2" style="width:100px!important;"/>2-特许</td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">游客是否可用：</td>
+                                <td><input type="radio" name="visitRole" value="1" style="width:100px!important;"/>可用<input type="radio" name="visitRole" value="0" style="width:100px!important;"/>不可用</td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">注册是否可用：</td>
+                                <td><input type="radio" name="registRole" value="1" style="width:100px!important;"/>可用<input type="radio" name="registRole" value="0" style="width:100px!important;"/>不可用</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="sureBtn">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modDetail" style="top: 40px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">模块详情</h4>
+            </div>
+            <div class="modal-body">
+                <span class="moreDetail">新增</span>
+                <div class="pop02" style="margin-top: 40px;">
+                    <div class="changecon">
+                        <div class="group">
+                            <div class="classifiedList3">
+                                <div class="table table2">
+                                    <div class="table-tr tablech1">
+                                        <div class="table-th table-th3">页面模块</div>
+                                        <div class="table-th">功能ID</div>
+                                        <div class="table-th">功能名称</div>
+                                        <div class="table-th">付费金额</div>
+                                        <div class="table-th">可用条数</div>
+                                        <div class="table-th">启用日期</div>
+                                        <div class="table-th">操作</div>
+                                    </div>
+                                    <div class="table-tr">
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                        <div class="table-td"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            </br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="addModDetail" style="top: 40px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title3">新增模块详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="pop02">
+                    <div class="changecon">
+                        <table width="100%">
+                            <tr>
+                                <td id="recordId" style="display: none;"></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">页面模块：</td>
+                                <td><input type="text" placeholder="" id="BELONG_WEB2"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">功能ID：</td>
+                                <td><input type="text" placeholder="" id="MOD_ID2"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">功能名称：</td>
+                                <td><input type="text" placeholder="" id="MOD_NAME2"/></td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">付费金额：</td>
+                                <td><input type="number" placeholder="" id="costNum"/>元</td>
+                            </tr>
+                            <tr>
+                                <td class="wr ft1">可用条数：</td>
+                                <td><input type="number" placeholder="" id="canNum"/>条</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="sureBtn2">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+</html>

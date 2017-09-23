@@ -1,0 +1,228 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>服务协议-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link th:href="@{/dist/css/jx3/base.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link type="text/css" th:href="@{/dist/css/bootstrap.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+</head>
+
+<body class="home">
+<style>
+    h4{
+        font-size: 18px;
+        line-height: 32px;
+    }
+    h3{font-size: 22px}
+    .align{
+        margin-bottom: 20px;
+    }
+    .content{
+        margin-left: 20px;
+        width: 100%;
+    }
+</style>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+    <div class="userBox" style="display: none">
+        <p>Jack</p>
+        <span><img th:src="@{/dist/css/images/jx3/loginimg.png}"></span>
+    </div>
+    <!--<div  class="account"><a href="login.html">登录</a> / <a href="register.html">注册</a></div>-->
+</div>
+</div>
+<div id="maincontent">
+    <div id="mcon">
+        <!-- login content -->
+        <div class="login">
+            <div class="inputcon">
+                <img class="contopimg" th:src="@{/dist/css/images/jx3/loginimg.png}" />
+                <div class="logincon" style="margin-top: 140px;width: 728px;padding-left: 40px;padding-right: 60px;">
+                    <h2 style="text-align: center;margin-top: -40px;">【爱剑三】用户服务协议</h2>
+                    <div class="align" style="margin-top: 50px;">
+                        <h3>一、特别提示</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【爱剑三】是由“剑网三游戏”爱好者提供的基于互联网聚合信息服务网站，服务使用人（以下称"用户"）应当同意本协议的全部条款并按照本网站设置要求进行账号注册。用户在完成注册即表示用户完全接受本协议项下的全部条款。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>二、服务内容</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.【爱剑三】服务的具体内容由运营团队保留随时变更、中断或终止部分或全部网络服务的权利
+                        </h4>
+                        <h4>
+                            2.【爱剑三】网站内容由通过技术手段聚合互联网内容、用户自行发布内容构成，用户需对自行发布内容负责。
+                        </h4>
+                        <h4>
+                            3.【爱剑三】网站定位为信息服务、信息发布、信息检索服务，非交易类网站，故对用户基于本站信息进行的交易问题不承担法律风险，特提示用户若有交易需求，请谨慎甄别，防止被骗。
+                        </h4>
+                        <h4>
+                            4.【爱剑三】不提供交易服务，故不对交易信息的真伪负责。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>三、使用规则</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.按国家相关管理法规，用户在申请使用【爱剑三】服务时，必须使用实名制注册的手机号注册个人资料，如个人资料有任何变动，必须及时更新。
+                        </h4>
+                        <h4>
+                            2.用户在使用【爱剑三】网络服务时，用户应当是具备完全民事权利能力和完全民事行为能力的自然人、法人或其他组织。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>四、用户义务</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.用户注册成功后，每个用户都将获得一个用户账号并由该用户掌握其相应的密码，该用户账号和密码由用户负责保管；用户应当对以其用户账号进行的所有活动和事件负法律责任。
+                        </h4>
+                        <h4>
+                            2.用户在使用【爱剑三】网络服务过程中，必须遵守中国有关的法律和法规。
+                        </h4>
+                        <h4>
+                            3.如发现任何非法使用用户账号或账号出现安全漏洞的情况，应立即通告【爱剑三】。
+                        </h4>
+                        <h4>
+                            4.用户在使用【爱剑三】网络服务过程中，若发现其他用户在本平台发布有违本用户协议的内容，请向【爱剑三】举报，一经查实处理，将给予报告人一定的奖励。
+                        </h4>
+                        <h4>
+                            5.应遵守中华人民共和国相关法律法规(如果用户在中华人民共和国境外使用【爱剑三】网络服务，应遵守所在国家或地区的法律法规)。用户将自行承担用户所发布的信息内容的责任。用户不得发布下列内容：
+                            <h4 style="margin-left:60px">•反对中华人民共和国宪法所确定的基本原则的；</h4>
+                            <h4 style="margin-left:60px">•危害国家统一、主权和领土完整的；</h4>
+                            <h4 style="margin-left:60px">•泄露国家秘密，危害国家安全或者损害国家荣誉和利益的；</h4>
+                            <h4 style="margin-left:60px">•煽动民族仇恨、民族歧视，破坏民族团结或者侵害民族风俗、习惯的；</h4>
+                            <h4 style="margin-left:60px">•破坏国家宗教政策，宣扬邪教、迷信的；</h4>
+                            <h4 style="margin-left:60px">•散布谣言，扰乱社会秩序，破坏社会稳定的；</h4>
+                            <h4 style="margin-left:60px">•散布淫秽、赌博、暴力或者教唆犯罪的；</h4>
+                            <h4 style="margin-left:60px">•侮辱或者诽谤他人，侵害他人合法权益的；</h4>
+                            <h4 style="margin-left:60px">•危害社会公德或者民族优秀文化传统的；</h4>
+                            <h4 style="margin-left:60px">•宣扬外挂,私服以及木马的相关内容；</h4>
+                            <h4 style="margin-left:60px">•含有中华人民共和国法律、行政法规禁止的其他内容的。</h4>
+                        </h4>
+                        <h4>6.用户在【爱剑三】网站发布内容时，视为用户授予【爱剑三】对其作品的使用权，该授权无地域、期限、方式限制，该授权为免费授权，【爱剑三】可在现行法律范围内就该作品进行使用。</h4>
+                    </div>
+                    <div class="align">
+                        <h3>五、用户违约责任</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.如果【爱剑三】发现用户有下列任一行为的，有权根据相应网络服务的公约或守则的规定，采取相应措施：包括但不限于对该用户账号的冻结、终止、删除；
+                            用户在此承诺【爱剑三】有权作出上述行为，并承诺不就上述行为要求【爱剑三】做任何补偿或退费：
+                            <h4 style="margin-left:60px">•用户提供虚假注册信息；</h4>
+                            <h4 style="margin-left:60px">•用户提供虚假注册信息；</h4>
+                            <h4 style="margin-left:60px">•通过非法手段、不正当手段或其他不公平的手段使用【爱剑三】的产品和服务或参与【爱剑三】活动；</h4>
+                            <h4 style="margin-left:60px">•有损害【爱剑三】正当利益的行为；</h4>
+                            <h4 style="margin-left:60px">•有严重损害其他用户的行为；</h4>
+                            <h4 style="margin-left:60px">•有严重损害其他用户的行为；</h4>
+                            <h4 style="margin-left:60px">•有违背社会风俗、社会道德和互联网一般道德和礼仪的行为；</h4>
+                            <h4 style="margin-left:60px">•其他妨碍【爱剑三】提供产品和服务或【爱剑三】认为的严重不当行为；</h4>
+                            <h4 style="margin-left:60px">•同一用户若有任一账号存在上述任一行为的，【爱剑三】有权对该用户名下的所有账号予以制裁，包括但不限于冻结账号、删除账号、终止服务等；</h4>
+                            <h4 style="margin-left:60px">•【爱剑三】因上述原因删除用户注册的账号后即不再对用户承担任何义务和责任。</h4>
+                        </h4>
+                        <h4>2.用户同意保障和维护【爱剑三】及其他第三方的利益，如因用户违反有关法律、法规或本协议项下的任何条款而给【爱剑三】或任何其他第三人造成损失，用户同意承担由此造成的损害赔偿责任。</h4>
+                    </div>
+                    <div class="align">
+                        <h3>六、【爱剑三】的权利与义务</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.保护用户隐私是【爱剑三】的应尽之义务，【爱剑三】保证不对外公开或向第三方提供用户申请资料及用户在使用网络服务时存储在【爱剑三】的个人信息，但下列情况除外：
+                            <h4 style="margin-left:60px">•事先获得用户的明确授权；</h4>
+                            <h4 style="margin-left:60px">•根据有关的法律法规要求；</h4>
+                            <h4 style="margin-left:60px">•按照相关政府主管部门的要求；</h4>
+                            <h4 style="margin-left:60px">•为维护社会公众的利益；</h4>
+                            <h4 style="margin-left:60px">•为维护【爱剑三】的合法权益。</h4>
+                        </h4>
+                        <h4>2.在不透露单个用户隐私资料的前提下，【爱剑三】有权对整个用户数据库进行分析并对用户数据库进行商业上的利用（包括但不限于公布、分析或以其它方式使用用户访问量、访问时段、用户偏好等用户数据信息）。</h4>
+                        <h4>3.【爱剑三】发现或确认用户发布数据不符合本协议内容，有权移除相关内容，并将视具体情况对用户限制，包括但不限于：暂停账号使用、暂停该用户手机号再次注册、封停账号等。</h4>
+                    </div>
+                    <div class="align">
+                        <h3>七、免责声明</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.在适用法律允许的最大范围内，【爱剑三】并不担保【爱剑三】所提供的产品和服务一定能满足用户的要求，也不担保提供的产品和服务不会被中断，并且对产品和服务的及时性，安全性，出错发生，以及信息是否能准确，及时，顺利的传送均不作任何担保。
+                        </h4>
+                        <h4>
+                            2.在适用法律允许的最大范围内，【爱剑三】不就因用户使用【爱剑三】的产品和服务引起的，或在任何方面与【爱剑三】的产品和服务有关的任何意外的、非直接的、特殊的、或间接的损害或请求(包括但不限于因人身伤害、因隐私泄漏、因未能履行包括诚信或合理谨慎在内的任何责任、因过失和因任何其他金钱上的损失或其他损失而造成的损害赔偿)承担任何责任。
+                        </h4>
+                        <h4>
+                            3.用户在【爱剑三】网站上所表达的观点、建议和其它内容均为用户本人看法，不代表【爱剑三】的观点。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>八、服务变更、中断或终止</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.为了网站的正常运行，【爱剑三】需要定期或不定期地对网站进行停机维护，因此类情况而造成的正常服务中断、停止，用户应该予以理解，【爱剑三】则有义务尽力避免服务中断、停止或将中断、停止时间限制在最短时间内。
+                        </h4>
+                        <h4>
+                            2.如发生下列任何一种情形，【爱剑三】有权随时中断或终止向用户提供本协议项下的网络服务而无需通知用户，对因此而产生的不便或损害，【爱剑三】对用户或第三人均不承担任何责任：
+                            <h4 style="margin-left:60px">•定期检查或施工，更新软硬件等，【爱剑三】有权暂停服务，但【爱剑三】会尽快完成维护、更新工作；</h4>
+                            <h4 style="margin-left:60px">•服务器遭受损坏，无法正常运作；</h4>
+                            <h4 style="margin-left:60px">•突发性的软硬件设备与电子通信设备故障；</h4>
+                            <h4 style="margin-left:60px">•网络提供商线路或其它故障；</h4>
+                            <h4 style="margin-left:60px">•在紧急情况之下为维护国家安全或其它用户及第三者之人身安全； </h4>
+                            <h4 style="margin-left:60px">•不可抗力及其他第三方原因。</h4>
+                        </h4>
+                        <h4>
+                            3.【爱剑三】将可能不时的修改本协议的有关条款，一旦条款内容发生变动，【爱剑三】将会在相关的页面提示修改内容。如果用户不同意【爱剑三】修改的内容，用户可以主动取消获得的网络服务。
+                        </h4>
+                    </div>
+                    <div class="align">
+                        <h3>九、其他</h3>
+                    </div>
+                    <div class="content">
+                        <h4>
+                            1.本协议的订立、执行和解释及争议的解决均应适用中国法律。
+                        </h4>
+                        <h4>
+                            2.如双方就本协议内容或其执行发生任何争议，双方应尽量友好协商解决；协商不成时，用户和【爱剑三】一致同意交由网站运营商所在地有管辖权的法院管辖。
+                        </h4>
+                        <h4>
+                            3.本协议项下所有的通知均可通过重要页面公告、电子邮件或手机短信等方式进行；该等通知于发送之日视为已送达收件人。
+                        </h4>
+                        <h4>
+                            4.本协议构成双方对本协议之约定事项及其他有关事宜的完整协议，除本协议规定的之外，未赋予本协议各方其他权利。
+                        </h4>
+                        <h4>
+                            5.如本协议中的任何条款无论因何种原因完全或部分无效或不具有执行力，本协议的其余条款仍应有效并且有约束力。
+                        </h4>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+</html>
+

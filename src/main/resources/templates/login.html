@@ -1,0 +1,248 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+  <meta name="discription" content="剑三交易快速搜索">
+  <title>登录-爱剑三</title>
+  <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}" >
+<link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+<script th:src="@{/dist/js/jx3/jquery.js}"></script>
+<script th:src="@{/dist/js/jx3/bt.js}"></script>
+<script th:src="@{/dist/js/jx3/base.js}"></script>
+<script th:src="@{/dist/js/layer/layer.js}"></script>
+<script th:src="@{/dist/js/jx3/js.KinerCode.js}"></script>
+</head>
+<body>
+<style>
+    #code{
+        overflow: hidden;
+        float: left;
+        width: 100%;
+        height: 38px;
+        margin-left: 40px;
+    }
+    #inputCode{
+        width: 100%;
+        float: left;
+    }
+    .codeCheckResult{
+      float: left;
+      height: 40px;
+      line-height: 42px;
+      width: 100%;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+</style>
+<!-- top logo -->
+<div class="topLogo">
+  <img th:src="@{/dist/css/images/jx3/logo_2.png}" />
+</div>
+<!-- navigation -->
+<div class="navCon">
+  <div class="nav">
+    <a href="index">首页</a>
+    <a href="accountList">账号交易</a>
+    <a href="appearanceSale">外观交易</a>
+    <a href="propSale">道具交易</a>
+    <a href="goldExchangeList">金币收售</a>
+    <a href="levelingList">代练代打</a>
+    <a href="blackList">剑三黑榜</a>
+    <a href="dataAndSecurity">用户中心</a>
+    <a class="last cur" href="login">登录 / 注册</a>
+    <a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}">
+  </div>
+</div>
+<div id="maincontent">
+  <div id="mcon"> 
+    
+    <!-- login content -->
+    <div class="logincon2">
+      <div class="fl leftimg">
+        <div id="myCarousel" class="carousel slide" > 
+          <!-- 轮播（Carousel）指标 -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+          </ol>
+          <!-- 轮播（Carousel）项目 -->
+          <div class="carousel-inner">
+            <div class="item active"> <img th:src="@{/dist/css/images/login/role_chunyang.jpg}" alt="First slide"> </div>
+            <div class="item"> <img th:src="@{/dist/css/images/login/role_qixiu.jpg}" alt="Second slide"> </div>
+            <div class="item"> <img th:src="@{/dist/css/images/login/role_shaolin.jpg}" alt="Third slide"> </div>
+            <div class="item"> <img th:src="@{/dist/css/images/login/role_tiance.jpg}" alt="fourth slide"> </div>
+            <div class="item"> <img th:src="@{/dist/css/images/login/role_wanhua.jpg}" alt="fifth slide"> </div>
+          </div>
+          <!-- 轮播（Carousel）导航 --> 
+          <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a> <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a> </div>
+      </div>
+      <div class="fr logininput2">
+        <div class="input2con">
+          <div class="logincon logincon3">
+            <form class=""  method="post" th:action="@{/login}" >
+                <div class="errorInfo" style="color: red;font-size: 18px;font-weight: 600;" th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                    密码错误
+                </div>
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div th:if="${param.logout}">
+                      您已注销成功
+                    </div>
+                  </td>
+                </tr>
+              <tr>
+                <td class="wr ft1">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</td>
+                <td colspan="2"><input type="text" placeholder="请输入"  name="username"/></td>
+                <td class="ft2">　　　　　　　　　　　　　　　　　　</td>
+              </tr>
+              <tr>
+                <td class="wr ft1">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                <td colspan="2"><input type="password" placeholder="请输入" name="password"/></td>
+                <td class="ft2"><a href="recoverPassword">忘记密码</a></td>
+              </tr>
+              <tr>
+                <td class="wr ft1">验&nbsp;证&nbsp;码：</td>
+                <td><input class="code" type="text" placeholder="请输入" id="inputCode"/></td>
+                <td><span id="code" class="mycode"></span></td>
+              </tr>
+                <tr>
+                  <td></td>
+                  <td class="ft2"><label class="alert-info codeCheckResult" style="display: none"></label></td>
+                </tr>
+              <tr>
+                <td class="wr ft1"></td>
+                <td colspan="2"><a href="register">没有账号？立即注册</a></td>
+                <td class="ft2"></td>
+              </tr>
+              <tr>
+                <td class="wr ft1"><a class="btn btn-primary" id="checKCodeBtn" style="display: none;"></a></td>
+                <td colspan="2" id="checkCode">
+                    <button th:type="submit" id="submit" href="javascript:void(0)" disabled style="border: 0;background-color: transparent">
+                        <img th:src="@{/dist/css/images/jx3/login-btn.png}" />
+                    </button>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent">
+  <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+  Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+<script type="text/javascript">
+$().ready(function(e) {
+    $('#myCarousel').carousel({
+	  interval: 3500
+	})
+});
+$('#inputCode').bind('input propertychange', function() {
+    var checkCodeLength = $(this).val().length;
+    if(checkCodeLength==4){
+        document.getElementById("checKCodeBtn").click();
+    }else if(checkCodeLength>4){
+        document.getElementById("checKCodeBtn").click();
+        $('.codeCheckResult').show();
+        $('.codeCheckResult').html("验证失败!");
+    }
+});
+var inp = document.getElementById('inputCode');
+var code = document.getElementById('code');
+var checKCodeBtn = document.getElementById('checKCodeBtn');
+//    var submit = document.getElementById('submit');
+var c = ["+", "-", "*", "/"];
+var arr = [];
+
+for (var i = 0; i < 1000; i++) {
+
+    var num = parseInt(Math.random() * 100 + 1);
+    var num2 = parseInt(Math.random() * 100 + 1);
+    var num3 = parseInt(Math.random() * 4);
+
+    if (c[num3] === '/') {
+        var x = num % num2;
+        if (x != 0) {
+            num -= x;
+
+            if(num==0){
+                var temp = num;
+                num2 = num;
+                num = temp;
+            }
+
+        }
+    }
+
+    if(num==0&&num==0){
+        continue;
+    }
+
+    var str = num + c[num3] + num2;
+
+    arr.push(str);
+
+}
+//======================插件引用主体
+var c = new KinerCode({
+    len: 4,//需要产生的验证码长度
+//        chars: ["1+2","3+15","6*8","8/4","22-15"],//问题模式:指定产生验证码的词典，若不给或数组长度为0则试用默认字典
+    chars: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ],//经典模式:指定产生验证码的词典，若不给或数组长度为0则试用默认字典
+    question: false,//若给定词典为算数题，则此项必须选择true,程序将自动计算出结果进行校验【若选择此项，则可不配置len属性】,若选择经典模式，必须选择false
+    copy: false,//是否允许复制产生的验证码
+    bgColor: "",//背景颜色[与背景图任选其一设置]
+    bgImg: "",//若选择背景图片，则背景颜色失效
+    randomBg: false,//若选true则采用随机背景颜色，此时设置的bgImg和bgColor将失效
+    inputArea: inp,//输入验证码的input对象绑定【 HTMLInputElement 】
+    codeArea: code,//验证码放置的区域【HTMLDivElement 】
+    click2refresh: true,//是否点击验证码刷新验证码
+    false2refresh: true,//在填错验证码后是否刷新验证码
+    validateObj: checKCodeBtn,//触发验证的对象，若不指定则默认为已绑定的输入框inputArea
+    validateEven: "click",//触发验证的方法名，如click，blur等
+    validateFn: function (result, code) {//验证回调函数
+        $('.codeCheckResult').show();
+        if(result){
+            $('.codeCheckResult').html("验证通过!");
+
+            $('#submit').removeAttr('disabled');
+        }else{
+            $('.codeCheckResult').html("验证失败!");
+            $('#submit').attr('disabled','disabled');
+        }
+    }
+});
+$('#checkCode').click(function () {
+  if($('.codeCheckResult').text().indexOf("通过")==-1){
+      $('.code').val("请输入验证码!");
+      $('.code').css("border","1px solid red");
+  }
+});
+var errorText = $('.errorInfo').text();
+while(errorText.indexOf(".")>-1||errorText.indexOf("0!")>-1){
+    errorText = errorText.substring(0,errorText.length-3);
+    $('.errorInfo').text(errorText);
+}
+</script>
+</body>
+</html>

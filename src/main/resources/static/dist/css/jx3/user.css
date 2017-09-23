@@ -1,0 +1,57 @@
+/* CSS Document */
+.usercon{ width:1200px; margin:0 auto; padding:25px; border:1px solid #dddddd; margin-top:20px}
+.usercon .menue{ width:180px}
+.menuelist{ width:178px; border:1px solid #e0dddd; border-top:0; border-bottom-left-radius:4px;border-bottom-right-radius:4px;}
+.menuelist dt{ text-align:left; padding:16px 0; padding-left:15px; font-size:17px; color:#353535; border-bottom:1px solid #e0dddd;}
+.menuelist dd{padding:10px 0; font-size:14px; color:#353535; padding-left:30px; border-bottom:1px solid #e0dddd; text-align:left; background:#ecf3fd; cursor:pointer}
+.menuelist dd a{ display:inline-block; color:#353535; border-left:0; text-decoration:none;-webkit-transition:all ease 200ms; transition:all ease 200ms}
+.menuelist dd.cur a,.menuelist dd:hover a{ display:inline-block; color:#353535; border-left:4px solid #428bef; padding-left:8px}
+.menuelist dd.cur{ background:#fff}
+.rightcon{ padding-left:20px;}
+.rightcon .title{ border-bottom:1px solid #428bef;height: 20px;padding-bottom: 8px;}
+.rightcon .title .ht{ height:20px; line-height:20px; font-size:18px; color:#353535;padding-left: 8px;border-left: 4px solid #428bef;}
+.rightcon .title .ht span{ padding:0 18px 0 25px; cursor:pointer;display: inline-block;height: 36px;line-height: 38px;background: url("../images/jx3/item2_u4239.png") no-repeat;background-size: 100% 103%;margin-left: -10px;}
+.rightcon .title .ht span:first-child{margin-left: 0}
+.rightcon .title.xqfb{ border-bottom:1px solid #428bef;height: 36px;padding-bottom: 0;}
+.rightcon .title.xqfb .ht{ height:36px; line-height:36px; font-size:18px; color:#353535;padding-left: 0;border-left: none;}
+.rightcon .title.xqfb .ht span{ padding:0 18px 0 25px; cursor:pointer;display: inline-block;height: 36px;line-height: 38px;background: url("../images/jx3/item2_u4239.png") no-repeat;background-size: 100% 103%;margin-left: -10px;}
+.rightcon .title.xqfb .ht span:first-child{margin-left: 0}
+.rightcon .title .ht span.cur{ color:#fff; font-weight:300;background: url("../images/jx3/item2_u3239.png") no-repeat;background-size: 100% 103%;}
+.rightcon td{ padding:5px}
+.tcon .td{ padding:10px; text-align:left; font-size:14px}
+.tcon .td.name{ text-align:right; width:120px}
+.tcon .td.mid{ width:220px}
+.tcon a{ color:#428bef}
+.tcon{ margin-bottom:20px}
+.tcon input,.usercon input,.usercon textarea{ border-radius:3px; background:#fff; border:1px solid #8b8b8b;border-radius:6px; background:#fafafa; border:1px solid #dddddd;  padding:4px 6px; font-size:14px; width:auto}
+.input1 input{ width:40px!important}
+.input1 textarea{ width:650px}
+.input1 .w250{ width:350px!important}
+.input1 .w150{ width:150px!important}
+.input1 .w100{ width:100px!important}
+.inputtitle{ width:100%; display:inline-block; text-align:center; position:absolute; font-size:16px}
+.modal-dialog input{ border-radius:6px; background:#fafafa; border:1px solid #dddddd;  padding:8px 12px; font-size:14px}
+.tops{ padding-top:20px; vertical-align:middle; padding-left:30px}
+.imglist ul li{ float:left; position:relative}
+.imglist ul li img{margin:10px}
+.upload img{ border-radius:6px; }
+.upload img:after{ content:''; background:url(../images/closeimg.png); width:20px; height:20px; position:absolute}
+.addimg input{ margin-left:-100px; position:absolute; font-size:99999px; opacity:0}
+.addimg{ overflow:hidden}
+.title2{ padding:5px 15px; background:#428bef; font-size:16px; color:#fff; margin:15px 0;}
+.conlist{ position:relative; top:-15px;}
+.conlist .icon0{ margin-right:10px; margin-left:15px}
+.iconcon span{ display:inline-block}
+.iconcon{ padding-bottom:15px}
+.detailGroup .group{display: none;}
+.detailGroup .group:first-child{display: block;}
+.detailGroup .group table{width: 100%;}
+.wrong{min-height: 400px;text-align: center;padding-top: 110px;}
+.wrong img{width: 200px;height: 200px;border-radius: 50%;overflow: hidden;margin-right: 20px;}
+.userManage .tab-nav{overflow: hidden;height: 32px;line-height: 32px;margin: 15px 0;border-bottom: 1px solid #428bef;}
+.userManage .tab-nav li{height: 32px;line-height: 32px;cursor: pointer;color: #353535;display: inline-block;border: 1px solid #428bef;padding: 0 10px;}
+.userManage .tab-nav li.cur{background: #428bef;color: #fff;}
+.userManage .tab-content .group{display: none}
+.userManage .tab-content .group:first-child{display: block}
+
+

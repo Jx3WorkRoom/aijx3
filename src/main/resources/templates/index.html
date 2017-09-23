@@ -1,0 +1,350 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>首页-爱剑三</title>
+<link th:href="@{/dist/css/jx3/base.css}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+  <link type="text/css" th:href="@{/dist/css/bootstrap.css}">
+  <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+<script th:src="@{/dist/js/jx3/jquery.js}"></script>
+<script th:src="@{/dist/js/jx3/base.js}"></script>
+  <script th:src="@{/dist/js/layer/layer.js}"></script>
+  <script th:src="@{/dist/js/page/utils.js}"></script>
+  <script th:src="@{/dist/js/page/index.js}"></script>
+  <style>
+    /*.classifiedList.movetop .table-tr .table-td:nth-child(1) {*/
+      /*padding: 0 28px !important;*/
+    /*}*/
+    .classifiedList.movetop .table-tr .table-td:nth-child(2) {
+      padding: 0 23px !important;
+    }
+    .checkMore {
+      position: absolute;right: 6px;bottom: 10px;text-indent: 0;
+    }
+    .userBox {
+      position: absolute;
+      right: 8px;
+      top: 0;
+      width: 9%;
+      line-height: 34px;
+      display: -webkit-box;
+    }
+    .userBox p {
+      width: 65%;
+      text-align: center;
+      margin-right: 10px;
+      color: #fff;
+    }
+    .userBox span img{
+      max-width: 100%;
+    }
+    .userBox span {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 100px;
+      background: #fff;
+      overflow: hidden;
+      margin-top: 3px;
+    }
+    .table-tr {
+      display: inherit;
+      width: 100%;
+    }
+    /*.table-th {*/
+      /*display: initial;*/
+    /*}*/
+    .table-td {
+      overflow: hidden;
+      height: 40px;
+      line-height: 40px;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-top: 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="home">
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div>
+<div class="contactUs" style="position: absolute;top: 20px;right: 100px">
+    <h4>咨询QQ：824460354，3032254434</h4>
+    <h4>QQ群号：296733805</h4>
+</div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+  <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+    <div class="userBox" style="display: none">
+      <p>Jack</p>
+      <span><img th:src="@{/dist/css/images/jx3/loginimg.png}"></span>
+    </div>
+    <!--<div  class="account"><a href="login.html">登录</a> / <a href="register.html">注册</a></div>-->
+  </div>
+</div>
+<!-- top content -->
+<div class="topContent"> 
+  <!-- Convenient entrance -->
+  <div class="topEntrance">
+      <h3 class="checkTit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【爱剑三】是由剑三忠实玩家基于兴趣搭建的交易信息聚合与黑榜信息网站，力求做到交易信息一键搜索、快速发布。网站当前还有很多不足，欢迎各位兴趣玩家提供意见和建议。
+      </h3>
+      <span class="checkDetail">特别提示：本网站只是信息聚合发布站点，不对交易风险负责，请剑网三玩家谨防欺诈。
+        </span>
+  </div>
+  <div class="toptop">
+    <div class="top" style="margin: 0 auto;">账号出售<a class="check look-more" href="accountList?tradeType=2">查看更多</a></div>
+  </div>
+  <div class="classifiedList movetop">
+    <div class="table" id="table1">
+      <div class="table-tr tablered">
+        <div class="table-th table-th1" style="width: 11% !important;padding-left: 30px;">区服</div>
+        <div class="table-th" style="width: 8%">门派体型</div>
+        <div class="table-th" style="width: 59%;padding-left: 34px;">资料简介</div>
+        <div class="table-th" style="width: 10%">价格(元)</div>
+        <div class="table-th" style="width: 12%">关注度</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- want to buy -->
+<div class="wannaContent">
+  <div class="top">账号求购<a class="check look-more" href="accountList??tradeType=1">查看更多</a></div>
+  <div class="classifiedList">
+    <div class="table" id="table2">
+      <div class="table-tr tableyellow">
+        <div class="table-th table-th5" style="width: 11% !important;padding-left: 30px;">区服</div>
+        <div class="table-th" style="width: 8%">门派体型</div>
+        <div class="table-th" style="width: 59%;padding-left: 34px;">资料简介</div>
+        <div class="table-th" style="width: 10%">价格(元)</div>
+        <div class="table-th" style="width: 12%">关注度</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- index content -->
+<div class="content">
+  <!-- appearance -->
+  <div class="appearance">
+    <div class="fl listcontent">
+      <div class="listtitle"><img th:src="@{/dist/css/images/jx3/buy02.png}" /><a class="check look-more" href="appearanceSale?tradeType=2">查看更多</a></div>
+      <div class="classifiedList2">
+        <div class="table" id="table3">
+      <div class="table-tr tablec1">
+        <div class="table-th" style="width: 25% !important">区服</div>
+        <div class="table-th" style="width: 20%">外观</div>
+        <div class="table-th" style="width: 25%;">价格(元)</div>
+        <div class="table-th" style="width: 30%;">关注度</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+      <div class="table-tr">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+      <div class="table-tr last">
+        <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+        <div class="table-td" style="width: 20%">花姐</div>
+        <div class="table-td" style="width: 25%;">4000</div>
+        <div class="table-td" style="width: 30%">20人</div>
+      </div>
+     
+    </div>
+     </div>
+    </div>
+    <div class="fr listcontent">
+      <div class="listtitle"><img th:src="@{/dist/css/images/jx3/buy03.png}" /><a class="check look-more" href="appearanceSale?tradeType=1">查看更多</a></div>
+      <div class="classifiedList2">
+        <div class="table" id="table4">
+          <div class="table-tr tablec2">
+            <div class="table-th" style="width: 25% !important">区服</div>
+            <div class="table-th" style="width: 20%">外观</div>
+            <div class="table-th" style="width: 25%;">价格(元)</div>
+            <div class="table-th" style="width: 30%;">关注度</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr last">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+
+        </div>
+     </div>
+    </div>
+  	<div class="clear"></div>
+  </div>
+   <div class="appearance">
+    <div class="fl listcontent">
+      <div class="listtitle"><img th:src="@{/dist/css/images/jx3/buy04.png}" /><a class="check look-more" href="propSale?tradeType=2">查看更多</a></div>
+      <div class="classifiedList2">
+        <div class="table" id="table5">
+          <div class="table-tr tablec3">
+            <div class="table-th" style="width: 25% !important">区服</div>
+            <div class="table-th" style="width: 20%">道具</div>
+            <div class="table-th" style="width: 25%;">价格(元)</div>
+            <div class="table-th" style="width: 30%;">关注度</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr last">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+
+        </div>
+     </div>
+    </div>
+    <div class="fr listcontent">
+      <div class="listtitle"><img th:src="@{/dist/css/images/jx3/buy05.png}" /><a class="check look-more" href="propSale?tradeType=2">查看更多</a></div>
+      <div class="classifiedList2">
+        <div class="table" id="table6">
+          <div class="table-tr tablec4">
+            <div class="table-th" style="width: 25% !important">区服</div>
+            <div class="table-th" style="width: 20%">道具</div>
+            <div class="table-th" style="width: 25%;">价格(元)</div>
+            <div class="table-th" style="width: 30%;">关注度</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+          <div class="table-tr last">
+            <div class="table-td" style="width: 25% !important">电五唯满侠</div>
+            <div class="table-td" style="width: 20%">花姐</div>
+            <div class="table-td" style="width: 25%;">4000</div>
+            <div class="table-td" style="width: 30%">20人</div>
+          </div>
+
+        </div>
+     </div>
+    </div>
+  	<div class="clear"></div>
+  </div>
+</div>
+<!-- foot -->
+<div class="footcontent">
+<a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+</html>

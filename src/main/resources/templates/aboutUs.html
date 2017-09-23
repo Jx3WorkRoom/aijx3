@@ -1,0 +1,99 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>关于我们-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link th:href="@{/dist/css/jx3/base.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link type="text/css" th:href="@{/dist/css/bootstrap.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/layer/layer.js}"></script>
+    <script th:src="@{/dist/js/page/utils.js}"></script>
+</head>
+
+<body class="home">
+<style>
+    .title1,.title2,.title3{
+        border-bottom: 1.5px solid black;
+    }
+    h2{
+        font-size: 22px;
+    }
+    h1{
+        font-size: 29px;
+    }
+</style>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+    <div class="userBox" style="display: none">
+        <p>Jack</p>
+        <span><img th:src="@{/dist/css/images/jx3/loginimg.png}"></span>
+    </div>
+    <!--<div  class="account"><a href="login.html">登录</a> / <a href="register.html">注册</a></div>-->
+</div>
+</div>
+<div id="maincontent">
+    <div id="mcon">
+        <!-- login content -->
+        <div class="login">
+            <div class="inputcon">
+                <img class="contopimg" th:src="@{/dist/css/images/jx3/loginimg.png}" />
+                <div class="logincon" style="margin-top: 180px;width: 900px;padding-left: 10px">
+                    <div class="title1">
+                        <h1>关于爱剑三</h1>
+                    </div>
+                    <div class="content1">
+                        <h2>我们是一群剑三er，短则五年、长则八年；</h2>
+                        <h2>我们买过号、买过挂件；</h2>
+                        <h2>我们深历找号之难、蹲挂件激活码之苦；</h2>
+                        <h2>所以，我们想为剑三玩家做一点什么，为了自己曾经的经历。</h2>
+                        <br>
+                    </div>
+                    <div class="title2">
+                        <h1>我们是剑三er</h1>
+                    </div>
+                    <div class="content2">
+                        <h2>剑网三-电五唯满侠-道长</h2>
+                        <img src="./dist/css/images/nopicture.jpg" style="width: 100%;"/>
+                        <br>
+                        <h2 style="float: right;">剑网三-电五唯满侠-花哥</h2>
+                        <img src="./dist/css/images/aboutUs2.png" style="width: 100%;"/>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="title3">
+                        <h2>联系我们</h2>
+                    </div>
+                    <div class="content3">
+                        <h2>【爱剑三】虽很粗糙，但却倾注了我等绵薄之力，真心期待广大有爱玩家能一起让它更完善。</h2>
+                        <h2>如有兴趣者，可联系管理员QQ或加QQ群：</h2>
+                        <h2>QQ：824460354,3032254434,205392704</h2>
+                        <h2>QQ群：296733805</h2>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footcontent">
+    <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号
+</div>
+</body>
+</html>
+

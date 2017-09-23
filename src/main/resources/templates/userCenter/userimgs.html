@@ -1,0 +1,125 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>用户中心-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/user.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/bt.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+</head>
+
+<body>
+<!-- top logo -->
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 20px;right: 100px">    <h4>咨询QQ：824460354，3032254434</h4>    <h4>QQ群号：296733805</h4></div>
+<div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
+<!-- navigation -->
+<div class="navCon">
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+</div>
+<div id="maincontent">
+    <div id="mcon">
+        <!-- usercon -->
+        <div class="usercon input1">
+            <div class="tb">
+                <div class="tr">
+                    <div class="td menue"> <img th:src="@{/dist/css/images/jx3/uctop.png}" />
+                        <div class="menuelist">
+                            <dt>我的服务</dt>
+                            <dd><a href="dataAndSecurity.html">资料与安全</a></dd>
+                            <dd><a href="myCollection.html">我的收藏</a></dd>
+                            <dd><a href="myRelease.html">我的发布</a></dd>
+                            <dd class="cur"><a href="myService.html">查看信息服务</a></dd>
+
+                            <dt>我要发布</dt>
+                            <dd><a href="report.html">我要举报</a></dd>
+                            <dd><a href="appearanceTransaction.html">外观交易</a></dd>
+                            <dd><a href="propTransaction.html">道具交易</a></dd>
+                            <dd><a href="accountTransaction.html">金币交易</a></dd>
+                            <dd><a href="accountExchange.html">代练代打</a></dd>
+                            <dd><a href="quickRelease.html">账号收售快速发布</a></dd>
+                            <!--<dd><a href="detailRelease.html">账号收售详细发布</a></dd>-->
+                            <dt>后台管理</dt>
+                            <dd><a href="userList.html">用户管理</a></dd>
+                            <dd><a href="userManage.html">功能权限设置</a></dd>
+                            <dd><a href="userservice.html">用户查看权限管理</a></dd>
+
+                            <dd><a href="userimgs.html">图文管理</a></dd>
+                        </div>
+                    </div>
+                    <div class="td">
+                        <div class="rightcon">
+                            <div class="title">
+                                <div class="ht">图文修改</div>
+                            </div>
+                            <table class="mt15">
+                                <tr>
+                                    <td align="right" class="wr ft1">首页文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">账号交易文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">外观交易文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">道具交易文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">金币交易文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">代练代打文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1">剑三黑榜文案：</td>
+                                    <td colspan="7"><textarea class="w250" rows="7" placeholder="" /></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="wr ft1"></td>
+                                    <td colspan="7"><span class="codebtn">保存</span>　<span class="codebtn">取消</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- foot -->
+<div class="footcontent"><a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
+    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备15009570号 </div>
+<!-- /.modal -->
+</body>
+<script type="text/javascript">
+    $().ready(function(e) {
+        var typeid=''
+        $(".s_top ul li").click(function(){
+            $(".s_top ul li").removeClass('cur');
+            $(this).addClass('cur')
+        })
+        $(".icon1").click(function(){
+            $(this).parents('li').remove()
+        })
+
+
+    });
+    </script>
+</html>

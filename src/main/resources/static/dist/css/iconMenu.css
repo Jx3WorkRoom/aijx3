@@ -1,0 +1,623 @@
+/*首页*/
+.icon-home{
+    background: url('icons/home.png') no-repeat;
+}
+
+/*菜单项*/
+.icon-menu{
+    background: url('icons/menu.png') no-repeat;
+}
+
+/*系统管理*/
+.icon-xtgl {
+    background: url('icons/xtgl.png') no-repeat;
+}
+
+/*退出系统*/
+.icon-tcxt {
+    background: url('icons/tcxt.png') no-repeat;
+}
+
+/*重新登录*/
+.icon-cxdl {
+    background: url('icons/cxdl.png') no-repeat;
+}
+
+/*类别管理*/
+.icon-lbgl {
+    background: url('icons/lbgl.png') no-repeat;
+}
+
+/*关于*/
+.icon-gy {
+    background: url('icons/gy.png') no-repeat;
+}
+
+/*帮助*/
+.icon-bz {
+    background: url('icons/bz.png') no-repeat;
+}
+
+/*操作手册*/
+.icon-czsc {
+    background: url('icons/czsc.png') no-repeat;
+}
+
+/*基础设置*/
+.icon-jcsz {
+    background: url('icons/jcsz.png') no-repeat;
+}
+
+/*日志管理*/
+.icon-rzgl {
+    background: url('icons/rzgl.png') no-repeat;
+}
+
+/*用户管理*/
+.icon-yhgl {
+    background: url('icons/yhgl.png') no-repeat;
+}
+
+/*用户信息*/
+.icon-yhxx {
+    background: url('icons/yhxx.png') no-repeat;
+}
+
+/*菜单管理*/
+.icon-cdgl {
+    background: url('icons/cdgl.png') no-repeat;
+}
+
+/*角色管理*/
+.icon-jsgl {
+    background: url('icons/jsgl.png') no-repeat;
+}
+
+/*单位管理*/
+.icon-jggl {
+    background: url('icons/jggl.png') no-repeat;
+}
+
+/*自动生成*/
+.icon-zdsc {
+    background: url('icons/zdsc.png') no-repeat;
+}
+
+/*窗口大小(分辨率)*/
+.icon-ckdx {
+    background: url('icons/ckdx.png') no-repeat;
+}
+
+/*网站信息管理*/
+.icon-zn1-znxxgl {
+    background: url('icons/globe-green.png') no-repeat;
+}
+
+/*栏目管理*/
+.icon-zn2-lmxx {
+    background: url('icons/book-open-text-image.png') no-repeat;
+}
+
+/*资源导航*/
+.icon-zn3-zydh {
+    background: url('icons/paper-plane--arrow.png') no-repeat;
+}
+
+/*信息维护*/
+.icon-zn4-wzgl {
+    background: url('icons/newspapers.png') no-repeat;
+}
+
+/*信息发布*/
+.icon-zn5-xxfb {
+    background: url('icons/newspaper--plus.png') no-repeat;
+}
+
+/*信息审核*/
+.icon-zn6-xxsh {
+    background: url('icons/newspaper--pencil.png') no-repeat;
+}
+
+/*个人邮件*/
+.icon-zn7-gryj {
+    background: url('icons/mail.png') no-repeat;
+}
+
+/*编写邮件*/
+.icon-zn7-gryjbx {
+    background: url('icons/mailadd.png') no-repeat;
+}
+
+/*纪检监察*/
+.icon-zn8-jjjc {
+    background: url('icons/balance.png') no-repeat;
+}
+/*政工园地*/
+.icon-zn9-zgyd {
+    background: url('icons/envelope.png') no-repeat;
+}
+
+/*女士*/
+.icon-female {
+    background: url('icons/user-red-female.png') no-repeat;
+}
+
+/*磁盘管理*/
+.icon-cpgl {
+    background: url('icons/drive.png') no-repeat;
+}
+
+/*网络动态*/
+.icon-wldt {
+    background: url('icons/wldt.png') no-repeat;
+}
+
+/*审计日志*/
+.icon-sjrz {
+    background: url('icons/sjrz.png') no-repeat;
+}
+
+/*用户角色审核*/
+.icon-yhjssh {
+    background: url('icons/yhjssh.png') no-repeat;
+}
+
+/*角色权限审核*/
+.icon-jsqxsh {
+    background: url('icons/jsqxsh.png') no-repeat;
+}
+
+/*一键审核*/
+.icon-yjsh {
+    background: url('icons/yjsh.png') no-repeat;
+}
+
+/*安全管理*/
+.icon-aqgl {
+    background: url('icons/aqgl.png') no-repeat;
+}
+
+/*权限审核*/
+.icon-qxtj {
+    background: url('icons/qxtj.png') no-repeat;
+}
+
+/*信息交换*/
+.icon-xxjh {
+    background: url('icons/arrow-circle-double.png') no-repeat;
+}
+
+/*即时通讯*/
+.icon-jstx {
+    background: url('icons/jstx.png') no-repeat;
+}
+
+/*搜索引擎设置*/
+.icon-es-setup {
+    background: url('icons/sbxljbdm.png') no-repeat;
+}
+
+/*搜索引擎*/
+.icon-es {
+    background: url('icons/search.png') no-repeat;
+}
+
+/*旗帜1*/
+.icon-flag1 {
+    background: url('icons/flag-gray.png') no-repeat;
+}
+
+/*旗帜2*/
+.icon-flag2 {
+    background: url('icons/flag-blue.png') no-repeat;
+}
+
+/*旗帜3*/
+.icon-flag3 {
+    background: url('icons/flag.png') no-repeat;
+}
+
+/*旗帜4*/
+.icon-flag4 {
+    background: url('icons/flag-yellow.png') no-repeat;
+}
+
+/*旗帜5*/
+.icon-flag5 {
+    background: url('icons/flag-purple.png') no-repeat;
+}
+
+/*旗帜6*/
+.icon-flag6 {
+    background: url('icons/flag-pink.png') no-repeat;
+}
+
+/*旗帜7*/
+.icon-flag7 {
+    background: url('icons/flag-green.png') no-repeat;
+}
+
+/*元数据*/
+.icon-database {
+    background: url('icons/database.png') no-repeat;
+}
+
+/*数据关系*/
+.icon-relation {
+    background: url('icons/databases-relation.png') no-repeat;
+}
+
+/*数据字典*/
+.icon-ckqcpzgl {
+    background: url('icons/ckqcpzgl.png') no-repeat;
+}
+
+/*数据采集*/
+.icon-data_manage {
+    background: url('icons/data_manage.png') no-repeat;
+}
+
+/*数据查询*/
+.icon-data_query {
+    background: url('icons/data_query.png') no-repeat;
+}
+
+/*数据比对*/
+.icon-data_ratio {
+    background: url('icons/data_ratio.png') no-repeat;
+}
+
+/*业务管理*/
+.icon-business {
+    background: url('icons/business.png') no-repeat;
+}
+
+/*业务类型*/
+.icon-business_category {
+    background: url('icons/business_category.png') no-repeat;
+}
+
+/*任务管理*/
+.icon-business_task {
+    background: url('icons/business_task.png') no-repeat;
+}
+
+/*方向*/
+.icon-fx {
+    background: url('icons/fx.png') no-repeat;
+}
+
+/*图标1*/
+.icon-demo1 {
+    background: url('icons/books-brown.png') no-repeat;
+}
+
+/*图标2*/
+.icon-demo2 {
+    background: url('icons/computer.png') no-repeat;
+}
+
+/*图标3*/
+.icon-demo3 {
+    background: url('icons/direction.png') no-repeat;
+}
+
+/*图标4*/
+.icon-demo4 {
+    background: url('icons/game-monitor.png') no-repeat;
+}
+
+/*图标5*/
+.icon-demo5 {
+    background: url('icons/rocket-fly.png') no-repeat;
+}
+
+/*图标6*/
+.icon-demo6 {
+    background: url('icons/television-image.png') no-repeat;
+}
+
+/*图标7*/
+.icon-demo7 {
+    background: url('icons/user-black.png') no-repeat;
+}
+
+/*图标8*/
+.icon-demo8 {
+    background: url('icons/box-search-result.png') no-repeat;
+}
+
+/*图标9*/
+.icon-demo9 {
+    background: url('icons/color--exclamation.png') no-repeat;
+}
+
+/*图标10*/
+.icon-demo10 {
+    background: url('icons/compass--plus.png') no-repeat;
+}
+
+/*图标11*/
+.icon-demo11 {
+    background: url('icons/credit-card--pencil.png') no-repeat;
+}
+
+/*图标12*/
+.icon-demo12 {
+    background: url('icons/database--arrow.png') no-repeat;
+}
+
+/*图标13*/
+.icon-demo13 {
+    background: url('icons/database-insert.png') no-repeat;
+}
+
+/*图标14*/
+.icon-demo14 {
+    background: url('icons/fill-270.png') no-repeat;
+}
+
+/*图标15*/
+.icon-demo15 {
+    background: url('icons/fill-090.png') no-repeat;
+}
+
+/*图标16*/
+.icon-demo16 {
+    background: url('icons/flashlight.png') no-repeat;
+}
+
+/*图标17*/
+.icon-demo17 {
+    background: url('icons/folder-share.png') no-repeat;
+}
+
+/*图标18*/
+.icon-demo18 {
+    background: url('icons/medium-blue.png') no-repeat;
+}
+
+/*图标19*/
+.icon-demo19 {
+    background: url('icons/users.png') no-repeat;
+}
+
+/*图标20*/
+.icon-demo20 {
+    background: url('icons/webcam.png') no-repeat;
+}
+
+/*图标21*/
+.icon-demo21 {
+    background: url('icons/xfn-colleague-met.png') no-repeat;
+}
+
+/*图标22*/
+.icon-demo22 {
+    background: url('icons/xfn-friend-met.png') no-repeat;
+}
+
+/*图标23*/
+.icon-demo23 {
+    background: url('icons/xfn-sweetheart-met.png') no-repeat;
+}
+
+/*停止*/
+.icon-demo24 {
+    background: url('icons/disc--minus.png') no-repeat;
+}
+
+/*结果集*/
+.icon-results {
+    background: url('icons/block.png') no-repeat;
+}
+
+/*男士下线*/
+.user-male-offline {
+    background: url('icons/user-male-offline.png') no-repeat;
+}
+
+/*女士下线*/
+.user-female-offline {
+    background: url('icons/user-female-offline.png') no-repeat;
+}
+
+/*图标25*/
+.icon-demo25 {
+    background: url('icons/book-setting.png') no-repeat;
+}
+
+/*图标26*/
+.icon-demo26 {
+    background: url('icons/books-stack.png') no-repeat;
+}
+
+/*图标27*/
+.icon-demo27 {
+    background: url('icons/xfn-folder.png') no-repeat;
+}
+
+/*图标28*/
+.icon-demo28 {
+    background: url('icons/wheel.png') no-repeat;
+}
+
+/*图标29*/
+.icon-demo29 {
+    background: url('icons/balloon-ellipsis.png') no-repeat;
+}
+
+/*图标30*/
+.icon-demo30 {
+    background: url('icons/battery-charge.png') no-repeat;
+}
+
+/*图标31*/
+.icon-demo31 {
+    background: url('icons/broom.png') no-repeat;
+}
+
+/*图标32*/
+.icon-demo32 {
+    background: url('icons/calendar-month.png') no-repeat;
+}
+
+/*图标33*/
+.icon-demo33 {
+    background: url('icons/function.png') no-repeat;
+}
+
+/*图标34*/
+.icon-demo34 {
+    background: url('icons/heart.png') no-repeat;
+}
+
+/*图标35*/
+.icon-demo35 {
+    background: url('icons/key-solid.png') no-repeat;
+}
+
+/*图标36*/
+.icon-demo36 {
+    background: url('icons/newspaper.png') no-repeat;
+}
+
+/*图标37*/
+.icon-demo37 {
+    background: url('icons/sql.png') no-repeat;
+}
+
+/*岗位*/
+.icon-demo38 {
+    background: url('icons/user-worker.png') no-repeat;
+}
+
+/*树上展开图标*/
+.icon-demo39 {
+    background: url('icons/folder-horizontal-open.png') no-repeat;
+}
+
+/*树上收缩图标*/
+.icon-demo40 {
+    background: url('icons/folder-horizontal.png') no-repeat;
+}
+
+/*图标38*/
+.icon-demo41 {
+    background: url('icons/arrow-in.png') no-repeat;
+}
+
+/*图标39*/
+.icon-demo42 {
+    background: url('icons/folder-horizontal.png') no-repeat;
+}
+
+/*数据表1*/
+.icon-table1{
+    background: url('icons/list.png') no-repeat !important;
+}
+
+/*数据表2*/
+.icon-table{
+    background: url('icons/icon1.png') no-repeat !important;
+}
+
+/*外部表*/
+.icon-gray-table{
+    background: url('icons/icon1-isnot-inner.png') no-repeat !important;
+}
+
+/*上一步*/
+.icon-lastStep {
+    background: url('icons/lastStep.png') no-repeat;
+}
+
+/*下一步*/
+.icon-nextStep {
+    background: url('icons/nextStep.png') no-repeat;
+}
+
+/*图标40*/
+.icon-demo45 {
+    background: url('icons/blueprint--minus.png') no-repeat;
+}
+
+/*图标41*/
+.icon-demo46 {
+    background: url('icons/blueprint--plus.png') no-repeat;
+}
+
+/*图标42*/
+.icon-demo47 {
+    background: url('icons/blueprints.png') no-repeat;
+}
+
+/*岗位审核*/
+.icon-demo48 {
+    background: url('icons/user-worker-pass.png') no-repeat;
+}
+
+/*图标50*/
+.icon-demo50 {
+    background: url('icons/document-search-result.png') no-repeat;
+}
+
+/*图标51*/
+.icon-demo51 {
+    background: url('icons/camcorder--pencil.png') no-repeat;
+}
+
+/*图标52*/
+.icon-demo52 {
+    background: url('icons/import-slide.png') no-repeat;
+}
+
+/*图标53*/
+.icon-demo53 {
+    background: url('icons/excel-imp.png') no-repeat;
+}
+
+/*主子表图标*/
+.icon-demo54 {
+    background: url('icons/chain-unchain.png') no-repeat;
+}
+
+/*数据监控*/
+.icon-demo55 {
+    background: url('icons/system-monitor.png') no-repeat;
+}
+
+/*数据监控2*/
+.icon-demo56 {
+    background: url('icons/system-monitor2.png') no-repeat;
+}
+
+/*ACCESS*/
+.icon-access {
+    background: url('icons/access.png') no-repeat;
+}
+
+/*ACCESS*/
+.icon-access16 {
+    background: url('icons/access16.png') no-repeat;
+}
+
+/*数据修改统计*/
+.icon-modify-stat {
+    background: url('icons/modify-stat.png') no-repeat;
+}
+
+/*数据权限*/
+.icon-database_key {
+    background: url('icons/database_key.png') no-repeat;
+}
+
+/*数据维护2*/
+.icon-database_edit {
+    background: url('icons/database_edit.png') no-repeat;
+}
+
+/*数据维护*/
+.icon-database_gear {
+    background: url('icons/database_gear.png') no-repeat;
+}
