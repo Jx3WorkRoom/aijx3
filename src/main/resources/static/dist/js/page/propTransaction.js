@@ -129,7 +129,7 @@
                 success: function (data) {
                     layer.closeAll();
                     //跳转
-                    window.location.href = "/testDemo/myRelease.html";
+                    window.location.href = "myRelease";
                 },
                 complete: function () {
                     layer.closeAll();

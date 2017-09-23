@@ -1,6 +1,13 @@
 // JavaScript Document
 var refreshNum = 0;
 $(document).ready(function(e) {
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?63e43c80c6088f104907ba146561540a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
     var userRole =null;
     var username = $('#userName').text();
     var start='http://101.132.64.51:8881';

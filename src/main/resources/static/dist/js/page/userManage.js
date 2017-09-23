@@ -61,7 +61,7 @@ function initTable() {
                 };
                     $('.table1').append("<div class=\"table-tr\">\n" +
                         "     <div class=\"table-td\">"+value.BELONG_WEB+"</div>\n" +
-                        "     <div class=\"table-td modId\">"+value.MOD_ID+"</div>\n" +
+                        "     <div class=\"table-td\">"+value.MOD_ID+"</div>\n" +
                         "     <div class=\"table-td\">"+value.MOD_NAME+"</div>\n" +
                         "     <div class=\"table-td\">"+modType+"</div>\n" +
                         "     <div class=\"table-td\">"+visitRole+"</div>\n" +
