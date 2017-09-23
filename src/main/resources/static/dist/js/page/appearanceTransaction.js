@@ -479,7 +479,7 @@ function setInfo(info){
         function initViewName(data) {
             //外观名初始数据
             $.each(data,function (i,value) {
-                var val1 = value.KEYWORD_NAME;
+                var val1 = value.keyword_name;
                 $('.viewName').append("  <option value="+val1+">"+val1+"</option> ");
             });
             $(".js-example-basic-single").select2();
