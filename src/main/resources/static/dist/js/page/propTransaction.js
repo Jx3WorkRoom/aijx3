@@ -488,7 +488,7 @@
         function initPropName(data) {
             //道具名初始数据
             $.each(data,function (i,value) {
-                var val1 = value.KEYWORD_NAME;
+                var val1 = value.keyword_name;
                 $('.propName').append("  <option value="+val1+">"+val1+"</option> ");
             });
             $(".js-example-basic-single").select2();
