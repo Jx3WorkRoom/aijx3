@@ -172,7 +172,7 @@ function initTable() {
         $.each(table6Datas,function (i,value) {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
             var propName = value.PROP_NAME==null?"--":value.PROP_NAME;
-            propName = c.replace("[","");
+            propName = propName.replace("[","");
             propName = propName.replace("]","");
             propName = propName.split(',')[0];
             var belongOf = value.BELONG_QF.replace("[","");

@@ -110,6 +110,13 @@ function initTable(url,keyNum) {
                     belongOf = belongOf.replace("]", "");
                     belongOf = belongOf.split(',')[0];
                     belongOf = replace(belongOf);
+                    var viewName = value.VIEW_NAME.replace("[", "");
+                    viewName = viewName.replace("]", "");
+                    viewName = viewName.split(',')[0];
+                    // var vName ="";
+                    // for(var num=0;num<viewName.split(",");num++){
+                    //     vName =vName+viewName[num]+' \n ';
+                    // }
                     if(userId!=""){
                         if(userId!=value.userIdColl){
                             value.COLL_TYPE=0;
@@ -125,7 +132,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.VIEW_NAME + "</div>\n" +
+                            "        <div class=\"table-td\">" + viewName + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + value.POST_CONTENT + "</a></div>\n" +
                             "          <div class=\"table-td\">" + tradeType + "</div>\n" +
                             "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
@@ -141,7 +148,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.VIEW_NAME + "</div>\n" +
+                            "        <div class=\"table-td\">" + viewName + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + value.POST_CONTENT + "</a></div>\n" +
                             "          <div class=\"table-td\">" + tradeType + "</div>\n" +
                             "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
