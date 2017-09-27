@@ -104,7 +104,7 @@ function initDetail(favorId,sourceType) {
             var isValided = null;
             var username = $('#userName').text();
             if(username==""){
-                location.href = '/testDemo/login';
+                location.href = 'login';
             }else {
                 if($(this).attr('class').indexOf("cur")==-1){
                     $(this).addClass('cur');

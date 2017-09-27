@@ -4,10 +4,16 @@ var pIndex = 0;
 var preEle = document.getElementById("pre");
 var cityEle = document.getElementById("city");
 var areaEle = document.getElementById("area");
+var userId = '';
 $(function () {
     initTable();
     initSeach();
     timer();
+    var username = $('#userName').text();
+    var useNameurl = api+'getUserId?username='+encodeURI(username);
+    $.getJSON(useNameurl,function (data) {
+        userId = data.userId;
+    });
 });
 
 function timer() {
@@ -95,12 +101,6 @@ function initTable(url,keyNum) {
             dataTemp = data;
             //填充表格数据
             var tableDatas = data.datas==null?"":data.datas;
-            var username = $('#userName').text();
-            var useNameurl = api+'getUserId?username='+encodeURI(username);
-            var userId = '';
-            $.getJSON(useNameurl,function (data) {
-                userId = data.userId;
-            }).complete(function () {
                 $.each(tableDatas, function (i, value) {
                     var time = sumTime(value.FAVOR_DATE);
                     var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
@@ -255,7 +255,7 @@ function initTable(url,keyNum) {
                     var replyTime = $(this).parent().parent().find('.replyTime').text();
                     var isValided = null;
                     if (username == "") {
-                        location.href = '/testDemo/login';
+                        location.href = 'login';
                     } else {
                         if ($(this).attr('class').indexOf('cur') > -1) {
                             $(this).removeClass('cur');
@@ -308,7 +308,6 @@ function initTable(url,keyNum) {
                         });
                     }
                 });
-            });
         },
         complete:function () {
             layer.closeAll();

@@ -205,7 +205,7 @@
                 ,yes: function(index){
                     layer.close(index);
                     //跳转
-                    window.location.href = "/testDemo/myRelease.html";
+                    window.location.href = "myRelease";
                 }
             });
         });
