@@ -215,7 +215,7 @@ function initTable(url,keyNum) {
                 $('.modalBtn').click(function () {
                     var sourceType = $(this).parent().parent().find('.sourceType').text() == "" ? 1 : $(this).parent().parent().find('.sourceType').text();
                     var mainId = $(this).parent().parent().find('.main_id').text() == "" ? 1 : $(this).parent().parent().find('.main_id').text();
-                    var userId = $(this).parent().parent().find('.userId').text() == "" ? 1 : $(this).parent().parent().find('.userId').text();
+                    var userId = $(this).parent().parent().find('.userId').text() == "null" ? 1 : $(this).parent().parent().find('.userId').text();
                     var username = $('#userName').text();
                     if (username == "") {
                         layer.msg("你还未登陆,请先前往用户中心登陆!");
