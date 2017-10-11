@@ -132,7 +132,7 @@ function initTable(url,keyNum) {
                             "              <div class=\"table-td\">" + tradeType + "</div>\n" +
                             "            <div class=\"table-td \">" + follow + "</div>\n" +
                             "            <div class=\"table-td\">" + time + "</div>\n" +
-                            "              <div class=\"table-td\"><a class=\"modalBtn\" href=\"javascript:;\">卖方QQ</a></div>\n" +
+                            "              <div class=\"table-td\"><a class=\"modalBtn\" href=\"javascript:;\">联系方式</a></div>\n" +
                             "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
                             "      </div>");
@@ -148,7 +148,7 @@ function initTable(url,keyNum) {
                             "              <div class=\"table-td\">" + tradeType + "</div>\n" +
                             "            <div class=\"table-td \">" + follow + "</div>\n" +
                             "            <div class=\"table-td\">" + time + "</div>\n" +
-                            "              <div class=\"table-td\"><a class=\"modalBtn\" href=\"javascript:;\">卖方QQ</a></div>\n" +
+                            "              <div class=\"table-td\"><a class=\"modalBtn\" href=\"javascript:;\">联系方式</a></div>\n" +
                             "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
                             "      </div>");

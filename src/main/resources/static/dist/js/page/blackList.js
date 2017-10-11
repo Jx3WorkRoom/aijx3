@@ -68,12 +68,35 @@ function initTable(url,keyNum) {
                     }else{
                         value.COLL_TYPE=0;
                     }
+                    var cheatInfo = getNewline(value.CHEAT_INFO);
+                    function getNewline(val) {
+                        var str = new String(val);
+                        var bytesCount = 0;
+                        var s="";
+                        for (var i = 0 ,n = str.length; i < n; i++) {
+                            var c = str.charCodeAt(i);
+                            //统计字符串的字符长度
+                            if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                                bytesCount += 1;
+                            } else {
+                                bytesCount += 2;
+                            }
+                            //换行
+                            s += str.charAt(i);
+                            if(bytesCount>=80){
+                                s = s + '<br>';
+                                //重置
+                                bytesCount=0;
+                            }
+                        }
+                        return s;
+                    }
                     if (value.COLL_TYPE == null || value.COLL_TYPE == 0 || username == '') {
                         $(".table").append("<div class=\"table-tr\">\n" +
                             "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
                             "        <div class=\"table-td replyTime\" style='display: none'>" + value.FAVOR_DATE + "</div>\n" +
                             "        <div class=\"table-td\">" + value.PAR_NAME + "</div>\n" +
-                            "       <div class=\"table-td\"><a href=\"blackDetail?favorId=" + value.FAVOR_ID + "\" target='_blank'>" + value.CHEAT_INFO + "</a></div>" +
+                            "       <div class=\"table-td\"><a href=\"blackDetail?favorId=" + value.FAVOR_ID + "\" target='_blank'>" + cheatInfo + "</a></div>" +
                             "              <div class=\"table-td \">" + belongOf + "</div>\n" +
                             "              <div class=\"table-td\">" + time + "</div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
@@ -83,7 +106,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
                             "        <div class=\"table-td replyTime\" style='display: none'>" + value.FAVOR_DATE + "</div>\n" +
                             "        <div class=\"table-td\">" + value.PAR_NAME + "</div>\n" +
-                            "       <div class=\"table-td\"><a href=\"blackDetail?favorId=" + value.FAVOR_ID + "\" target='_blank'>" + value.CHEAT_INFO + "</a></div>" +
+                            "       <div class=\"table-td\"><a href=\"blackDetail?favorId=" + value.FAVOR_ID + "\" target='_blank'>" + cheatInfo + "</a></div>" +
                             "              <div class=\"table-td \">" + belongOf + "</div>\n" +
                             "              <div class=\"table-td\">" + time + "</div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
