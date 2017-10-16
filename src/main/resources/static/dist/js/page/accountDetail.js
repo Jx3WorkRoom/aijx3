@@ -6,11 +6,11 @@ $(function () {
         var r = window.location.search.substr(1).match(reg); //匹配目标参数
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
-    initDetail(favorId,sourceType);
+    var username = $('#userName').text();
+    initDetail(favorId,sourceType,username);
 });
 
-function initDetail(favorId,sourceType) {
-    var username = $('#userName').text();
+function initDetail(favorId,sourceType,username) {
     var url = api+"accountList/accountDetail?favorId="+encodeURI(favorId)+
         '&sourceType='+encodeURI(sourceType)+
         '&userName='+encodeURI(username);
@@ -33,16 +33,6 @@ function initDetail(favorId,sourceType) {
                 replyTime = value.REPLY_TIME==null?"":value.REPLY_TIME;
                 sourceType =value.SOURCE_TYPE==null?1:value.SOURCE_TYPE;
                 userId = value.userId==null?1:value.userId;
-                var username = $('#userName').text();
-                var url = api+'accountList/queryHasCollected?mainId='+encodeURI(mainId)+'&username='+encodeURI(username);
-                $.getJSON(url,function (data) {
-                    data =data.info[0]==null?'':data.info[0];
-                    data = data.coll_type==null?0:parseInt(data.coll_type);
-                    if(data!=0){
-                        $('.icon-save').addClass('cur');
-                        $('.icon-save').parent().find('label').text('已收藏');
-                    }
-                });
                 $('.userIsvalid').text(value.USER_ISVALID+"人提交失效!");
                 var imgSrc = value.WENJIAN_PATH==null?value.PIC_PATH:value.WENJIAN_PATH;
                 imgSrc = api+'uploadFile/getImage?WENJIAN_PATH='+encodeURI(imgSrc);
@@ -62,42 +52,6 @@ function initDetail(favorId,sourceType) {
             layer.msg("请求数据有误或者数据库并未查询到相关数据!")
         }
     }).complete(function () {
-        //图片加载 失败处理
-        $(".scrollimg img").each(function(){
-            var num = $(this).index();
-            $(this).error(function () {
-                if(num!=0) {
-                    $(this).attr('src', './dist/css/images/nopicture' + num + '.jpg');
-                }else{
-                    $(this).attr('src', './dist/css/images/nopicture.jpg');
-                }
-            });
-        });
-        $(".bigimgs img").error(function () {
-            $(this).attr('src', './dist/css/images/nopicture.jpg');
-        });
-        //图片轮播
-        $(".scrollimg img").click(function(){
-            $(".scrollimg img").removeClass('cur');
-            $(this).addClass('cur');
-            $(".bigimgs img").attr("src",$(this).attr('src'));
-        });
-        var startnum=0;
-        var imglen=$(".scrollimg img").length;
-        $(".lefttg").click(function(){
-            if(startnum==0) return;
-            startnum++;
-            $('.moveimg').css("margin-left",startnum*270+"px");
-            var imgNum = Math.abs(startnum);
-            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
-        });
-        $(".righttg").click(function(){
-            if(startnum<(imgLength-imglen)) return;
-            startnum--;
-            $('.moveimg').css("margin-left",startnum*270+"px");
-            var imgNum = Math.abs(startnum);
-            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
-        });
         //收藏
         $('.icon-save').unbind('click');
         $('.icon-save').click(function(){
@@ -197,6 +151,54 @@ function initDetail(favorId,sourceType) {
             $.getJSON(url,function (data) {
                layer.msg(data.info);
             });
+        });
+
+        var username = $('#userName').text();
+        var url = api+'accountList/queryHasCollected?mainId='+encodeURI(mainId)+'&username='+encodeURI(username);
+        $.getJSON(url,function (data) {
+            data =data.info[0]==null?'':data.info[0];
+            data = data.coll_type==null?0:parseInt(data.coll_type);
+            if(data!=0){
+                $('.icon-save').addClass('cur');
+                $('.icon-save').parent().find('label').text('已收藏');
+            }
+        });
+
+        //图片加载 失败处理
+        $(".scrollimg img").each(function(){
+            var num = $(this).index();
+            $(this).error(function () {
+                if(num!=0) {
+                    $(this).attr('src', './dist/css/images/nopicture' + num + '.jpg');
+                }else{
+                    $(this).attr('src', './dist/css/images/nopicture.jpg');
+                }
+            });
+        });
+        $(".bigimgs img").error(function () {
+            $(this).attr('src', './dist/css/images/nopicture.jpg');
+        });
+        //图片轮播
+        $(".scrollimg img").click(function(){
+            $(".scrollimg img").removeClass('cur');
+            $(this).addClass('cur');
+            $(".bigimgs img").attr("src",$(this).attr('src'));
+        });
+        var startnum=0;
+        var imglen=$(".scrollimg img").length;
+        $(".lefttg").click(function(){
+            if(startnum==0) return;
+            startnum++;
+            $('.moveimg').css("margin-left",startnum*270+"px");
+            var imgNum = Math.abs(startnum);
+            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
+        });
+        $(".righttg").click(function(){
+            if(startnum<(imgLength-imglen)) return;
+            startnum--;
+            $('.moveimg').css("margin-left",startnum*270+"px");
+            var imgNum = Math.abs(startnum);
+            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
         });
     });
     function initTable(url,keyNum) {

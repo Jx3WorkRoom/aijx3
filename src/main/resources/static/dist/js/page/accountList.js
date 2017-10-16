@@ -137,11 +137,34 @@ function initTable(url,keyNum) {
                 var TIXIN = value.TIXIN.replace("[", "");
                 TIXIN = TIXIN.replace("]", "");
                 TIXIN = TIXIN.split(',')[0];
+                var REPLY_CONTENT = getNewline(value.REPLY_CONTENT);
+                function getNewline(val) {
+                    var str = new String(val);
+                    var bytesCount = 0;
+                    var s="";
+                    for (var i = 0 ,n = str.length; i < n; i++) {
+                        var c = str.charCodeAt(i);
+                        //统计字符串的字符长度
+                        if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                            bytesCount += 1;
+                        } else {
+                            bytesCount += 2;
+                        }
+                        //换行
+                        s += str.charAt(i);
+                        if(bytesCount>=80){
+                            s = s + '<br>';
+                            //重置
+                            bytesCount=0;
+                        }
+                    }
+                    return s;
+                }
                 var price = value.PRICE_NUM.replace("[", "").replace("]", "");
                 $(".table").append("<div class=\"table-tr\">\n" +
                     "            <div class=\"table-td\">" + belongOf + "</div>\n" +
                     "            <div class=\"table-td\">" + TIXIN + "</div>\n" +
-                    "            <div class=\"table-td table_lw\"><a href='accountDetail?favorId=" + value.FAVOR_ID + "&sourceType="+value.SOURCE_TYPE+"'  target='_blank'>" + value.REPLY_CONTENT + "</a></div>\n" +
+                    "            <div class=\"table-td table_lw\"><a href='accountDetail?favorId=" + value.FAVOR_ID + "&sourceType="+value.SOURCE_TYPE+"'  target='_blank'>" + REPLY_CONTENT + "</a></div>\n" +
                     "            <div class=\"table-td\">" + tradeType + "</div>\n" +
                     "            <div class=\"table-td\">" + price + "</div>\n" +
                     "            <div class=\"table-td\">" + matchingDegree + "</div>\n" +
@@ -233,17 +256,28 @@ function initTable(url,keyNum) {
                     var year = datetime.getFullYear();
                     var month = datetime.getMonth() + 1;
                     var date = datetime.getDate();
+                    var hour =datetime.getHours();
+                    var minute = datetime.getMinutes();
+                    var second = datetime.getSeconds();
                     if(parseInt(month)<10){
                         month = '0'+month;
                     }
                     if(parseInt(date)<10){
                         date = '0'+date;
                     }
-                    return year + "-" + month + "-" + date;
+                    if(parseInt(hour)<10){
+                        hour = '0'+hour;
+                    }
+                    if(parseInt(minute)<10){
+                        minute = '0'+minute;
+                    }
+                    if(parseInt(second)<10){
+                        second = '0'+second;
+                    }
+                    return year + "-" + month + "-" + date +" "+hour+":"+minute+":"+second;
                 };
                 time =timeStamp2String(time);
                 var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
-                time = time+" 00:00:00";
                 var reStr = null;
                 var diff = new DateUtil().diffDateTime(time,startTime)/1000;
                 var day = parseInt(diff / (24*60*60));//计算整数天数
@@ -254,9 +288,10 @@ function initTable(url,keyNum) {
                 }else{
                     var hour = parseInt(diff/(60*60));//计算整数小时数
                     if(hour<1){
-                        hour = 1;
+                        reStr ="1小时内";
+                    }else {
+                        reStr = hour + "小时前";
                     }
-                    reStr = hour+"小时前";
                 }
                 return reStr;
             }
