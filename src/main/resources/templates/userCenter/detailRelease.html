@@ -54,7 +54,7 @@
 <div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
 <!-- navigation -->
 <div class="navCon">
-    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号搜索</a><a href="appearanceSale">外观搜索</a><a href="propSale" class="cur">道具搜索</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="dataAndSecurity">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
 </div>
 <div id="maincontent">
   <div id="mcon"> 
@@ -72,9 +72,9 @@
                     <dd><a href="serviceSetting">服务设置</a></dd>
                     <dt>我要发布</dt>
                     <dd><a href="report">我要举报</a></dd>
-                    <dd><a href="appearanceTransaction">外观交易</a></dd>
-                    <dd><a href="propTransaction">道具交易</a></dd>
-                    <dd><a href="accountTransaction">金币交易</a></dd>
+                    <dd><a href="appearanceTransaction">外观搜索</a></dd>
+                    <dd><a href="propTransaction">道具搜索</a></dd>
+                    <!--<dd><a href="accountTransaction">金币搜索</a></dd>-->
                     <dd><a href="accountExchange">代练代打</a></dd>
                     <dd><a href="quickRelease">账号收售快速发布</a></dd>
                     <dd><a href="detailRelease">账号收售详细发布</a></dd>

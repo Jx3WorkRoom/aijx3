@@ -53,7 +53,7 @@
 <div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
 <!-- navigation -->
 <div class="navCon">
-    <div class="nav"><a href="index">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale" class="cur">道具交易</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a>
+    <div class="nav"><a href="index">首页</a><a href="accountList">账号搜索</a><a href="appearanceSale">外观搜索</a><a href="propSale" class="cur">道具搜索</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a>
         <a id="userDetails" href="javascript:void(0)" style="display: none"><label>[[${#httpServletRequest.remoteUser}]]</label>
         </a>
         <a href="javascript:void(0)" id="exitUser" style="display: none;">
@@ -73,7 +73,7 @@
   <div class="searchcon">
    <div class="s_top">
      <ul>
-      <li class="cur">账号交易</li>
+      <li class="cur">账号搜索</li>
      </ul>
      <div class="clear"></div>
      <div class="sline"></div>
@@ -94,6 +94,7 @@
                       </li>
                   </ul>
               </td>
+              <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;">（可以搜索全百度贴吧剑三账号）</div></td>
           </tr>
           <tr>
            <td align="right" class="wr ft1">区服：</td>
