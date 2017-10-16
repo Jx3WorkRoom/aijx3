@@ -134,7 +134,7 @@ function initTable(url,keyNum) {
                             }
                             //换行
                             s += str.charAt(i);
-                            if(bytesCount>=40){
+                            if(bytesCount>=36){
                                 s = s + '<br>';
                                 //重置
                                 bytesCount=0;
@@ -239,9 +239,9 @@ function initTable(url,keyNum) {
                     var mainId = $(this).parent().parent().find('.main_id').text() == "" ? 1 : $(this).parent().parent().find('.main_id').text();
                     var userId = $(this).parent().parent().find('.userId').text() == "null" ? 1 : $(this).parent().parent().find('.userId').text();
                     var username = $('#userName').text();
-                    if (username == "") {
-                        layer.msg("你还未登陆,请先前往用户中心登陆!");
-                    } else {
+                    // if (username == "") {
+                    //     layer.msg("你还未登陆,请先前往用户中心登陆!");
+                    // } else {
                         if (sourceType == 1) {
                             var url = api + 'propSaleSource?mainId=' + encodeURI(mainId) +
                                 '&sourceType=' + encodeURI(sourceType) +
@@ -308,12 +308,12 @@ function initTable(url,keyNum) {
                                         $table.append("<p>用户联系方式：</p>\n" +
                                             "                    <p>QQ：" + data + "</p>\n" +
                                             "                    <p>特别提示：请注意交易安全，本平台不对信息真实性和信息的安全性提供保证。若有疑问，请联系客服。</p>\n" +
-                                            "                    <p>客服QQ：153435143</p>")
+                                            "                    ");
                                     }
                                 }
                             });
                         }
-                    }
+                    // }
                 });
                 var colose = $('.close');
                 var cancel = $('.btn-default');

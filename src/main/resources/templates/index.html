@@ -83,7 +83,7 @@
 <div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
 <!-- navigation -->
 <div class="navCon">
-  <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><a href="goldExchangeList">金币收售</a><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
+  <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号交易</a><a href="appearanceSale">外观交易</a><a href="propSale">道具交易</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a id="userDetails" href="javascript:void(0)" style="display: none">[[${#httpServletRequest.remoteUser}]]</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
     <div class="userBox" style="display: none">
       <p>Jack</p>
       <span><img th:src="@{/dist/css/images/jx3/loginimg.png}"></span>

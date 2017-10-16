@@ -19,58 +19,63 @@ function initDetail(favorId,sourceType,username) {
     var replyTime = null;
     var sourceType = null;
     var imgLength = 0;
-    $.getJSON(url,function (data) {
-        data = data.datas==null?"":data.datas;
-        if(data!="") {
-            $('.scrollimg').empty();
-            $.each(data, function (i, value) {
-                $('.account').empty();
-                $('.account').append(value.REPLY_CONTENT);
-                mainId = value.MAIN_ID==null?1:value.MAIN_ID;
-                if(mainId==1){
-                    // window.location.reload();
-                }
-                replyTime = value.REPLY_TIME==null?"":value.REPLY_TIME;
-                sourceType =value.SOURCE_TYPE==null?1:value.SOURCE_TYPE;
-                userId = value.userId==null?1:value.userId;
-                $('.userIsvalid').text(value.USER_ISVALID+"人提交失效!");
-                var imgSrc = value.WENJIAN_PATH==null?value.PIC_PATH:value.WENJIAN_PATH;
-                imgSrc = api+'uploadFile/getImage?WENJIAN_PATH='+encodeURI(imgSrc);
-                var imgHtml = "";
-                imgLength++;
-                var picNum = value.WENJIAN_SEQ==null?value.SEQ_NUM:value.WENJIAN_SEQl
-                if(picNum==1) {
-                    $('.bigimgs img').attr('src',imgSrc);
-                    imgHtml = "<img class=\"moveimg cur\" src='" + imgSrc + "' style=\"margin-left: 0px;\">";
-                    $('.scrollimg').append(imgHtml);
-                }else{
-                    imgHtml = "<img src='"+imgSrc+"' style=\"margin-left: 0px;\">";
-                    $('.scrollimg').append(imgHtml);
-                }
-            });
-        }else {
-            layer.msg("请求数据有误或者数据库并未查询到相关数据!")
-        }
-    }).complete(function () {
-        //收藏
-        $('.icon-save').unbind('click');
-        $('.icon-save').click(function(){
-            var isValided = null;
-            var username = $('#userName').text();
-            if(username==""){
-                location.href = 'login';
+    $.ajax({
+        url:url,
+        async:true,
+        success:function (data) {
+            data = data.datas==null?"":data.datas;
+            if(data!="") {
+                $('.scrollimg').empty();
+                $.each(data, function (i, value) {
+                    $('.account').empty();
+                    $('.account').append(value.REPLY_CONTENT);
+                    mainId = value.MAIN_ID==null?1:value.MAIN_ID;
+                    if(mainId==1){
+                        // window.location.reload();
+                    }
+                    replyTime = value.REPLY_TIME==null?"":value.REPLY_TIME;
+                    sourceType =value.SOURCE_TYPE==null?1:value.SOURCE_TYPE;
+                    userId = value.userId==null?1:value.userId;
+                    var validNum = value.USER_ISVALID==null?"0":value.USER_ISVALID;
+                    $('.userIsvalid').text(validNum+"人提交失效!");
+                    var imgSrc = value.WENJIAN_PATH==null?value.PIC_PATH:value.WENJIAN_PATH;
+                    imgSrc = api+'uploadFile/getImage?WENJIAN_PATH='+encodeURI(imgSrc);
+                    var imgHtml = "";
+                    imgLength++;
+                    var picNum = value.WENJIAN_SEQ==null?value.SEQ_NUM:value.WENJIAN_SEQl
+                    if(picNum==1) {
+                        $('.bigimgs img').attr('src',imgSrc);
+                        imgHtml = "<img class=\"moveimg cur\" src='" + imgSrc + "' style=\"margin-left: 0px;\">";
+                        $('.scrollimg').append(imgHtml);
+                    }else{
+                        imgHtml = "<img src='"+imgSrc+"' style=\"margin-left: 0px;\">";
+                        $('.scrollimg').append(imgHtml);
+                    }
+                });
             }else {
-                if($(this).attr('class').indexOf("cur")==-1){
-                    $(this).addClass('cur');
-                    $(this).parent().find('label').text('已收藏');
-                    isValided = 1;
-                }else{
-                    $(this).removeClass('cur');
-                    $(this).parent().find('label').text('收藏');
-                    isValided = 0;
-                }
-                replyTime =timeStamp2String(replyTime);
-                function timeStamp2String (time){
+                layer.msg("请求数据有误或者数据库并未查询到相关数据!")
+            }
+        },
+        complete:function () {
+            //收藏
+            $('.icon-save').unbind('click');
+            $('.icon-save').click(function(){
+                var isValided = null;
+                var username = $('#userName').text();
+                if(username==""){
+                    location.href = 'login';
+                }else {
+                    if($(this).attr('class').indexOf("cur")==-1){
+                        $(this).addClass('cur');
+                        $(this).parent().find('label').text('已收藏');
+                        isValided = 1;
+                    }else{
+                        $(this).removeClass('cur');
+                        $(this).parent().find('label').text('收藏');
+                        isValided = 0;
+                    }
+                    replyTime =timeStamp2String(replyTime);
+                    function timeStamp2String (time){
                         var datetime = new Date();
                         datetime.setTime(time);
                         var year = datetime.getFullYear();
@@ -87,28 +92,28 @@ function initDetail(favorId,sourceType,username) {
                         }
                         return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
                     };
-                var url = api+'accountList/userIsvalid?userName='+encodeURI(username)+
-                    '&mainId='+encodeURI(mainId)+
-                    '&isValided='+encodeURI(isValided)+
-                    '&replyTime='+encodeURI(replyTime);
-                $.getJSON(url,function (data) {
-                    layer.msg(data.info);
-                }).error(function () {
-                    layer.msg("提交到服务器失效!");
-                    return false;
-                });
-            }
-        });
-        //查看源
-        $('.modalBtn').unbind('click');
-        $('.modalBtn').click(function () {
-            if(sourceType==1){
-                initTable();
-            }else{
-                var username = $('#userName').text();
-                if(username==""){
-                    layer.msg("你还未登陆,请先前往用户中心登陆!");
-                }else {
+                    var url = api+'accountList/userIsvalid?userName='+encodeURI(username)+
+                        '&mainId='+encodeURI(mainId)+
+                        '&isValided='+encodeURI(isValided)+
+                        '&replyTime='+encodeURI(replyTime);
+                    $.getJSON(url,function (data) {
+                        layer.msg(data.info);
+                    }).error(function () {
+                        layer.msg("提交到服务器失效!");
+                        return false;
+                    });
+                }
+            });
+            //查看源
+            $('.modalBtn').unbind('click');
+            $('.modalBtn').click(function () {
+                if(sourceType==1){
+                    initTable();
+                }else{
+                    // var username = $('#userName').text();
+                    // if(username==""){
+                    //     layer.msg("你还未登陆,请先前往用户中心登陆!");
+                    // }else {
                     var url = api + 'accountList/accountDetailSource?mainId=' + encodeURI(mainId) +
                         '&sourceType=' + encodeURI(sourceType) +
                         '&userId=' + encodeURI(userId) +
@@ -134,72 +139,73 @@ function initDetail(favorId,sourceType,username) {
                         layer.msg("提交到服务器失效!");
                         return false;
                     });
+                    // }
                 }
-            }
-        });
-        var colose = $('.close');
-        var cancel = $('.btn-default');
-        $(colose,cancel).unbind('click');
-        $(colose,cancel).click(function () {
-            $(this).parents('.modal').removeClass('madalHide');
-        });
+            });
+            var colose = $('.close');
+            var cancel = $('.btn-default');
+            $(colose,cancel).unbind('click');
+            $(colose,cancel).click(function () {
+                $(this).parents('.modal').removeClass('madalHide');
+            });
 
-        //提交失效
-        $('.sumbitIsvalid').unbind('click');
-        $('.sumbitIsvalid').click(function () {
-            var url =api+"accountList/accountDetailSubmitIsValid?favorId="+encodeURI(favorId);
+            //提交失效
+            $('.sumbitIsvalid').unbind('click');
+            $('.sumbitIsvalid').click(function () {
+                var url =api+"accountList/accountDetailSubmitIsValid?favorId="+encodeURI(favorId);
+                $.getJSON(url,function (data) {
+                    layer.msg(data.info);
+                });
+            });
+
+            var username = $('#userName').text();
+            var url = api+'accountList/queryHasCollected?mainId='+encodeURI(mainId)+'&username='+encodeURI(username);
             $.getJSON(url,function (data) {
-               layer.msg(data.info);
-            });
-        });
-
-        var username = $('#userName').text();
-        var url = api+'accountList/queryHasCollected?mainId='+encodeURI(mainId)+'&username='+encodeURI(username);
-        $.getJSON(url,function (data) {
-            data =data.info[0]==null?'':data.info[0];
-            data = data.coll_type==null?0:parseInt(data.coll_type);
-            if(data!=0){
-                $('.icon-save').addClass('cur');
-                $('.icon-save').parent().find('label').text('已收藏');
-            }
-        });
-
-        //图片加载 失败处理
-        $(".scrollimg img").each(function(){
-            var num = $(this).index();
-            $(this).error(function () {
-                if(num!=0) {
-                    $(this).attr('src', './dist/css/images/nopicture' + num + '.jpg');
-                }else{
-                    $(this).attr('src', './dist/css/images/nopicture.jpg');
+                data =data.info[0]==null?'':data.info[0];
+                data = data.coll_type==null?0:parseInt(data.coll_type);
+                if(data!=0){
+                    $('.icon-save').addClass('cur');
+                    $('.icon-save').parent().find('label').text('已收藏');
                 }
             });
-        });
-        $(".bigimgs img").error(function () {
-            $(this).attr('src', './dist/css/images/nopicture.jpg');
-        });
-        //图片轮播
-        $(".scrollimg img").click(function(){
-            $(".scrollimg img").removeClass('cur');
-            $(this).addClass('cur');
-            $(".bigimgs img").attr("src",$(this).attr('src'));
-        });
-        var startnum=0;
-        var imglen=$(".scrollimg img").length;
-        $(".lefttg").click(function(){
-            if(startnum==0) return;
-            startnum++;
-            $('.moveimg').css("margin-left",startnum*270+"px");
-            var imgNum = Math.abs(startnum);
-            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
-        });
-        $(".righttg").click(function(){
-            if(startnum<(imgLength-imglen)) return;
-            startnum--;
-            $('.moveimg').css("margin-left",startnum*270+"px");
-            var imgNum = Math.abs(startnum);
-            $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
-        });
+
+            //图片加载 失败处理
+            $(".scrollimg img").each(function(){
+                var num = $(this).index();
+                $(this).error(function () {
+                    if(num!=0) {
+                        $(this).attr('src', './dist/css/images/nopicture' + num + '.jpg');
+                    }else{
+                        $(this).attr('src', './dist/css/images/nopicture.jpg');
+                    }
+                });
+            });
+            $(".bigimgs img").error(function () {
+                $(this).attr('src', './dist/css/images/nopicture.jpg');
+            });
+            //图片轮播
+            $(".scrollimg img").click(function(){
+                $(".scrollimg img").removeClass('cur');
+                $(this).addClass('cur');
+                $(".bigimgs img").attr("src",$(this).attr('src'));
+            });
+            var startnum=0;
+            var imglen=$(".scrollimg img").length;
+            $(".lefttg").click(function(){
+                if(startnum==0) return;
+                startnum++;
+                $('.moveimg').css("margin-left",startnum*270+"px");
+                var imgNum = Math.abs(startnum);
+                $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
+            });
+            $(".righttg").click(function(){
+                if(startnum<(imgLength-imglen)) return;
+                startnum--;
+                $('.moveimg').css("margin-left",startnum*270+"px");
+                var imgNum = Math.abs(startnum);
+                $(".bigimgs img").attr("src",$('.scrollimg img').eq(imgNum).attr('src'));
+            });
+        }
     });
     function initTable(url,keyNum) {
         var startNum = 0;
@@ -209,9 +215,9 @@ function initDetail(favorId,sourceType,username) {
             startNum = keyNum*10-10;
         }
         var username = $('#userName').text();
-        if(username==""){
-            layer.msg("你还未登陆,请先前往用户中心登陆!");
-        }else {
+        // if(username==""){
+        //     layer.msg("你还未登陆,请先前往用户中心登陆!");
+        // }else {
             var url = api + 'accountList/accountDetailSource?mainId=' + encodeURI(mainId) +
                 '&sourceType=' + encodeURI(sourceType) +
                 '&userId=' + encodeURI(userId) +
@@ -288,7 +294,7 @@ function initDetail(favorId,sourceType,username) {
                     });
                 });
             });
-        }
+        // }
     }
     function initPage(pageList,keyNum) {
         var pageDatas = pageList;
