@@ -103,7 +103,7 @@ function initBunding() {
                 layer.msg("请输入有效的手机号码！")
             } else {
                 $.ajax({
-                    url: '/testDemo/message/sendMessage?tel=' + encodeURI(telphone) + '&type=1',
+                    url: '/message/sendMessage?tel=' + encodeURI(telphone) + '&type=1',
                     dataType: 'text',
                     success: function (info) {
                         $('#checkNum').hide();
@@ -131,7 +131,7 @@ function initBunding() {
             layer.msg("验证码位数不正确!");
         }else{
             $.ajax({
-                url: '/testDemo/message/checkNum?tel=' + encodeURI(telphone)+'&checkNum='+encodeURI(checkNum),
+                url: '/message/checkNum?tel=' + encodeURI(telphone)+'&checkNum='+encodeURI(checkNum),
                 dataType:'text',
                 success:function (info) {
                     if(info=='1') {

@@ -38,7 +38,7 @@ function initBunding() {
             }else {
                 if(isChecked) {
                     $.ajax({
-                        url: '/testDemo/message/sendMessage?tel=' + encodeURI(telphone) + '&type=3',
+                        url: '/message/sendMessage?tel=' + encodeURI(telphone) + '&type=3',
                         dataType: 'text',
                         success: function (info) {
                             layer.msg(info);
@@ -60,7 +60,7 @@ function initBunding() {
         }else{
             if(checkNum!="") {
                 $.ajax({
-                    url: '/testDemo/message/checkNum?tel=' + encodeURI(telphone) + '&checkNum=' + encodeURI(checkNum),
+                    url: '/message/checkNum?tel=' + encodeURI(telphone) + '&checkNum=' + encodeURI(checkNum),
                     dataType: 'text',
                     success: function (info) {
                         if (info == '1') {
