@@ -131,7 +131,7 @@ function initBunding() {
             layer.msg("验证码位数不正确!");
         }else{
             $.ajax({
-                url: '/testDemo/message/checkNum?tel=' + encodeURI(telphone)+'&checkNum='+encodeURI(checkNum),
+                url: '/message/checkNum?tel=' + encodeURI(telphone)+'&checkNum='+encodeURI(checkNum),
                 dataType:'text',
                 success:function (info) {
                     if(info=='1') {
