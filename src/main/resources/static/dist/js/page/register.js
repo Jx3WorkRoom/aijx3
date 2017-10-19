@@ -103,7 +103,7 @@ function initBunding() {
                 layer.msg("请输入有效的手机号码！")
             } else {
                 $.ajax({
-                    url: '/testDemo/message/sendMessage?tel=' + encodeURI(telphone) + '&type=1',
+                    url: '/message/sendMessage?tel=' + encodeURI(telphone) + '&type=1',
                     dataType: 'text',
                     success: function (info) {
                         $('#checkNum').hide();
