@@ -36,8 +36,8 @@ function initDetail(favorId,sourceType,username) {
                     replyTime = value.REPLY_TIME==null?"":value.REPLY_TIME;
                     sourceType =value.SOURCE_TYPE==null?1:value.SOURCE_TYPE;
                     userId = value.userId==null?1:value.userId;
-                    var validNum = value.USER_ISVALID==null?"0":value.USER_ISVALID;
-                    $('.userIsvalid').text(validNum+"人提交失效!");
+                    // var validNum = value.USER_ISVALID==null?"0":value.USER_ISVALID;
+                    // $('.userIsvalid').text(validNum+"人提交失效!");
                     var imgSrc = value.WENJIAN_PATH==null?value.PIC_PATH:value.WENJIAN_PATH;
                     imgSrc = api+'uploadFile/getImage?WENJIAN_PATH='+encodeURI(imgSrc);
                     var imgHtml = "";
