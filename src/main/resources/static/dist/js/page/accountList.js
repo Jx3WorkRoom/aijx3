@@ -90,7 +90,7 @@ function initTable(url,keyNum) {
     var dataTemp = null;
     $.ajax({
        url:url,
-       async:false,
+       async:true,
         success:function (data) {
             dataTemp = data;
             //填充表格数据
@@ -425,6 +425,7 @@ function initSeach() {
     }).complete(function () {
         $('.query-l').unbind("click");
         $('.query-l').click(function () {
+            pageClickNum = 1
             var tradeType =$('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
             if(tradeType=="求购"){
                 tradeType=1;

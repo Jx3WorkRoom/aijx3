@@ -93,7 +93,7 @@ function initTable(url,keyNum) {
     var dataTemp = null;
     $.ajax({
         url:url,
-        async:false,
+        async:true,
         success:function (data) {
             dataTemp = data;
             //填充表格数据
