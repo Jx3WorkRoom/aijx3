@@ -61,8 +61,10 @@
   <div class="searchcon">
    <div class="s_top">
      <ul>
-      <li class="cur">外观搜索</li>
-      <!--<li>外观求购</li>-->
+        <li class="cur">贴吧外观搜索</li>
+        <li>用户发布外观</li>
+        <li>外观成交价格</li>
+         <li>各服外观市价参考</li>
      </ul>
      <div class="clear"></div>
      <div class="sline"></div>
@@ -71,17 +73,19 @@
    <div class="logincon searccon">
     <span class="show0">
      <table>
-         <tr>
-                    <td align="right" class="wr ft1">收售：</td>
-                    <td><ul class="nav nav-pills">
-                        <li class="dropdown all-camera-dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 出售 <b class="caret"></b> </a>
-                            <ul class="dropdown-menu">
-                                <li data-filter-camera-type="all"><a data-toggle="tab" href="javascript:void(0)">求购</a></li>
-                                <li data-filter-camera-type="Alpha"><a data-toggle="tab" href="javascript:void(0)">出售</a></li>
-                            </ul>
-                        </li>
-                    </ul></td>
-                </tr>
+          <tr>
+              <td align="right" class="wr ft1">收售：</td>
+              <td>
+                  <ul class="nav nav-pills">
+                    <li class="dropdown all-camera-dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 出售 <b class="caret"></b> </a>
+                      <ul class="dropdown-menu">
+                          <li data-filter-camera-type="all"><a data-toggle="tab" href="javascript:void(0)">求购</a></li>
+                          <li data-filter-camera-type="Alpha"><a data-toggle="tab" href="javascript:void(0)">出售</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+              </td>
+          </tr>
       <tr>
        <td align="right" class="wr ft1">区服：</td>
       <td onLoad="setup()" style="margin:0">
@@ -253,13 +257,6 @@
         $(".nav-pills ul li").click(function(){
             var sefont=$(this).find('a').text();
             $(this).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
-        });
-        $(".s_top ul li").click(function(){
-            var listindex=$(".s_top ul li").index(this);
-            $(".s_top ul li").removeClass('cur');
-            $(this).addClass('cur');
-            $(".show0,.show1").hide();
-            $('.show'+listindex).show()
         });
     });
 </script>

@@ -84,7 +84,6 @@ function initTable(url,keyNum) {
         "             <div class=\"table-th\">收/售</div>\n" +
         "            <div class=\"table-th\">价格（元）</div>\n" +
         "            <div class=\"table-th\">匹配度</div>\n" +
-        "            <div class=\"table-th\">关注度</div>\n" +
         "            <div class=\"table-th\">上架时间</div>\n" +
         "          </div>");
     var dataTemp = null;
@@ -125,7 +124,6 @@ function initTable(url,keyNum) {
             function initDiv(value){
                 var time = sumTime(value.REPLY_TIME);
                 var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
-                var follow = value.USER_FOLLOW == null ? "--" : value.USER_FOLLOW;
                 var matchingDegree = '--';
                 if (clickSeachNum != 0) {
                     matchingDegree = sumMatchingDegree(value, data.segMentWordMap) + '%';
@@ -168,7 +166,6 @@ function initTable(url,keyNum) {
                     "            <div class=\"table-td\">" + tradeType + "</div>\n" +
                     "            <div class=\"table-td\">" + price + "</div>\n" +
                     "            <div class=\"table-td\">" + matchingDegree + "</div>\n" +
-                    "            <div class=\"table-td\">" + follow + "</div>\n" +
                     "            <div class=\"table-td\">" + time + "</div>\n" +
                     "          </div>")
             }
@@ -277,23 +274,23 @@ function initTable(url,keyNum) {
                     return year + "-" + month + "-" + date +" "+hour+":"+minute+":"+second;
                 };
                 time =timeStamp2String(time);
-                var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
-                var reStr = null;
-                var diff = new DateUtil().diffDateTime(time,startTime)/1000;
-                var day = parseInt(diff / (24*60*60));//计算整数天数
-                var hour = parseInt(diff/(60*60));//计算整数小时数
-                var min = parseInt(diff/60);//计算整数分
-                if(day>1){
-                    reStr = day+"天前";
-                }else{
-                    var hour = parseInt(diff/(60*60));//计算整数小时数
-                    if(hour<1){
-                        reStr ="1小时内";
-                    }else {
-                        reStr = hour + "小时前";
-                    }
-                }
-                return reStr;
+                // var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                // var reStr = null;
+                // var diff = new DateUtil().diffDateTime(time,startTime)/1000;
+                // var day = parseInt(diff / (24*60*60));//计算整数天数
+                // var hour = parseInt(diff/(60*60));//计算整数小时数
+                // var min = parseInt(diff/60);//计算整数分
+                // if(day>1){
+                //     reStr = day+"天前";
+                // }else{
+                //     var hour = parseInt(diff/(60*60));//计算整数小时数
+                //     if(hour<1){
+                //         reStr ="1小时内";
+                //     }else {
+                //         reStr = hour + "小时前";
+                //     }
+                // }
+                return time;
             }
         },
         complete:function () {

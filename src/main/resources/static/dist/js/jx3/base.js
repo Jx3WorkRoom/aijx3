@@ -145,23 +145,26 @@ $(document).ready(function(e) {
     } else if (selectStr.indexOf('quickRelease')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
         $('.menuelist').find('dd').eq(7).addClass('cur');
+    }  else if (selectStr.indexOf('appearancePrice')>-1) {
+        $('.navCon').find('a').eq(8).addClass('cur');
+        $('.menuelist').find('dd').eq(8).addClass('cur');
     } else if (selectStr.indexOf('detailRelease')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
         $('.menuelist').find('dd').eq(11).addClass('cur');
     } else if (selectStr.indexOf('userList')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
-        $('.menuelist').find('dd').eq(8).addClass('cur');
+        $('.menuelist').find('dd').eq(9).addClass('cur');
     } else if (selectStr.indexOf('userManage')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
-        $('.menuelist').find('dd').eq(9).addClass('cur');
+        $('.menuelist').find('dd').eq(10).addClass('cur');
     } else if (selectStr.indexOf('userservice')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
-        $('.menuelist').find('dd').eq(10).addClass('cur');
+        $('.menuelist').find('dd').eq(11).addClass('cur');
     } else if (selectStr.indexOf('usersetting')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
         $('.menuelist').find('dd').eq(15).addClass('cur');
     } else if (selectStr.indexOf('userimgs')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
-        $('.menuelist').find('dd').eq(11).addClass('cur');
+        $('.menuelist').find('dd').eq(12).addClass('cur');
     }
 });

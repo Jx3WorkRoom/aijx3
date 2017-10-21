@@ -88,9 +88,7 @@ function initTable(url,keyNum) {
         "        <div class=\"table-th\">介绍说明</div>\n" +
         "          <div class=\"table-th\">收/售</div>\n" +
         "        <div class=\"table-th\">价格（元）</div>\n" +
-        "        <div class=\"table-th\">关注度</div>\n" +
         "        <div class=\"table-th\">上架时间</div>\n" +
-        "        <div class=\"table-th\">状态报告</div>\n" +
         "        <div class=\"table-th\">收藏</div>\n" +
         "      </div>");
     layer.load();
@@ -104,8 +102,6 @@ function initTable(url,keyNum) {
             var tableDatas = data.datas==null?"":data.datas;
                 $.each(tableDatas, function (i, value) {
                     var time = sumTime(value.REPLY_TIME);
-                    var follow = value.USER_FOLLOW == null ? '--' : value.USER_FOLLOW;
-                    var isValidNum = value.USER_ISVALID == null ? '0' : value.USER_ISVALID;
                     var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
@@ -119,7 +115,8 @@ function initTable(url,keyNum) {
                     }else{
                         value.COLL_TYPE=0;
                     }
-                    var postContent = getNewline(value.POST_CONTENT);
+                    var propName = value.PROP_NAME.replace("[","").replace("]","");
+                    var postContent = getNewline(value.POST_CONTENT).replace(/\s/g,"");
                     function getNewline(val) {
                         var str = new String(val);
                         var bytesCount = 0;
@@ -142,38 +139,36 @@ function initTable(url,keyNum) {
                         }
                         return s;
                     }
-                    if (value.COLL_TYPE == null || value.COLL_TYPE == 0 || username == '') {
-                        $(".table").append(" <div class=\"table-tr\">\n" +
-                            "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
-                            "        <div class=\"table-td replyTime\" style='display: none'>" + value.REPLY_TIME + "</div>\n" +
-                            "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
-                            "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
-                            "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PROP_NAME + "</div>\n" +
-                            "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
-                            "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
-                            "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
-                            "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
-                            "      </div>");
-                    } else {
-                        $(".table").append(" <div class=\"table-tr\">\n" +
-                            "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
-                            "        <div class=\"table-td replyTime\" style='display: none'>" + value.REPLY_TIME + "</div>\n" +
-                            "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
-                            "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
-                            "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PROP_NAME + "</div>\n" +
-                            "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
-                            "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
-                            "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
-                            "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
-                            "      </div>");
+                    if(postContent.length>0) {
+                        if (value.COLL_TYPE == null || value.COLL_TYPE == 0 || username == '') {
+                            $(".table").append(" <div class=\"table-tr\">\n" +
+                                "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
+                                "        <div class=\"table-td replyTime\" style='display: none'>" + value.REPLY_TIME + "</div>\n" +
+                                "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
+                                "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
+                                "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                                "        <div class=\"table-td\">" + propName + "</div>\n" +
+                                "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
+                                "          <div class=\"table-td\">" + tradeType + "</div>\n" +
+                                "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
+                                "        <div class=\"table-td\">" + time + "</div>\n" +
+                                "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
+                                "      </div>");
+                        } else {
+                            $(".table").append(" <div class=\"table-tr\">\n" +
+                                "        <div class=\"table-td main_id\" style='display: none'>" + value.MAIN_ID + "</div>\n" +
+                                "        <div class=\"table-td replyTime\" style='display: none'>" + value.REPLY_TIME + "</div>\n" +
+                                "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
+                                "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
+                                "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                                "        <div class=\"table-td\">" + propName + "</div>\n" +
+                                "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
+                                "          <div class=\"table-td\">" + tradeType + "</div>\n" +
+                                "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
+                                "        <div class=\"table-td\">" + time + "</div>\n" +
+                                "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
+                                "      </div>");
+                        }
                     }
                 });
                 function replace(str) {
@@ -208,29 +203,29 @@ function initTable(url,keyNum) {
                         if (parseInt(min) < 10) {
                             min = '0' + min;
                         }
-                        if (parseInt(month) < 10) {
+                        if (parseInt(second) < 10) {
                             second = '0' + second;
                         }
                         return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + second;
                     };
                     time = timeStamp2String(time);
-                    var startTime = new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
-                    time = time + " 00:00:00";
-                    var reStr = null;
-                    var diff = new DateUtil().diffDateTime(time, startTime) / 1000;
-                    var day = parseInt(diff / (24 * 60 * 60));//计算整数天数
-                    var hour = parseInt(diff / (60 * 60));//计算整数小时数
-                    var min = parseInt(diff / 60);//计算整数分
-                    if (day > 1) {
-                        reStr = day + "天前";
-                    } else {
-                        var hour = parseInt(diff / (60 * 60));//计算整数小时数
-                        if (hour < 1) {
-                            hour = 1;
-                        }
-                        reStr = hour + "小时前";
-                    }
-                    return reStr;
+                    // var startTime = new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                    // time = time + " 00:00:00";
+                    // var reStr = null;
+                    // var diff = new DateUtil().diffDateTime(time, startTime) / 1000;
+                    // var day = parseInt(diff / (24 * 60 * 60));//计算整数天数
+                    // var hour = parseInt(diff / (60 * 60));//计算整数小时数
+                    // var min = parseInt(diff / 60);//计算整数分
+                    // if (day > 1) {
+                    //     reStr = day + "天前";
+                    // } else {
+                    //     var hour = parseInt(diff / (60 * 60));//计算整数小时数
+                    //     if (hour < 1) {
+                    //         hour = 1;
+                    //     }
+                    //     reStr = hour + "小时前";
+                    // }
+                    return time;
                 }
                 //弹出详情框
                 $('.modalBtn').unbind('click');

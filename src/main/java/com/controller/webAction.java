@@ -208,4 +208,8 @@ public class webAction {
         return "levelingDetail";
     }
 
+    @RequestMapping("/appearancePrice")
+    public String appearancePriceaction() {
+        return "userCenter/appearancePrice";
+    }
 }

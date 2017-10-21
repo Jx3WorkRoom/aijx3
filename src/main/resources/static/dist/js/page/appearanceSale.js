@@ -14,8 +14,30 @@ $(function () {
     $.getJSON(useNameurl,function (data) {
         userId = data.userId;
     });
+    initBunding();
 });
 
+
+function initBunding() {
+    $('.s_top').find('ul').find('li').click(function () {
+        $('.s_top').find('ul').find('li').removeClass("cur");
+        $('.areaSelect').find('select').eq(0).val(-1);
+        $('.areaSelect').find('select').eq(1).val(0);
+        $('.areaSelect').find('select').eq(2).val(0);
+        $('.tixin').val("");
+        $(this).addClass('cur');
+        var index = $('.s_top').find('ul').find('.cur').index();
+        if(index==0){
+            initTable();
+        }else if(index ==1){
+            initTable2();
+        }else if(index ==2){
+            initTable3()
+        }else if(index ==3){
+            initTable4()
+        }
+    });
+}
 
 function timer() {
     setInterval("timeFun()",10*60*1000)
@@ -27,6 +49,7 @@ function timer() {
 //url 查询时传入新的url
 //keyNum page组件点击的第几页
 function initTable(url,keyNum) {
+    $('.show0').find('table').find('tr').eq(0).hide();
     var startNum = 0;
     var endNum =20;
     if(keyNum!=null){
@@ -34,26 +57,10 @@ function initTable(url,keyNum) {
         startNum = keyNum*20-20;
     }
     if(url==null) {
-        var tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
-        if(tradeType=="求购"){
-            tradeType=1;
-        }else{
-            tradeType=2;
-        }
-        var str = getUrlParam('tradeType');
         function getUrlParam(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
             var r = window.location.search.substr(1).match(reg); //匹配目标参数
             if (r != null) return unescape(r[2]); return null; //返回参数值
-        }
-        if(parseInt(str)==1){
-            tradeType=1;
-            var sefont=$(".nav-pills ul li").eq(0).find('a').text();
-            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
-        }else if(parseInt(str)==2){
-            tradeType=2;
-            var sefont=$(".nav-pills ul li").eq(1).find('a').text();
-            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
         }
         var areaSelection = "";
         $('.areaSelect').find('select').each(function () {
@@ -69,12 +76,10 @@ function initTable(url,keyNum) {
         }
         var shape = $('.tixin').val();
         if(shape==""&&areaSelection=="") {
-            url = api + 'appearanceSale?tradeType=' + encodeURI(tradeType) +
-                        '&startNum=' + encodeURI(startNum) +
+            url = api + 'appearanceSale?startNum=' + encodeURI(startNum) +
                         '&endNum=' + encodeURI(endNum);
         }else{
-            url = api + 'appearanceSale?tradeType=' + encodeURI(tradeType)
-                + '&areaSelection=' + encodeURI(areaSelection)
+            url = api + 'appearanceSale?areaSelection=' + encodeURI(areaSelection)
                 + '&shape=' + encodeURI(shape)
                 +'&startNum=' +encodeURI(startNum)+
                 +'&endNum=20';
@@ -83,13 +88,8 @@ function initTable(url,keyNum) {
     $(".table").empty();
     $(".table").append("<div class=\"table-tr tablered\">\n" +
         "        <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
-        "        <div class=\"table-th\">外观名</div>\n" +
         "        <div class=\"table-th\">介绍说明</div>\n" +
-        "          <div class=\"table-th\">收/售</div>\n" +
-        "        <div class=\"table-th\">价格（元）</div>\n" +
-        "        <div class=\"table-th\">关注度</div>\n" +
         "        <div class=\"table-th\">上架时间</div>\n" +
-        "        <div class=\"table-th\">状态报告</div>\n" +
         "        <div class=\"table-th\">收藏</div>\n" +
         "      </div>");
     layer.load();
@@ -103,20 +103,10 @@ function initTable(url,keyNum) {
             var tableDatas = data.datas==null?"":data.datas;
                 $.each(tableDatas,function (i,value) {
                     var time = sumTime(value.REPLY_TIME);
-                    var tradeType = value.TRADE_TYPE==1?"求购":"出售";
-                    var follow = value.USER_FOLLOW==null?'--':value.USER_FOLLOW;
-                    var productIsvalid = value.USER_ISVALID==null?'无':value.USER_ISVALID;
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
                     belongOf = belongOf.split(',')[0];
                     belongOf = replace(belongOf);
-                    var viewName = value.VIEW_NAME.replace("[", "");
-                    viewName = viewName.replace("]", "");
-                    viewName = viewName.split(',')[0];
-                    // var vName ="";
-                    // for(var num=0;num<viewName.split(",");num++){
-                    //     vName =vName+viewName[num]+' \n ';
-                    // }
                     if(userId!=""){
                         if(userId!=value.userIdColl){
                             value.COLL_TYPE=0;
@@ -139,7 +129,7 @@ function initTable(url,keyNum) {
                             }
                             //换行
                             s += str.charAt(i);
-                            if(bytesCount>=40){
+                            if(bytesCount>=100){
                                 s = s + '<br>';
                                 //重置
                                 bytesCount=0;
@@ -155,13 +145,8 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + viewName + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
-                            "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + productIsvalid + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
                             "      </div>");
                     }else{
@@ -171,13 +156,8 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
-                            "        <div class=\"table-td\">" + viewName + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
-                            "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + value.PRICE_NUM + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + productIsvalid + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
                             "      </div>");
                     }
@@ -353,29 +333,29 @@ function initTable(url,keyNum) {
                     if(parseInt(min)<10){
                         min = '0'+min;
                     }
-                    if(parseInt(month)<10){
+                    if(parseInt(second)<10){
                         second = '0'+second;
                     }
                     return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
                 };
                 time =timeStamp2String(time);
-                var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
-                time = time+" 00:00:00";
-                var reStr = null;
-                var diff = new DateUtil().diffDateTime(time,startTime)/1000;
-                var day = parseInt(diff / (24*60*60));//计算整数天数
-                var hour = parseInt(diff/(60*60));//计算整数小时数
-                var min = parseInt(diff/60);//计算整数分
-                if(day>1){
-                    reStr = day+"天前";
-                }else{
-                    var hour = parseInt(diff/(60*60));//计算整数小时数
-                    if(hour<1){
-                        hour = 1;
-                    }
-                    reStr = hour+"小时前";
-                }
-                return reStr;
+                // var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                // time = time+" 00:00:00";
+                // var reStr = null;
+                // var diff = new DateUtil().diffDateTime(time,startTime)/1000;
+                // var day = parseInt(diff / (24*60*60));//计算整数天数
+                // var hour = parseInt(diff/(60*60));//计算整数小时数
+                // var min = parseInt(diff/60);//计算整数分
+                // if(day>1){
+                //     reStr = day+"天前";
+                // }else{
+                //     var hour = parseInt(diff/(60*60));//计算整数小时数
+                //     if(hour<1){
+                //         hour = 1;
+                //     }
+                //     reStr = hour+"小时前";
+                // }
+                return time;
             }
             function replace(str){
                 str = str.replace("电月","");
@@ -529,14 +509,44 @@ function initSeach() {
                 areaSelection="";
             }
             var shape = $('.tixin').val()
-            if(shape==""&&areaSelection==""){
-                initTable();
-            }else {
-                url = api + 'appearanceSale?tradeType=' + encodeURI(tradeType)
-                    + '&areaSelection=' + encodeURI(areaSelection)
-                    + '&shape=' + encodeURI(shape)
-                +'&startNum=0&endNum=20';
-                initTable(url);
+            var index = $('.s_top').find('ul').find('.cur').index();
+            if(index==0) {
+                if (shape == "" && areaSelection == "") {
+                    initTable();
+                } else {
+                    url = api + 'appearanceSale?areaSelection=' + encodeURI(areaSelection)
+                        + '&shape=' + encodeURI(shape)
+                        + '&startNum=0&endNum=20';
+                    initTable(url);
+                }
+            }else if(index==1){
+                if (shape == "" && areaSelection == "") {
+                    initTable2();
+                } else {
+                    url = api + 'appearanceSale2?tradeType=' + encodeURI(tradeType)
+                        + '&areaSelection=' + encodeURI(areaSelection)
+                        + '&shape=' + encodeURI(shape)
+                        + '&startNum=0&endNum=20';
+                    initTable2(url);
+                }
+            }else if(index==2){
+                if (shape == "" && areaSelection == "") {
+                    initTable3();
+                } else {
+                    url = api + 'appearanceSale3?areaSelection=' + encodeURI(areaSelection)
+                        + '&shape=' + encodeURI(shape)
+                        + '&startNum=0&endNum=20';
+                    initTable3(url);
+                }
+            }else if(index==3){
+                if (shape == "" && areaSelection == "") {
+                    initTable4();
+                } else {
+                    url = api + 'appearanceSale4?areaSelection=' + encodeURI(areaSelection)
+                        + '&shape=' + encodeURI(shape)
+                        + '&startNum=0&endNum=20';
+                    initTable4(url);
+                }
             }
         });
     });
@@ -823,6 +833,1178 @@ function initPage(pageList,keyNum) {
                     initTable(null,pageNum);
                 }else{
                     initTable(null,num);
+                }
+            });
+        }
+    })
+}
+
+
+function initTable2(url,keyNum) {
+    $('.show0').find('table').find('tr').eq(0).show();
+    var startNum = 0;
+    var endNum =20;
+    if(keyNum!=null){
+        endNum = 20;
+        startNum = keyNum*20-20;
+    }
+    if(url==null) {
+        var tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
+        if(tradeType=="求购"){
+            tradeType=1;
+        }else{
+            tradeType=2;
+        }
+        var str = getUrlParam('tradeType');
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        if(parseInt(str)==1){
+            tradeType=1;
+            var sefont=$(".nav-pills ul li").eq(0).find('a').text();
+            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
+        }else if(parseInt(str)==2){
+            tradeType=2;
+            var sefont=$(".nav-pills ul li").eq(1).find('a').text();
+            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
+        }
+        var areaSelection = "";
+        $('.areaSelect').find('select').each(function () {
+            var text = $(this).find('option:selected').text();
+            if(text.indexOf("请选择")==-1) {
+                areaSelection += text + ',';
+            }
+        });
+        if(areaSelection.length>2) {
+            areaSelection = areaSelection.substring(0, areaSelection.length - 1);
+        }else{
+            areaSelection="";
+        }
+        var shape = $('.tixin').val();
+        if(shape==""&&areaSelection=="") {
+            url = api + 'appearanceSale2?tradeType='+encodeURI(tradeType)+
+                '&startNum=' + encodeURI(startNum) +
+                '&endNum=' + encodeURI(endNum);
+        }else{
+            url = api + 'appearanceSale2?tradeType='+encodeURI(tradeType)
+                +'&areaSelection=' + encodeURI(areaSelection)
+                +'&shape=' + encodeURI(shape)
+                +'&startNum=' +encodeURI(startNum)+
+                +'&endNum=20';
+        }
+    }
+    $(".table").empty();
+    $(".table").append("<div class=\"table-tr tablered\">\n" +
+        "        <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
+        "        <div class=\"table-th\">外观名</div>\n" +
+        "        <div class=\"table-th\">说明</div>\n" +
+        "        <div class=\"table-th\">收/售</div>\n" +
+        "        <div class=\"table-th\">价格(元)</div>\n" +
+        "        <div class=\"table-th\">上架时间</div>\n" +
+        "        <div class=\"table-th\">联系</div>\n" +
+        "      </div>");
+    layer.load();
+    var dataTemp = null;
+    $.ajax({
+        url:url,
+        async:false,
+        success:function (data) {
+            dataTemp = data;
+            //填充表格数据
+            var tableDatas = data.datas==null?"":data.datas;
+            $.each(tableDatas,function (i,value) {
+                var time = sumTime(value.FAVOR_DATE);
+                var belongOf = value.BELONG_QF.replace("[", "");
+                belongOf = belongOf.replace("]", "");
+                belongOf = belongOf.split(',')[0];
+                belongOf = replace(belongOf);
+                var tradeType = value.TRADE_TYPE ==1?'求购':'出售';
+                var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
+                var priceNum = value.PRICE_NUM==null?'--':value.PRICE_NUM+'元';
+                if(userId!=""){
+                    if(userId!=value.userIdColl){
+                        value.COLL_TYPE=0;
+                    }
+                }else{
+                    value.COLL_TYPE=0;
+                }
+                var postContent = getNewline(value.FAVOR_INFO);
+                function getNewline(val) {
+                    var str = new String(val);
+                    var bytesCount = 0;
+                    var s="";
+                    for (var i = 0 ,n = str.length; i < n; i++) {
+                        var c = str.charCodeAt(i);
+                        //统计字符串的字符长度
+                        if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                            bytesCount += 1;
+                        } else {
+                            bytesCount += 2;
+                        }
+                        //换行
+                        s += str.charAt(i);
+                        if(bytesCount>=40){
+                            s = s + '<br>';
+                            //重置
+                            bytesCount=0;
+                        }
+                    }
+                    return s;
+                }
+                    $(".table").append(" <div class=\"table-tr\">\n" +
+                        "        <div class=\"table-td main_id\" style='display: none'>" + value.FAVOR_ID + "</div>\n" +
+                        "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
+                        "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                        "        <div class=\"table-td\">" + viewName + "</div>\n" +
+                        "        <div class=\"table-td table_lw\">" + postContent + "</div>\n" +
+                        "        <div class=\"table-td\">" + tradeType + "</div>\n" +
+                        "        <div class=\"table-td\">" + priceNum + "</div>\n" +
+                        "        <div class=\"table-td\">" + time + "</div>\n" +
+                        "        <div class=\"table-td\"><a class='modalBtn' href='javascript:void (0);'>联系方式</div>\n" +
+                        "      </div>");
+            });
+            //查看源
+            $('.modalBtn').unbind('click');
+            $('.modalBtn').click(function () {
+                var mainId = $(this).parent().parent().find('.main_id').text()==""?1:$(this).parent().parent().find('.main_id').text();
+                var url = api + 'appearanceSaleSource2?mainId=' + encodeURI(mainId);
+                $.getJSON(url, function (data) {
+                    if (data.datas == 'noAuth') {
+                        layer.msg('您没有查看权限,请前往用户中心充值!');
+                    } else {
+                         $('#identifier').addClass('madalHide');
+                         data = data.datas == null ? "--" : data.datas;
+                         var $table = $('#identifier').find('table');
+                         $table.empty();
+                         $table.append("<p>用户联系方式：</p>\n" +
+                             "                    <p>QQ：" + data + "</p>\n" +
+                             "                    <p>特别提示：请注意交易安全，本平台不对信息真实性和信息的安全性提供保证。若有疑问，请联系客服。</p>\n" +
+                             "                    ");
+                    }
+                });
+            });
+            var colose = $('.close');
+            var cancel = $('.btn-default');
+            $(colose,cancel).click(function () {
+                $(this).parents('.modal').removeClass('madalHide');
+            });
+            //计算上架时间
+            function sumTime(time) {
+                function timeStamp2String (time){
+                    var datetime = new Date();
+                    datetime.setTime(time);
+                    var year = datetime.getFullYear();
+                    var month = datetime.getMonth() + 1;
+                    var date = datetime.getDate();
+                    var hour = datetime.getHours();
+                    var min = datetime.getMinutes();
+                    var second = datetime.getSeconds();
+                    if(parseInt(month)<10){
+                        month = '0'+month;
+                    }
+                    if(parseInt(date)<10){
+                        date = '0'+date;
+                    }
+                    if(parseInt(hour)<10){
+                        hour = '0'+hour;
+                    }
+                    if(parseInt(min)<10){
+                        min = '0'+min;
+                    }
+                    if(parseInt(second)<10){
+                        second = '0'+second;
+                    }
+                    return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
+                };
+                time =timeStamp2String(time);
+                return time;
+            }
+            function replace(str){
+                str = str.replace("电月","");
+                str = str.replace("电点","");
+                str = str.replace("网点","");
+                str = str.replace("网月","");
+                str = str.replace("双点","");
+                str = str.replace("双月","");
+                return str;
+            }
+        },
+        complete:function () {
+            layer.closeAll();
+            var pageList = dataTemp.pageList==null?"":dataTemp.pageList;
+            if(pageList!=""){
+                initPage2(pageList,keyNum);
+            }else{
+                $('.pagination').empty();
+                layer.msg("加载数据出错!");
+            }
+        },
+        error:function () {
+            layer.closeAll();
+            layer.msg("数据请求失败!")
+        }
+    });
+}
+
+//加载分页组件
+function initPage2(pageList,keyNum) {
+    var pageDatas = pageList;
+    pageList = pageList==null?100:pageList-1;
+    var pageNum = parseInt(pageList/20)+1;
+    $('.pagination').empty();
+    if(keyNum==null) {
+        if (pageNum > 6) {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li class=\"active\"><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        } else {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+            );
+            for (var i = 1; i <= pageNum; i++) {
+                if(i==1){
+                    $('.pagination').append(
+                        "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }
+            }
+            if (pageNum == 1) {
+                $('.pagination').append(
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            }
+        }
+    }else{
+        keyNum=parseInt(keyNum);
+        if(keyNum>pageNum){
+            layer.msg("分页组件加载错误!");
+        }else if(keyNum==1){
+            initPage2(pageDatas);
+        }else if(keyNum==2){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                    "          <li class=\"active\"><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum!=2) {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else{
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(keyNum==3){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">4</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum==3){
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(pageNum-keyNum>3&&keyNum>=4){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum-1) + "</a></li>\n"+
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==pageNum){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==parseInt(pageNum-1)){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else{
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }
+    }
+    $('.pagination li').each(function () {
+        $(this).unbind("click");
+        if($(this).attr("class")!='disabled' && $(this).attr("class")!='active'){
+            $(this).click(function () {
+                var num = $(this).find('a').text();
+                if(num=='首页'){
+                    initTable2();
+                }else if(num=='上一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())-1;
+                    initTable2(null,num);
+                }else if(num=='下一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())+1;
+                    initTable2(null,num);
+                }else if(num=='尾页'){
+                    initTable2(null,pageNum);
+                }else{
+                    initTable2(null,num);
+                }
+            });
+        }
+    })
+}
+
+
+function initTable3(url,keyNum) {
+    $('.show0').find('table').find('tr').eq(0).hide();
+    var startNum = 0;
+    var endNum =20;
+    if(keyNum!=null){
+        endNum = 20;
+        startNum = keyNum*20-20;
+    }
+    if(url==null) {
+        var areaSelection = "";
+        $('.areaSelect').find('select').each(function () {
+            var text = $(this).find('option:selected').text();
+            if(text.indexOf("请选择")==-1) {
+                areaSelection += text + ',';
+            }
+        });
+        if(areaSelection.length>2) {
+            areaSelection = areaSelection.substring(0, areaSelection.length - 1);
+        }else{
+            areaSelection="";
+        }
+        var shape = $('.tixin').val();
+        if(shape==""&&areaSelection=="") {
+            url = api + 'appearanceSale3?startNum=' + encodeURI(startNum) +
+                '&endNum=' + encodeURI(endNum);
+        }else{
+            url = api + 'appearanceSale3?areaSelection=' + encodeURI(areaSelection)
+                + '&shape=' + encodeURI(shape)
+                +'&startNum=' +encodeURI(startNum)+
+                +'&endNum=20';
+        }
+    }
+    $(".table").empty();
+    $(".table").append("<div class=\"table-tr tablered\">\n" +
+        "        <div class=\"table-th table-th1\"></div>\n" +
+        "        <div class=\"table-th\"></div>\n" +
+        "        <div class=\"table-th\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
+        "        <div class=\"table-th\">外观名</div>\n" +
+        "        <div class=\"table-th\">别名</div>\n" +
+        "        <div class=\"table-th\">成交价格(元)</div>\n" +
+        "        <div class=\"table-th\">成交时间</div>\n" +
+        "      </div>");
+    layer.load();
+    var dataTemp = null;
+    $.ajax({
+        url:url,
+        async:false,
+        success:function (data) {
+            dataTemp = data;
+            //填充表格数据
+            var tableDatas = data.datas==null?"":data.datas;
+            $.each(tableDatas,function (i,value) {
+                var time = sumTime(value.TRADE_DATE);
+                var belongOf = value.BELONG_QF.replace("[", "");
+                belongOf = belongOf.replace("]", "");
+                belongOf = belongOf.split(',')[0];
+                belongOf = replace(belongOf);
+                var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
+                var viewName_1 = value.VIEW_NAME_1==null?'--':value.VIEW_NAME_1;
+                var priceNum = value.PRICE_NUM==null?'--':value.PRICE_NUM;
+                    $(".table").append(" <div class=\"table-tr\">\n" +
+                        "        <div class=\"table-td\"></div>\n" +
+                        "        <div class=\"table-td\"></div>\n" +
+                        "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                        "        <div class=\"table-td\">" + viewName + "</div>\n" +
+                        "        <div class=\"table-td\">" + viewName_1 + "</div>\n" +
+                        "        <div class=\"table-td\">" + priceNum + "</div>\n" +
+                        "        <div class=\"table-td\">" + time + "</div>\n" +
+                        "      </div>");
+            });
+            //计算上架时间
+            function sumTime(time) {
+                function timeStamp2String (time){
+                    var datetime = new Date();
+                    datetime.setTime(time);
+                    var year = datetime.getFullYear();
+                    var month = datetime.getMonth() + 1;
+                    var date = datetime.getDate();
+                    // var hour = datetime.getHours();
+                    // var min = datetime.getMinutes();
+                    // var second = datetime.getSeconds();
+                    if(parseInt(month)<10){
+                        month = '0'+month;
+                    }
+                    if(parseInt(date)<10){
+                        date = '0'+date;
+                    }
+                    // if(parseInt(hour)<10){
+                    //     hour = '0'+hour;
+                    // }
+                    // if(parseInt(min)<10){
+                    //     min = '0'+min;
+                    // }
+                    // if(parseInt(second)<10){
+                    //     second = '0'+second;
+                    // }
+                    // return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
+                    return year + "-" + month + "-" + date;
+                };
+                time =timeStamp2String(time);
+                // var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                // time = time+" 00:00:00";
+                // var reStr = null;
+                // var diff = new DateUtil().diffDateTime(time,startTime)/1000;
+                // var day = parseInt(diff / (24*60*60));//计算整数天数
+                // var hour = parseInt(diff/(60*60));//计算整数小时数
+                // var min = parseInt(diff/60);//计算整数分
+                // if(day>1){
+                //     reStr = day+"天前";
+                // }else{
+                //     var hour = parseInt(diff/(60*60));//计算整数小时数
+                //     if(hour<1){
+                //         hour = 1;
+                //     }
+                //     reStr = hour+"小时前";
+                // }
+                return time;
+            }
+            function replace(str){
+                str = str.replace("电月","");
+                str = str.replace("电点","");
+                str = str.replace("网点","");
+                str = str.replace("网月","");
+                str = str.replace("双点","");
+                str = str.replace("双月","");
+                return str;
+            }
+        },
+        complete:function () {
+            layer.closeAll();
+            var pageList = dataTemp.pageList==null?"":dataTemp.pageList;
+            if(pageList!=""){
+                initPage3(pageList,keyNum);
+            }else{
+                $('.pagination').empty();
+                layer.msg("加载数据出错!");
+            }
+        },
+        error:function () {
+            layer.closeAll();
+            layer.msg("数据请求失败!")
+        }
+    });
+}
+
+//加载分页组件
+function initPage3(pageList,keyNum) {
+    var pageDatas = pageList;
+    pageList = pageList==null?100:pageList-1;
+    var pageNum = parseInt(pageList/20)+1;
+    $('.pagination').empty();
+    if(keyNum==null) {
+        if (pageNum > 6) {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li class=\"active\"><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        } else {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+            );
+            for (var i = 1; i <= pageNum; i++) {
+                if(i==1){
+                    $('.pagination').append(
+                        "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }
+            }
+            if (pageNum == 1) {
+                $('.pagination').append(
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            }
+        }
+    }else{
+        keyNum=parseInt(keyNum);
+        if(keyNum>pageNum){
+            layer.msg("分页组件加载错误!");
+        }else if(keyNum==1){
+            initPage3(pageDatas);
+        }else if(keyNum==2){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                    "          <li class=\"active\"><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum!=2) {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else{
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(keyNum==3){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">4</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum==3){
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(pageNum-keyNum>3&&keyNum>=4){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum-1) + "</a></li>\n"+
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==pageNum){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==parseInt(pageNum-1)){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else{
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }
+    }
+    $('.pagination li').each(function () {
+        $(this).unbind("click");
+        if($(this).attr("class")!='disabled' && $(this).attr("class")!='active'){
+            $(this).click(function () {
+                var num = $(this).find('a').text();
+                if(num=='首页'){
+                    initTable3();
+                }else if(num=='上一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())-1;
+                    initTable3(null,num);
+                }else if(num=='下一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())+1;
+                    initTable3(null,num);
+                }else if(num=='尾页'){
+                    initTable3(null,pageNum);
+                }else{
+                    initTable3(null,num);
+                }
+            });
+        }
+    })
+}
+
+function initTable4(url,keyNum) {
+    $('.show0').find('table').find('tr').eq(0).hide();
+    var startNum = 0;
+    var endNum =20;
+    if(keyNum!=null){
+        endNum = 20;
+        startNum = keyNum*20-20;
+    }
+    if(url==null) {
+        var areaSelection = "";
+        $('.areaSelect').find('select').each(function () {
+            var text = $(this).find('option:selected').text();
+            if(text.indexOf("请选择")==-1) {
+                areaSelection += text + ',';
+            }
+        });
+        if(areaSelection.length>2) {
+            areaSelection = areaSelection.substring(0, areaSelection.length - 1);
+        }else{
+            areaSelection="";
+        }
+        var shape = $('.tixin').val();
+        if(shape==""&&areaSelection=="") {
+            url = api + 'appearanceSale4?startNum=' + encodeURI(startNum) +
+                '&endNum=' + encodeURI(endNum);
+        }else{
+            url = api + 'appearanceSale4?areaSelection=' + encodeURI(areaSelection)
+                + '&shape=' + encodeURI(shape)
+                +'&startNum=' +encodeURI(startNum)+
+                +'&endNum=20';
+        }
+    }
+    $(".table").empty();
+    $(".table").append("<div class=\"table-tr tablered\">\n" +
+        "        <div class=\"table-th table-th1\"></div>\n" +
+        "        <div class=\"table-th\"></div>\n" +
+        "        <div class=\"table-th\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
+        "        <div class=\"table-th\">外观名</div>\n" +
+        "        <div class=\"table-th\">别名</div>\n" +
+        "        <div class=\"table-th\">市价(低)</div>\n" +
+        "        <div class=\"table-th\">市价(高)</div>\n" +
+        "        <div class=\"table-th\">更新时间</div>\n" +
+        "      </div>");
+    layer.load();
+    var dataTemp = null;
+    $.ajax({
+        url:url,
+        async:false,
+        success:function (data) {
+            dataTemp = data;
+            //填充表格数据
+            var tableDatas = data.datas==null?"":data.datas;
+            $.each(tableDatas,function (i,value) {
+                var time = sumTime(value.TRADE_DATE);
+                var belongOf = value.BELONG_QF.replace("[", "");
+                belongOf = belongOf.replace("]", "");
+                belongOf = belongOf.split(',')[0];
+                belongOf = replace(belongOf);
+                var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
+                var viewName_1 = value.VIEW_NAME_1==null?'--':value.VIEW_NAME_1;
+                var priceNum1 = value.PRICE_FLOOR==null?'--':value.PRICE_FLOOR;
+                var priceNum2 = value.PRICE_CEILING==null?'--':value.PRICE_CEILING;
+                    $(".table").append(" <div class=\"table-tr\">\n" +
+                        "        <div class=\"table-td\"></div>\n" +
+                        "        <div class=\"table-td\"></div>\n" +
+                        "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                        "        <div class=\"table-td\">" + viewName + "</div>\n" +
+                        "        <div class=\"table-td\">" + viewName_1 + "</div>\n" +
+                        "        <div class=\"table-td\">" + priceNum1 + "</div>\n" +
+                        "        <div class=\"table-td\">" + priceNum2 + "</div>\n" +
+                        "        <div class=\"table-td\">" + time + "</div>\n" +
+                        "      </div>");
+            });
+            //计算上架时间
+            function sumTime(time) {
+                function timeStamp2String (time){
+                    var datetime = new Date();
+                    datetime.setTime(time);
+                    var year = datetime.getFullYear();
+                    var month = datetime.getMonth() + 1;
+                    var date = datetime.getDate();
+                    // var hour = datetime.getHours();
+                    // var min = datetime.getMinutes();
+                    // var second = datetime.getSeconds();
+                    if(parseInt(month)<10){
+                        month = '0'+month;
+                    }
+                    if(parseInt(date)<10){
+                        date = '0'+date;
+                    }
+                    // if(parseInt(hour)<10){
+                    //     hour = '0'+hour;
+                    // }
+                    // if(parseInt(min)<10){
+                    //     min = '0'+min;
+                    // }
+                    // if(parseInt(second)<10){
+                    //     second = '0'+second;
+                    // }
+                    // return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
+                    return year + "-" + month + "-" + date;
+                };
+                time =timeStamp2String(time);
+                // var startTime =new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                // time = time+" 00:00:00";
+                // var reStr = null;
+                // var diff = new DateUtil().diffDateTime(time,startTime)/1000;
+                // var day = parseInt(diff / (24*60*60));//计算整数天数
+                // var hour = parseInt(diff/(60*60));//计算整数小时数
+                // var min = parseInt(diff/60);//计算整数分
+                // if(day>1){
+                //     reStr = day+"天前";
+                // }else{
+                //     var hour = parseInt(diff/(60*60));//计算整数小时数
+                //     if(hour<1){
+                //         hour = 1;
+                //     }
+                //     reStr = hour+"小时前";
+                // }
+                return time;
+            }
+            function replace(str){
+                str = str.replace("电月","");
+                str = str.replace("电点","");
+                str = str.replace("网点","");
+                str = str.replace("网月","");
+                str = str.replace("双点","");
+                str = str.replace("双月","");
+                return str;
+            }
+        },
+        complete:function () {
+            layer.closeAll();
+            var pageList = dataTemp.pageList==null?"":dataTemp.pageList;
+            if(pageList!=""){
+                initPage4(pageList,keyNum);
+            }else{
+                $('.pagination').empty();
+                layer.msg("加载数据出错!");
+            }
+        },
+        error:function () {
+            layer.closeAll();
+            layer.msg("数据请求失败!")
+        }
+    });
+}
+
+//加载分页组件
+function initPage4(pageList,keyNum) {
+    var pageDatas = pageList;
+    pageList = pageList==null?100:pageList-1;
+    var pageNum = parseInt(pageList/20)+1;
+    $('.pagination').empty();
+    if(keyNum==null) {
+        if (pageNum > 6) {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li class=\"active\"><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        } else {
+            $('.pagination').append(
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+            );
+            for (var i = 1; i <= pageNum; i++) {
+                if(i==1){
+                    $('.pagination').append(
+                        "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                    );
+                }
+            }
+            if (pageNum == 1) {
+                $('.pagination').append(
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            }
+        }
+    }else{
+        keyNum=parseInt(keyNum);
+        if(keyNum>pageNum){
+            layer.msg("分页组件加载错误!");
+        }else if(keyNum==1){
+            initPage4(pageDatas);
+        }else if(keyNum==2){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                    "          <li class=\"active\"><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum!=2) {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else{
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(keyNum==3){
+            if (pageNum > 6) {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                    "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">4</a></li>\n" +
+                    "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                );
+            } else {
+                $('.pagination').append(
+                    "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                    "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n"
+                );
+                for (var i = 1; i <= pageNum; i++) {
+                    if(i==keyNum){
+                        $('.pagination').append(
+                            "          <li class=\"active\"><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }else {
+                        $('.pagination').append(
+                            "          <li><a href=\"javascrpit:void(0)\">" + i + "</a></li>\n"
+                        );
+                    }
+                }
+                if(pageNum==3){
+                    $('.pagination').append(
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }else {
+                    $('.pagination').append(
+                        "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                        "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+                    );
+                }
+            }
+        }else if(pageNum-keyNum>3&&keyNum>=4){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum-1) + "</a></li>\n"+
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n"
+            );
+            $('.pagination').append(
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n"+
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==pageNum){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(pageNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else if(keyNum==parseInt(pageNum-1)){
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">3</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li  class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum+1) + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }else{
+            $('.pagination').append(
+                "          <li><a href=\"javascrpit:void(0)\">首页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">上一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">1</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">2</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + parseInt(keyNum - 1) + "</a></li>\n" +
+                "          <li   class=\"active\"><a href=\"javascrpit:void(0)\">" + keyNum + "</a></li>\n" +
+                "          <li  class=\"disabled\"><a href=\"javascrpit:void(0)\">...</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">" + pageNum + "</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">下一页</a></li>\n" +
+                "          <li><a href=\"javascrpit:void(0)\">尾页</a></li>\n"
+            );
+        }
+    }
+    $('.pagination li').each(function () {
+        $(this).unbind("click");
+        if($(this).attr("class")!='disabled' && $(this).attr("class")!='active'){
+            $(this).click(function () {
+                var num = $(this).find('a').text();
+                if(num=='首页'){
+                    initTable4();
+                }else if(num=='上一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())-1;
+                    initTable4(null,num);
+                }else if(num=='下一页'){
+                    var num = parseInt($('.pagination').find('.active').find('a').text())+1;
+                    initTable4(null,num);
+                }else if(num=='尾页'){
+                    initTable4(null,pageNum);
+                }else{
+                    initTable4(null,num);
                 }
             });
         }

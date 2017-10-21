@@ -86,9 +86,7 @@ function initTable(url,keyNum) {
         "        <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
         "        <div class=\"table-th\">代练代打代清介绍</div>\n" +
         "        <div class=\"table-th\">接或找</div>\n" +
-        "        <div class=\"table-th\">关注度</div>\n" +
         "        <div class=\"table-th\">上架时间</div>\n" +
-        "        <div class=\"table-th\">状态报告</div>\n" +
         "        <div class=\"table-th\">收藏</div>\n" +
         "      </div>");
     layer.load();
@@ -103,14 +101,11 @@ function initTable(url,keyNum) {
                 $.each(tableDatas, function (i, value) {
                     var time = sumTime(value.REPLY_TIME);
                     var tradeType = value.NEED_TYPE == 1 ? "接" : "找";
-                    var follow = value.USER_FOLLOW == null ? '--' : value.USER_FOLLOW;
-                    var isValidNum = value.USER_ISVALID == null ? '0' : value.USER_ISVALID;
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
                     belongOf = belongOf.split(',')[0];
                     belongOf = replace(belongOf);
                     var username = $('#userName').text();
-                    console.log(value.COLL_TYPE);
                     if(userId!=""){
                         if(userId!=value.userIdColl){
                             value.COLL_TYPE=0;
@@ -133,7 +128,7 @@ function initTable(url,keyNum) {
                             }
                             //换行
                             s += str.charAt(i);
-                            if(bytesCount>=40){
+                            if(bytesCount>=100){
                                 s = s + '<br>';
                                 //重置
                                 bytesCount=0;
@@ -151,9 +146,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a  href='levelingDetail?favorId="+favorId+"&userId="+value.USER_ID+"&sourceType="+value.SOURCE_TYPE+"' target='_blank'>" + postContent + "</a></div>\n" +
                             "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
                             "      </div>");
                     } else {
@@ -165,9 +158,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a  href='levelingDetail?favorId="+favorId+"&userId="+value.USER_ID+"' target='_blank'>" + postContent + "</a></div>\n" +
                             "          <div class=\"table-td\">" + tradeType + "</div>\n" +
-                            "        <div class=\"table-td\">" + follow + "</div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
-                            "        <div class=\"table-td warn\">" + isValidNum + "人报告|<a href=\"javascript:void(0)\" class='protDisable'>提交失效</a></div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
                             "      </div>");
                     }
@@ -206,29 +197,29 @@ function initTable(url,keyNum) {
                         if (parseInt(min) < 10) {
                             min = '0' + min;
                         }
-                        if (parseInt(month) < 10) {
+                        if (parseInt(second) < 10) {
                             second = '0' + second;
                         }
                         return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + second;
                     };
                     time = timeStamp2String(time);
-                    var startTime = new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
-                    time = time + " 00:00:00";
-                    var reStr = null;
-                    var diff = new DateUtil().diffDateTime(time, startTime) / 1000;
-                    var day = parseInt(diff / (24 * 60 * 60));//计算整数天数
-                    var hour = parseInt(diff / (60 * 60));//计算整数小时数
-                    var min = parseInt(diff / 60);//计算整数分
-                    if (day > 1) {
-                        reStr = day + "天前";
-                    } else {
-                        var hour = parseInt(diff / (60 * 60));//计算整数小时数
-                        if (hour < 1) {
-                            hour = 1;
-                        }
-                        reStr = hour + "小时前";
-                    }
-                    return reStr;
+                    // var startTime = new DateUtil().nowDate2String("yyyy-MM-dd HH:mm:ss");
+                    // time = time + " 00:00:00";
+                    // var reStr = null;
+                    // var diff = new DateUtil().diffDateTime(time, startTime) / 1000;
+                    // var day = parseInt(diff / (24 * 60 * 60));//计算整数天数
+                    // var hour = parseInt(diff / (60 * 60));//计算整数小时数
+                    // var min = parseInt(diff / 60);//计算整数分
+                    // if (day > 1) {
+                    //     reStr = day + "天前";
+                    // } else {
+                    //     var hour = parseInt(diff / (60 * 60));//计算整数小时数
+                    //     if (hour < 1) {
+                    //         hour = 1;
+                    //     }
+                    //     reStr = hour + "小时前";
+                    // }
+                    return time;
                 }
 
                 //弹出详情框
