@@ -5,6 +5,7 @@ var preEle = document.getElementById("pre");
 var cityEle = document.getElementById("city");
 var areaEle = document.getElementById("area");
 var clickSeachNum = 0;
+var pageClickNum = 1;
 $(function () {
     initTable();
     initSeach();
@@ -12,7 +13,7 @@ $(function () {
 });
 
 function timer() {
-    setInterval("timeFun()",10*60*1000)
+    setInterval("timeFun()",10*60*1000);
     function timeFun() {
         initTable();
         initSeach();
@@ -98,7 +99,7 @@ function initTable(url,keyNum) {
             if(clickSeachNum!=0){
                 $.each(tableDatas,function (i,value) {
                     var matchingDegree = sumMatchingDegree(value,data.segMentWordMap);
-                    sortArrary.push([matchingDegree,i]);
+                    sortArrary.push([matchingDegree, i]);
                 });
                 sortArrary = sortarr(sortArrary);
                 function sortarr(arr){
@@ -114,7 +115,9 @@ function initTable(url,keyNum) {
                     return arr;
                 }
                 $.each(sortArrary,function (i,value) {
-                    initDiv(tableDatas[value[1]]);
+                    if((pageClickNum-1)*10<i&&i<pageClickNum*10) {
+                        initDiv(tableDatas[value[1]]);
+                    }
                 });
             }else {
                 $.each(tableDatas, function (i, value) {
@@ -580,7 +583,8 @@ function initPage(pageList,keyNum) {
                 );
             }
         }
-    }else{
+    }else
+        {
         keyNum=parseInt(keyNum);
         if(keyNum>pageNum){
             layer.msg("分页组件加载错误!");
@@ -738,16 +742,21 @@ function initPage(pageList,keyNum) {
             $(this).click(function () {
                 var num = $(this).find('a').text();
                 if(num=='首页'){
+                    pageClickNum = 1;
                     initTable();
                 }else if(num=='上一页'){
                     var num = parseInt($('.pagination').find('.active').find('a').text())-1;
+                    pageClickNum = parseInt(num);
                     initTable(null,num);
                 }else if(num=='下一页'){
                     var num = parseInt($('.pagination').find('.active').find('a').text())+1;
+                    pageClickNum = parseInt(num);
                     initTable(null,num);
                 }else if(num=='尾页'){
+                    pageClickNum = parseInt(pageNum);
                     initTable(null,pageNum);
                 }else{
+                    pageClickNum = parseInt(num);
                     initTable(null,num);
                 }
             });

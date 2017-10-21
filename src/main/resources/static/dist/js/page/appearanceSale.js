@@ -29,12 +29,16 @@ function initBunding() {
         var index = $('.s_top').find('ul').find('.cur').index();
         if(index==0){
             initTable();
+            $('.issue-l').attr('href','appearanceTransaction');
         }else if(index ==1){
             initTable2();
+            $('.issue-l').attr('href','appearanceTransaction');
         }else if(index ==2){
             initTable3()
+            $('.issue-l').attr('href','appearancePrice');
         }else if(index ==3){
             initTable4()
+            $('.issue-l').attr('href','appearancePrice');
         }
     });
 }
