@@ -930,7 +930,7 @@ function initTable2(url,keyNum) {
                 }else{
                     value.COLL_TYPE=0;
                 }
-                var postContent = getNewline(value.FAVOR_INFO);
+                var postContent = getNewline(value.FAVOR_INFO.replace("<br>",""));
                 function getNewline(val) {
                     var str = new String(val);
                     var bytesCount = 0;
@@ -945,7 +945,7 @@ function initTable2(url,keyNum) {
                         }
                         //换行
                         s += str.charAt(i);
-                        if(bytesCount>=40){
+                        if(bytesCount>=120){
                             s = s + '<br>';
                             //重置
                             bytesCount=0;
@@ -1679,8 +1679,9 @@ function initTable4(url,keyNum) {
         "        <div class=\"table-th\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
         "        <div class=\"table-th\">外观名</div>\n" +
         "        <div class=\"table-th\">别名</div>\n" +
-        "        <div class=\"table-th\">市价(低)</div>\n" +
-        "        <div class=\"table-th\">市价(高)</div>\n" +
+        "        <div class=\"table-th\">说明</div>\n" +
+        "        <div class=\"table-th\">市价</div>\n" +
+        "        <div class=\"table-th\">黄牛价</div>\n" +
         "        <div class=\"table-th\">更新时间</div>\n" +
         "      </div>");
     layer.load();
@@ -1697,19 +1698,65 @@ function initTable4(url,keyNum) {
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
                 belongOf = belongOf.split(',')[0];
-                belongOf = replace(belongOf);
                 var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
                 var viewName_1 = value.VIEW_NAME_1==null?'--':value.VIEW_NAME_1;
                 var priceNum1 = value.PRICE_FLOOR==null?'--':value.PRICE_FLOOR;
                 var priceNum2 = value.PRICE_CEILING==null?'--':value.PRICE_CEILING;
+                var priceNum3 = value.PRICE_HN==null?'--':value.PRICE_HN;
+                var priceNum4 = value.PRICE_HN_HIGH==null?'--':value.PRICE_HN_HIGH;
+                var price12 = "";
+                if(priceNum1=='--'&&priceNum2=='--'){
+                    price12='--';
+                }else if(priceNum1=='--'){
+                    price12 = priceNum2;
+                }else if(priceNum2=='--'){
+                    price12 = priceNum1;
+                }else{
+                    price12 = priceNum1+'-'+priceNum2;
+                }
+                var price34 = "";
+                if(priceNum3=='--'&&priceNum4=='--'){
+                    price34='--';
+                }else if(priceNum3=='--'){
+                    price34 = priceNum4;
+                }else if(priceNum4=='--'){
+                    price34 = priceNum3;
+                }else{
+                    price34 = priceNum3+'-'+priceNum4;
+                }
+                var content = value.VIEW_CONTENT==null?'--':value.VIEW_CONTENT;
+                content = getNewline(content);
+                function getNewline(val) {
+                    var str = new String(val);
+                    var bytesCount = 0;
+                    var s="";
+                    for (var i = 0 ,n = str.length; i < n; i++) {
+                        var c = str.charCodeAt(i);
+                        //统计字符串的字符长度
+                        if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+                            bytesCount += 1;
+                        } else {
+                            bytesCount += 2;
+                        }
+                        //换行
+                        s += str.charAt(i);
+                        if(bytesCount>=40){
+                            s = s + '<br>';
+                            //重置
+                            bytesCount=0;
+                        }
+                    }
+                    return s;
+                }
                     $(".table").append(" <div class=\"table-tr\">\n" +
                         "        <div class=\"table-td\"></div>\n" +
                         "        <div class=\"table-td\"></div>\n" +
                         "        <div class=\"table-td\">" + belongOf + "</div>\n" +
                         "        <div class=\"table-td\">" + viewName + "</div>\n" +
                         "        <div class=\"table-td\">" + viewName_1 + "</div>\n" +
-                        "        <div class=\"table-td\">" + priceNum1 + "</div>\n" +
-                        "        <div class=\"table-td\">" + priceNum2 + "</div>\n" +
+                        "        <div class=\"table-td\">" + content + "</div>\n" +
+                        "        <div class=\"table-td\">" + price12 + "</div>\n" +
+                        "        <div class=\"table-td\">" + price34 + "</div>\n" +
                         "        <div class=\"table-td\">" + time + "</div>\n" +
                         "      </div>");
             });

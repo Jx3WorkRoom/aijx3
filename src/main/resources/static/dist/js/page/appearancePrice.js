@@ -309,17 +309,23 @@ function initBunding() {
     $('#save3').click(function () {
         var qufu = "["+$('#pre').find("option:selected").text()+$('#city').find("option:selected").text()+$('#area').find("option:selected").text()+"]";
         var viewName = $('#viewName3').val();
+        var viewContent = $('#viewContent3').val();
         var priceLow = $('#priceLow3').val();
         var priceHigh = $('#priceHigh3').val();
+        var priceHN = $('#priceHN3').val();
+        var priceHNHIGH = $('#priceHNHIGH3').val();
         var favorDate = $('#favorDate3').val();
-        if(qufu==""||viewName==""||priceLow==""||priceHigh==""||favorDate==""){
-            layer.msg("区服，外观名，市场价格下限，市场价格上限，成交时间不能为空!")
+        if(qufu==""||viewName==""||priceLow==""||priceHigh==""||priceHN==""||favorDate==""){
+            layer.msg("区服，外观名，市场价格下限，市场价格上限，黄牛价,成交时间不能为空!")
         }else{
-            if(!isNaN(priceLow)&&!isNaN(priceHigh)) {
+            if(!isNaN(priceLow)&&!isNaN(priceHigh)&&!isNaN(priceHN)) {
                 var url = pageApi + 'appearancePrice3?qufu=' + encodeURI(qufu) +
                     '&viewName=' + encodeURI(viewName) +
+                    '&viewContent=' + encodeURI(viewContent) +
                     '&priceLow=' + encodeURI(priceLow) +
                     '&priceHigh=' + encodeURI(priceHigh) +
+                    '&priceHN=' + encodeURI(priceHN) +
+                    '&PRICE_HN_HIGH=' + encodeURI(priceHNHIGH) +
                     '&favorDate=' + encodeURI(favorDate)+
                     '&userID=' + encodeURI(userId);
                 layer.load();
