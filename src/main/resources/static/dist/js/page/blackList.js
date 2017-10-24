@@ -58,8 +58,10 @@ function initTable(url,keyNum) {
                     var username = $('#userName').text();
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
+                    if(belongOf.length>6) {
+                        belongOf = replace(belongOf);
+                    }
                     belongOf = belongOf.split(',')[0];
-                    belongOf = replace(belongOf);
                     var username = $('#userName').text();
                     if(userId!=""){
                         if(userId!=value.userIdColl){

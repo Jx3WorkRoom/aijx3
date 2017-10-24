@@ -133,8 +133,10 @@ function initTable(url,keyNum) {
                 }
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
+                if(belongOf.length>6) {
+                    belongOf = replace(belongOf);
+                }
                 belongOf = belongOf.split(',')[0];
-                belongOf = replace(belongOf);
                 var TIXIN = value.TIXIN.replace("[", "");
                 TIXIN = TIXIN.replace("]", "");
                 TIXIN = TIXIN.split(',')[0];

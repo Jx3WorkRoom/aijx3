@@ -105,8 +105,10 @@ function initTable(url,keyNum) {
                     var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
+                    if(belongOf.length>6) {
+                        belongOf = replace(belongOf);
+                    }
                     belongOf = belongOf.split(',')[0];
-                    belongOf = replace(belongOf);
                     var username = $('#userName').text();
                     if(userId!=""){
                         if(userId!=value.userIdColl){

@@ -315,36 +315,74 @@ function initBunding() {
         var priceHN = $('#priceHN3').val();
         var priceHNHIGH = $('#priceHNHIGH3').val();
         var favorDate = $('#favorDate3').val();
-        if(qufu==""||viewName==""||priceLow==""||priceHigh==""||priceHN==""||favorDate==""){
-            layer.msg("区服，外观名，市场价格下限，市场价格上限，黄牛价,成交时间不能为空!")
+        if(qufu==""||viewName==""||favorDate==""){
+            layer.msg("区服，外观名,成交时间不能为空!")
         }else{
-            if(!isNaN(priceLow)&&!isNaN(priceHigh)&&!isNaN(priceHN)) {
-                var url = pageApi + 'appearancePrice3?qufu=' + encodeURI(qufu) +
-                    '&viewName=' + encodeURI(viewName) +
-                    '&viewContent=' + encodeURI(viewContent) +
-                    '&priceLow=' + encodeURI(priceLow) +
-                    '&priceHigh=' + encodeURI(priceHigh) +
-                    '&priceHN=' + encodeURI(priceHN) +
-                    '&PRICE_HN_HIGH=' + encodeURI(priceHNHIGH) +
-                    '&favorDate=' + encodeURI(favorDate)+
-                    '&userID=' + encodeURI(userId);
-                layer.load();
-                $.getJSON(url, function (data) {
-                    if(data.info==1){
-                        layer.msg("添加成功!");
+            var option1 =priceLow!=""||priceHN!="";
+            if(option1) {
+                var option2 = priceHigh!=""?( priceLow!=""&&(parseInt(priceHigh)-parseInt(priceLow))>0?true:false ):true;
+                if(option2) {
+                    var option3 = priceHNHIGH!=""?( priceHN!=""&&(parseInt(priceHNHIGH)-parseInt(priceHN))>0?true:false ):true;
+                    if(option3) {
+                        if ((!isNaN(priceLow) || priceLow == "") &&
+                            (!isNaN(priceHigh) || priceHigh == "") &&
+                            (!isNaN(priceHN) || priceHN == "") &&
+                            (!isNaN(priceHNHIGH) || priceHNHIGH == "")
+                        ) {
+                            var url = pageApi + 'appearancePrice3?qufu=' + encodeURI(qufu) +
+                                '&viewName=' + encodeURI(viewName) +
+                                '&viewContent=' + encodeURI(viewContent) +
+                                '&priceLow=' + encodeURI(priceLow) +
+                                '&priceHigh=' + encodeURI(priceHigh) +
+                                '&priceHN=' + encodeURI(priceHN) +
+                                '&PRICE_HN_HIGH=' + encodeURI(priceHNHIGH) +
+                                '&favorDate=' + encodeURI(favorDate) +
+                                '&userID=' + encodeURI(userId);
+                            layer.load();
+                            $.getJSON(url, function (data) {
+                                if (data.info == 1) {
+                                    layer.msg("添加成功!");
+                                    $('#save3').hide();
+                                    $('#twiceSave3').show();
+                                } else {
+                                    layer.msg("添加失败!");
+                                }
+                            }).error(function () {
+                                layer.msg("添加异常!");
+                            }).complete(function () {
+                                layer.closeAll("loading");
+                            });
+                        } else {
+                            layer.msg("价格必须为整数!");
+                        }
                     }else{
-                        layer.msg("添加失败!");
+                        layer.msg("黄牛低价不能为空且必须比高价小!");
                     }
-                }).complete(function () {
-                    layer.closeAll("loading");
-                });
+                }else{
+                    layer.msg("价格预期下限不能为空且必须比预期上限小!");
+                }
             }else{
-                layer.msg("价格必须为整数!");
+                layer.msg("价格预期下限和黄牛低价不能都为空!");
             }
         }
     });
 
     $('#save4').click(function () {
 
+    });
+
+    $('#twiceSave3').click(function () {
+        $('#twiceSave3').hide();
+        $('#save3').show();
+        $('#pre').find('option[value="-1"]').attr('selected',true);
+        $('#city').find('option[value="0"]').attr('selected',true);
+        $('#area').find('option[value="0"]').attr('selected',true);
+        $('#viewName3').val("");
+        $('#viewContent3').val("");
+        $('#priceLow3').val("");
+        $('#priceHigh3').val("");
+        $('#priceHN3').val("");
+        $('#priceHNHIGH3').val("");
+        $('#viewContent3').val("");
     });
 }

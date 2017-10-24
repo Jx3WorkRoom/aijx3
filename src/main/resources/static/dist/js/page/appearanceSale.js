@@ -109,8 +109,10 @@ function initTable(url,keyNum) {
                     var time = sumTime(value.REPLY_TIME);
                     var belongOf = value.BELONG_QF.replace("[", "");
                     belongOf = belongOf.replace("]", "");
+                    if(belongOf.length>6) {
+                        belongOf = replace(belongOf);
+                    }
                     belongOf = belongOf.split(',')[0];
-                    belongOf = replace(belongOf);
                     if(userId!=""){
                         if(userId!=value.userIdColl){
                             value.COLL_TYPE=0;
@@ -922,8 +924,10 @@ function initTable2(url,keyNum) {
                 var time = sumTime(value.FAVOR_DATE);
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
+                if(belongOf.length>6) {
+                    belongOf = replace(belongOf);
+                }
                 belongOf = belongOf.split(',')[0];
-                belongOf = replace(belongOf);
                 var tradeType = value.TRADE_TYPE ==1?'求购':'出售';
                 var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
                 var priceNum = value.PRICE_NUM==null?'--':value.PRICE_NUM+'元';
@@ -1331,8 +1335,10 @@ function initTable3(url,keyNum) {
                 var time = sumTime(value.TRADE_DATE);
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
+                if(belongOf.length>6) {
+                    belongOf = replace(belongOf);
+                }
                 belongOf = belongOf.split(',')[0];
-                belongOf = replace(belongOf);
                 var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
                 var viewName_1 = value.VIEW_NAME_1==null?'--':value.VIEW_NAME_1;
                 var priceNum = value.PRICE_NUM==null?'--':value.PRICE_NUM;
@@ -1701,13 +1707,16 @@ function initTable4(url,keyNum) {
                 var time = sumTime(value.TRADE_DATE);
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
+                if(belongOf.length>6) {
+                    belongOf = replace(belongOf);
+                }
                 belongOf = belongOf.split(',')[0];
                 var viewName = value.VIEW_NAME==null?'--':value.VIEW_NAME;
                 var viewName_1 = value.VIEW_NAME_1==null?'--':value.VIEW_NAME_1;
-                var priceNum1 = value.PRICE_FLOOR==null?'--':value.PRICE_FLOOR;
-                var priceNum2 = value.PRICE_CEILING==null?'--':value.PRICE_CEILING;
-                var priceNum3 = value.PRICE_HN==null?'--':value.PRICE_HN;
-                var priceNum4 = value.PRICE_HN_HIGH==null?'--':value.PRICE_HN_HIGH;
+                var priceNum1 = value.PRICE_FLOOR==null||value.PRICE_FLOOR==0?'--':value.PRICE_FLOOR;
+                var priceNum2 = value.PRICE_CEILING==null||value.PRICE_CEILING==0?'--':value.PRICE_CEILING;
+                var priceNum3 = value.PRICE_HN==null||value.PRICE_HN==0?'--':value.PRICE_HN;
+                var priceNum4 = value.PRICE_HN_HIGH==null||value.PRICE_HN_HIGH==0?'--':value.PRICE_HN_HIGH;
                 var price12 = "";
                 if(priceNum1=='--'&&priceNum2=='--'){
                     price12='--';

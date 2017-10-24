@@ -32,10 +32,10 @@ function initTable() {
             var follow = value.USER_FOLLOW ==null?"--":value.USER_FOLLOW;
             var belongOf = value.BELONG_QF.replace("[","");
             belongOf = belongOf.replace("]","");
-            belongOf = belongOf.split(',')[0];
             if(belongOf.length>6) {
                 belongOf = replace(belongOf);
             }
+            belongOf = belongOf.split(',')[0];
             var TIXIN = value.TIXIN.replace("[","");
             TIXIN = TIXIN.replace("]","");
             TIXIN = TIXIN.split(',')[0];
