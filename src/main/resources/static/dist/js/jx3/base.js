@@ -21,11 +21,11 @@ $(document).ready(function(e) {
         userRole = data.datas[0]==null?'':data.datas[0].role==null?'':data.datas[0].role;
         if(userRole.indexOf('admin')==-1){
             $('.menuelist').find('dt').eq(2).hide();
+            $('.menuelist').find('dd').eq(9).hide();
+            $('.menuelist').find('dd').eq(10).hide();
+            $('.menuelist').find('dd').eq(11).hide();
             $('.menuelist').find('dd').eq(12).hide();
             $('.menuelist').find('dd').eq(13).hide();
-            $('.menuelist').find('dd').eq(14).hide();
-            $('.menuelist').find('dd').eq(15).hide();
-            $('.menuelist').find('dd').eq(16).hide();
         }
         var name = data.userInfo[0]==null?'':data.userInfo[0].USER_NAME==null?'':data.userInfo[0].USER_NAME;
         $('#userDetails').text(name);
