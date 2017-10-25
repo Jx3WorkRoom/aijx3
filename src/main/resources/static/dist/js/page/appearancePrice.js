@@ -228,12 +228,7 @@ function initBunding() {
        $(this).addClass("cur");
         $('.mt15').hide();
        if($(this).attr('class').indexOf('1')>-1){
-           $('#pre').val(-1);
-           $('#city').val(0);
-           $('#area').val(0);
-            $('.trType3').hide();
             $('.tableType1').show();
-            $('.trType1').show();
            $("#favorDate1").datetimepicker({
                format: "yyyy-mm-dd",
                weekStart: 1,
@@ -247,14 +242,8 @@ function initBunding() {
            $("#favorDate1").val(now);
        }else if($(this).attr('class').indexOf('2')>-1){
            $('.tableType2').show();
-
        }else if($(this).attr('class').indexOf('3')>-1){
-            $('#pre').val(-1);
-           $('#city').val(0);
-           $('#area').val(0);
-           $('.trType1').hide();
-           $('.tableType1').show();
-           $('.trType3').show();
+           $('.tableType3').show();
            $("#favorDate3").datetimepicker({
                format: "yyyy-mm-dd",
                weekStart: 1,
@@ -268,7 +257,6 @@ function initBunding() {
            $("#favorDate3").val(now);
        }else if($(this).attr('class').indexOf('4')>-1){
            $('.tableType4').show();
-
        }
     });
 
@@ -307,7 +295,11 @@ function initBunding() {
     });
 
     $('#save3').click(function () {
-        var qufu = "["+$('#pre').find("option:selected").text()+$('#city').find("option:selected").text()+$('#area').find("option:selected").text()+"]";
+        var qufu = "[";
+        $('.qufu').find('.cur').each(function (i,value) {
+            qufu += $(this).parent().text();
+        });
+        qufu += "]";
         var viewName = $('#viewName3').val();
         var viewContent = $('#viewContent3').val();
         var priceLow = $('#priceLow3').val();

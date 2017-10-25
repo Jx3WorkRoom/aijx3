@@ -28,15 +28,23 @@ function initBunding() {
         $(this).addClass('cur');
         var index = $('.s_top').find('ul').find('.cur').index();
         if(index==0){
+            $('.table4Show').hide();
+            $('.belongOf').show();
             initTable();
             $('.issue-l').attr('href','appearanceTransaction');
         }else if(index ==1){
+            $('.table4Show').hide();
+            $('.belongOf').show();
             initTable2();
             $('.issue-l').attr('href','appearanceTransaction');
         }else if(index ==2){
+            $('.table4Show').hide();
+            $('.belongOf').show();
             initTable3()
             $('.issue-l').attr('href','appearancePrice');
         }else if(index ==3){
+            $('.belongOf').hide();
+            $('.table4Show').show();
             initTable4()
             $('.issue-l').attr('href','appearancePrice');
         }
@@ -1660,11 +1668,8 @@ function initTable4(url,keyNum) {
     }
     if(url==null) {
         var areaSelection = "";
-        $('.areaSelect').find('select').each(function () {
-            var text = $(this).find('option:selected').text();
-            if(text.indexOf("请选择")==-1) {
-                areaSelection += text + ',';
-            }
+        $('.qufu').find('.cur').each(function (i,value) {
+            areaSelection += $(this).parent().text()+ ',';
         });
         if(areaSelection.length>2) {
             areaSelection = areaSelection.substring(0, areaSelection.length - 1);
@@ -1678,7 +1683,7 @@ function initTable4(url,keyNum) {
         }else{
             url = api + 'appearanceSale4?areaSelection=' + encodeURI(areaSelection)
                 + '&shape=' + encodeURI(shape)
-                +'&startNum=' +encodeURI(startNum)+
+                +'&startNum=' +encodeURI(startNum)
                 +'&endNum=20';
         }
     }
@@ -1687,6 +1692,7 @@ function initTable4(url,keyNum) {
         "        <div class=\"table-th table-th1\"></div>\n" +
         "        <div class=\"table-th\"></div>\n" +
         "        <div class=\"table-th\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
+        "        <div class=\"table-th\">外观类型</div>\n" +
         "        <div class=\"table-th\">外观名</div>\n" +
         "        <div class=\"table-th\">别名</div>\n" +
         "        <div class=\"table-th\">说明</div>\n" +
@@ -1738,6 +1744,9 @@ function initTable4(url,keyNum) {
                     price34 = priceNum3+'-'+priceNum4;
                 }
                 var content = value.VIEW_CONTENT==null?'--':value.VIEW_CONTENT;
+                var waiguanType = value.WAIGUAN_TYPE==1?'发型':value.WAIGUAN_TYPE==2?
+                        '限量成衣':value.WAIGUAN_TYPE==3?'限时成衣':value.WAIGUAN_TYPE==4?
+                        '披风':value.WAIGUAN_TYPE==5?'套装盒子':'--';
                 content = getNewline(content);
                 function getNewline(val) {
                     var str = new String(val);
@@ -1765,6 +1774,7 @@ function initTable4(url,keyNum) {
                         "        <div class=\"table-td\"></div>\n" +
                         "        <div class=\"table-td\"></div>\n" +
                         "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                        "        <div class=\"table-td\">" + waiguanType + "</div>\n" +
                         "        <div class=\"table-td\">" + viewName + "</div>\n" +
                         "        <div class=\"table-td\">" + viewName_1 + "</div>\n" +
                         "        <div class=\"table-td\">" + content + "</div>\n" +
