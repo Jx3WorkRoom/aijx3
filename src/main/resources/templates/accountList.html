@@ -49,7 +49,7 @@
 </style>
 <body style="display: none">
 <!-- top logo -->
-<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 6px;right: 100px">   <h4>咨询客服：824460354，3032254434</h4> <h4>咨询外观：823515253</h4> <h4>QQ群号：296733805</h4></div>
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 6px;right: 100px">   </div>
 <div id="userName" style="display: none">[[${#httpServletRequest.remoteUser}]]</div>
 <!-- navigation -->
 <div class="navCon">
@@ -113,14 +113,25 @@
            </td>
           </tr>
           <tr>
-           <td align="right" class="wr ft1">体型：</td>
-           <td colspan="2">
-               <!--<input type="text" placeholder="如：花萝" class="tixin"/>-->
-               <select class="js-example-basic-single tixin"  style="width: 200px;">
+            <td align="right" class="wr ft1">门派：</td>
+            <td>
+                 <select class="js-example-basic-single menpai"  style="width: 100px;">
                    <option value=""></option>
                 </select>
-           </td>
+            </td>
           </tr>
+         <tr>
+             <td align="right" class="wr ft1">体型：</td>
+           <td>
+               <select class="js-example-basic-single tixin"  style="width: 100px;">
+                   <option value=""></option>
+                   <option value="">成男</option>
+                   <option value="">成女</option>
+                   <option value="">萝莉</option>
+                   <option value="">正太</option>
+                </select>
+           </td>
+         </tr>
           <tr>
            <td align="right" class="wr ft1">资料：</td>
            <td><textarea class="info" role="3" rows="3" placeholder="外观、稀有坐骑、奇趣、橙武、奇遇、珍稀挂件以及其他账号资料词。"></textarea></td>
@@ -160,7 +171,8 @@
 <!-- foot -->
 <div class="footcontent">
     <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
-    Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号
+    <div>Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号</div>
+    <div>QQ群：296733805</div>
 </div>
 </body>
 <script type="text/javascript">
