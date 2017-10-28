@@ -212,4 +212,15 @@ public class webAction {
     public String appearancePriceaction() {
         return "userCenter/appearancePrice";
     }
+
+    @RequestMapping("/mobile/accountList")
+    public String accountList2action() {
+        return "new/accountList";
+    }
+
+
+    @RequestMapping({"/mobile/index","/mobile"})
+    public String index2action() {
+        return "new/index";
+    }
 }

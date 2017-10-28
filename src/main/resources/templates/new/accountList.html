@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
+    <meta name="discription" content="剑三交易快速搜索">
+    <title>账号交易-爱剑三</title>
+    <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/bootstrap.css}"/>
+    <!--jqueryUI -->
+    <link rel="stylesheet" th:href="@{/dist/css/jx3/jquery-ui.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/dist/css/jx3/AdminLTE.min.css}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" th:href="@{/dist/css/jx3/_all-skins.css}">
+    <!--select2 -->
+    <link rel="stylesheet" th:href="@{/dist/css/jx3/select2.min.css}" type="text/css" />
+    <!-- bootstrap table -->
+    <link th:href="@{/dist/css/jx3/bootstrap-table.min.css}" rel="stylesheet" />
+</head>
+<body style="background-color:transparent" class="hold-transition skin-blue sidebar-mini">
+<style>
+    #pre,#city,#area{
+        float: left;
+        margin: 0 1%;
+    }
+    #pre,#city{
+        width: 28%;
+    }
+    #area{
+        width: 38%;
+    }
+    .tradeType{
+        float: left;
+        width: 20%;
+        margin: 0 3%;
+    }
+    label.tradeType{
+        width: 10%;
+        margin-left: 0px;
+    }
+    .tixin{
+        width: 80%;
+    }
+    .query-l{
+        padding: 0;
+        width: 60px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        background-color: #F60;
+        color: #fff;
+        float: right;
+    }
+    .box-footer{
+        background-color: transparent;
+        margin-top: -20px;
+    }
+    .pagers{
+        width: 130%;
+        margin: 0 35%;
+    }
+    th,td{
+        text-align: center;
+        border: 1px solid black;
+        padding: 0px 5px;
+    }
+    .replyContent{
+        text-align: left;
+    }
+    .replyContent>label{
+        color: blue;
+    }
+    .replyContent>label:hover{
+        text-decoration:underline;
+        color: #C20C0C;
+    }
+    .tips{
+        float: left;
+        font-size: 20px;
+        line-height: 40px;
+    }
+</style>
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">菜单</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown tasks-menu">
+                        <a href="../login">登陆</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="../register">注册</a>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="../index">
+                        <i class="fa fa-th"></i> <span>首页</span>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-green">new</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../accountList">
+                        <i class="fa fa-th"></i> <span>账号搜索</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../appearanceSale">
+                        <i class="fa fa-th"></i> <span>外观搜索</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../propSale">
+                        <i class="fa fa-th"></i> <span>道具搜索</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../levelingList">
+                        <i class="fa fa-th"></i> <span>代练代打</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../blackList">
+                        <i class="fa fa-th"></i> <span>剑三黑榜</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../dataAndSecurity">
+                        <i class="fa fa-th"></i> <span>用户中心</span>
+                        <span class="pull-right-container">
+                            <small class="label pull-right bg-green">new</small>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <!-- user table -->
+            <div class="row" id="mainBox">
+                <div class="col-md-12">
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="tradeType">收售</label>
+                                <div class="tradeType">
+                                    <label>
+                                        <input type="radio" value ='2' checked name="tradeType"/>
+                                        出售
+                                    </label>
+                                </div>
+                                <div class="tradeType">
+                                    <label>
+                                        <input type="radio" value ='1' name="tradeType"/>
+                                        求购
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>区服</label>
+                                <div class="areaSelect">
+                                    <select class="form-control" id="pre" onchange="chg(this);">
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <select class="form-control" id="city" onchange="chg2(this)" ;>
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <select class="form-control" id="area">
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>体型</label>
+                                <select class="form-control tixin">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding: 0px">资料</label>
+                                <textarea class="form-control info" role="3" rows="3" placeholder="外观、稀有坐骑、奇趣、橙武、奇遇、珍稀挂件以及其他账号资料词。"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <label class="tips">←&nbsp;&nbsp;&nbsp;可侧滑&nbsp;&nbsp;&nbsp;→</label>
+                            <a href="javascript:void(0)" class="btn query-l">查询</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <div class="col-md-12" style="width: 100%;overflow: auto;">
+                    <table id="dataTable" width="200%">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%">区服</th>
+                                <th style="width: 6%">门派</th>
+                                <th style="width: 40%">资料简介</th>
+                                <th style="width: 6%">贴吧楼层</th>
+                                <th style="width: 6%">价格</th>
+                                <th style="width: 6%">匹配度</th>
+                                <th style="width: 10%">上架时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <div class="pagers">
+                        <ul class="pagination">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="control-sidebar-bg"></div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/dist/js/jx3/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/dist/js/jx3/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/dist/js/jx3/jquery-ui.min.js}"></script>
+<!-- jQuery layer Chart -->
+<script th:src="@{/dist/js/layer/layer.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/dist/js/jx3/app.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/dist/js/jx3/demo.js}"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script th:src="@{/dist/js/jx3/bootstrap3-wysihtml5.all.min.js}"></script>
+<!-- bootstrap table -->
+<script th:src="@{/dist/js/jx3/bootstrap-table.min.js}"></script>
+<script th:src="@{/dist/js/jx3/bootstrap-table-zh-CN.min.js}"></script>
+<!-- select2 -->
+<script th:src="@{/dist/js/jx3/select2.full.min.js}"></script>
+<!-- util -->
+<script th:src="@{/dist/js/page/utils.js}"></script>
+<script th:src="@{/dist/js/page/new/accountList.js}"></script>
+</body>
+</html>

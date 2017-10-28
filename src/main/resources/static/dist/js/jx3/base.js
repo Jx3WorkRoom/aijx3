@@ -1,6 +1,7 @@
 // JavaScript Document
 var refreshNum = 0;
 $(document).ready(function(e) {
+    $('body').hide();
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
@@ -95,10 +96,15 @@ $(document).ready(function(e) {
     var selectStr = location[location.length - 1];
     $('.navCon').find('a').removeClass('cur');
     $('.menuelist').find('dd').removeClass('cur');
+    var width = parseFloat(getViewportSize());
     if (selectStr.indexOf('index')>-1) {
         $('.navCon').find('a').eq(0).addClass('cur');
     } else if (selectStr.indexOf('accountList')>-1) {
         $('.navCon').find('a').eq(1).addClass('cur');
+        if(width<600){
+            $('body').hide();
+            window.location.href = 'mobile/accountList';
+        }
     } else if (selectStr.indexOf('appearanceSale')>-1) {
         $('.navCon').find('a').eq(2).addClass('cur');
     } else if (selectStr.indexOf('propSale')>-1) {
@@ -166,5 +172,9 @@ $(document).ready(function(e) {
     } else if (selectStr.indexOf('userimgs')>-1) {
         $('.navCon').find('a').eq(8).addClass('cur');
         $('.menuelist').find('dd').eq(12).addClass('cur');
+    }
+    $('body').show();
+    function getViewportSize () {
+        return  document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
     }
 });

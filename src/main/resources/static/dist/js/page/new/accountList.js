@@ -9,19 +9,8 @@ var pageClickNum = 1;
 $(function () {
     initTable();
     initSeach();
-    timer()
 });
 
-function timer() {
-    setInterval("timeFun()",10*60*1000);
-    function timeFun() {
-        initTable();
-        initSeach();
-    }
-}
-
-//url 查询时传入新的url
-//keyNum page组件点击的第几页
 function initTable(url,keyNum) {
     layer.load();
     var startNum = 0;
@@ -31,27 +20,8 @@ function initTable(url,keyNum) {
         startNum = keyNum*10-10;
     }
     if(url==null) {
-        var tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
-        if(tradeType=="求购"){
-            tradeType=1;
-        }else{
-            tradeType=2;
-        }
-        var str = getUrlParam('tradeType');
-        function getUrlParam(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-            var r = window.location.search.substr(1).match(reg); //匹配目标参数
-            if (r != null) return unescape(r[2]); return null; //返回参数值
-        }
-        if(parseInt(str)==1){
-            tradeType=1;
-            var sefont=$(".nav-pills ul li").eq(0).find('a').text();
-            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
-        }else if(parseInt(str)==2){
-            tradeType=2;
-            var sefont=$(".nav-pills ul li").eq(1).find('a').text();
-            $(".nav-pills ul li").eq(0).parents('.nav-pills').find('.dropdown-toggle').html(sefont+'<b class="caret"></b>')
-        }
+        var tradeType =$("input[name='tradeType']:checked").val();
+        tradeType = parseInt(tradeType);
         var areaSelection = "";
         $('.areaSelect').find('select').each(function () {
             var text = $(this).find('option:selected').text();
@@ -77,16 +47,7 @@ function initTable(url,keyNum) {
                 +'&endNum='; + encodeURI(endNum);
         }
     }
-    $(".table").empty();
-    $(".table").append("<div class=\"table-tr tablered\">\n" +
-        "            <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
-        "            <div class=\"table-th\">门派体型</div>\n" +
-        "            <div class=\"table-th\">资料简介</div>\n" +
-        "             <div class=\"table-th\">收/售</div>\n" +
-        "            <div class=\"table-th\">价格（元）</div>\n" +
-        "            <div class=\"table-th\">匹配度</div>\n" +
-        "            <div class=\"table-th\">上架时间</div>\n" +
-        "          </div>");
+    $("#dataTable tbody").empty();
     var dataTemp = null;
     $.ajax({
         url:url,
@@ -126,7 +87,6 @@ function initTable(url,keyNum) {
             }
             function initDiv(value){
                 var time = sumTime(value.REPLY_TIME);
-                var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
                 var matchingDegree = '--';
                 if (clickSeachNum != 0) {
                     matchingDegree = sumMatchingDegree(value, data.segMentWordMap) + '%';
@@ -140,6 +100,9 @@ function initTable(url,keyNum) {
                 var TIXIN = value.TIXIN.replace("[", "");
                 TIXIN = TIXIN.replace("]", "");
                 TIXIN = TIXIN.split(',')[0];
+                if(TIXIN.length>=4){
+                    TIXIN = TIXIN.substring(2,TIXIN.length);
+                }
                 var REPLY_CONTENT = getNewline(value.REPLY_CONTENT);
                 function getNewline(val) {
                     var str = new String(val);
@@ -164,15 +127,17 @@ function initTable(url,keyNum) {
                     return s;
                 }
                 var price = value.PRICE_NUM.replace("[", "").replace("]", "");
-                $(".table").append("<div class=\"table-tr\">\n" +
-                    "            <div class=\"table-td\">" + belongOf + "</div>\n" +
-                    "            <div class=\"table-td\">" + TIXIN + "</div>\n" +
-                    "            <div class=\"table-td table_lw\"><a href='accountDetail?favorId=" + value.FAVOR_ID + "&sourceType="+value.SOURCE_TYPE+"'  target='_blank'>" + REPLY_CONTENT + "</a></div>\n" +
-                    "            <div class=\"table-td\">" + tradeType + "</div>\n" +
-                    "            <div class=\"table-td\">" + price + "</div>\n" +
-                    "            <div class=\"table-td\">" + matchingDegree + "</div>\n" +
-                    "            <div class=\"table-td\">" + time + "</div>\n" +
-                    "          </div>")
+                var floor = value.BELONG_FLOOR==null?'--':value.BELONG_FLOOR;
+                var favorId = value.FAVOR_ID;
+                $("#dataTable tbody").append(" <tr>" +
+                        "<td>"+belongOf+"</td>"+
+                        "<td>"+TIXIN+"</td>"+
+                        "<td class='replyContent'><label favorId='"+favorId+"'>"+REPLY_CONTENT+"</label></td>"+
+                        "<td>"+floor+"</td>"+
+                        "<td>"+price+"</td>"+
+                        "<td>"+matchingDegree+"</td>"+
+                        "<td>"+time+"</td>"+
+                    "</tr>")
             }
             function replace(str){
                 str = str.replace("电月","");
@@ -299,6 +264,24 @@ function initTable(url,keyNum) {
             }
         },
         complete:function () {
+            $('.replyContent').unbind('click');
+            $('.replyContent').click(function () {
+                var mainId = $(this).find('label').attr('favorId');
+                var tradeType = 1;
+                var username = $('#userName').text();
+                var url = api+'accountDetail?favorId='+encodeURI(mainId)+'&sourceType='+encodeURI(tradeType)+
+                            '&userName='+encodeURI(username);
+                layer.load();
+                $.getJSON(url,function (data) {
+                    data = data.datas[0]==null?'':data.datas[0];
+                    var url =data.PAGE_URL;
+                    window.location.href= url;
+                }).error(function () {
+                    layer.closeAll();
+                }).complete(function () {
+                    layer.closeAll();
+                });
+            });
             layer.closeAll();
             var pageList = dataTemp.pageList==null?"":dataTemp.pageList;
             if(pageList!=""){
@@ -427,13 +410,8 @@ function initSeach() {
     }).complete(function () {
         $('.query-l').unbind("click");
         $('.query-l').click(function () {
-            pageClickNum = 1;
-            var tradeType =$('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
-            if(tradeType=="求购"){
-                tradeType=1;
-            }else{
-                tradeType=2;
-            }
+            var tradeType =$("input[name='tradeType']:checked").val();
+            tradeType = parseInt(tradeType);
             var areaSelection = "";
             $('.areaSelect').find('select').each(function () {
                 var text = $(this).find('option:selected').text();
@@ -446,13 +424,13 @@ function initSeach() {
             }else{
                 areaSelection="";
             }
-            var shape = $('.tixin').val();
             var info = $('.info').val();
             if(info!=""){
                 clickSeachNum++;
             }else{
                 clickSeachNum=0;
             }
+            var shape = $('.tixin').val();
             if(shape==""&&info==""&&areaSelection==""){
                 initTable();
             }else {
@@ -518,7 +496,6 @@ function initSeach() {
                 areaNum++;
             });
         });
-
         //先设置省的值
         for (var i = 0; i < pres.length; i++) {
             //声明option.<option value="pres[i]">Pres[i]</option>
@@ -530,15 +507,15 @@ function initSeach() {
             preEle.options.add(op);
         }
     }
-
     function initTixin(data) {
         $.each(data,function (i,value) {
             var val1 = value.MENPAI_NAME;
-           $('.tixin').append("  <option value="+val1+">"+val1+"</option> ");
+            $('.tixin').append("  <option value="+val1+">"+val1+"</option> ");
         });
         $(".js-example-basic-single").select2();
     }
 }
+
 
 //加载分页组件
 function initPage(pageList,keyNum) {
@@ -589,7 +566,7 @@ function initPage(pageList,keyNum) {
             }
         }
     }else
-        {
+    {
         keyNum=parseInt(keyNum);
         if(keyNum>pageNum){
             layer.msg("分页组件加载错误!");
