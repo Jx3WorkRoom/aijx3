@@ -161,7 +161,8 @@
             //initEdit();
         });
 
-        var cheatType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
+        //var cheatType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();   //2017-10-28 del
+        var cheatType = $('input[name="tradeType"]:checked').val();     //2017-10-28 add
         if(cheatType=="账号诈骗"){
             cheatType=1;
         }else if(cheatType=="外观诈骗"){
@@ -194,7 +195,7 @@
             $("#upedit").hide();    //隐藏更新按钮
         }else{
             $("#save").text('保存');
-            //$("#save").hide();      //隐藏保存按钮
+//            $("#save").hide();      //隐藏保存按钮
         }
 
     }
@@ -206,28 +207,37 @@
         //var obj = {"datas":[{"RECORD_ID":"5c56dedb-14b4-4a7b-905d-1a453a233585","CREATETIME":1505363994000,"UPDATETIME":1505363994000,"ISVALID":1,"FAVOR_ID":134,"USER_ID":4548444,"TRADE_TYPE":2,"FAVOR_DATE":1505363994000,"BELONG_QF":"[电月电一长安城]","TIXIN":"[纯阳]","PRICE_NUM":10,"ACCO_INFO":"茜春树暮云 夺"}]};
 
         var tradeType=obj.TRADE_TYPE;
-        if(tradeType=="1"){
+        /*if(tradeType=="1"){
             tradeType="买号";
         }else if(tradeType=="2"){
             tradeType="卖号";
         }else{
             tradeType="换号";
-        }
-        $(".nav-pills ul li").parents('.nav-pills').find('.dropdown-toggle').html(tradeType+'<b class="caret"></b>');//欺诈类型
+        }*/
+        // alert(tradeType);
+        //$(".nav-pills ul li").parents('.nav-pills').find('.dropdown-toggle').html(tradeType+'<b class="caret"></b>');//欺诈类型
+        //$('input:radio').slice(tradeType).attr('checked', 'true');
+        $("input:radio[value="+tradeType+"]").attr('checked','true');
         $("#pre").find("option:selected").text(obj.BELONG_QF.substring(1,3));
         $("#city").find("option:selected").text(obj.BELONG_QF.substring(3,5));
         $("#area").find("option:selected").text(obj.BELONG_QF.substring(5,obj.BELONG_QF.length-1));
 
         var tixin=$("#tixin").select2();
-        tixin.val(obj.TIXIN.substring(1,obj.TIXIN.length-1)).trigger("change");
+        var tixin2=$("#tixin2").select2();  //2017-10-28 add
+        //tixin.val(obj.TIXIN.substring(1,obj.TIXIN.length-1)).trigger("change");
+        tixin.val(obj.TIXIN).trigger("change");
         tixin.change();
+        tixin2.val(obj.MENPAI).trigger("change");
+        tixin2.change();
 
         $('#priceNum').val(obj.PRICE_NUM);//价格
         $('#accoInfo').val(obj.ACCO_INFO);//账号资料
 
-        $('.dropdown-menu li').addClass('disabled');
+        //$('.dropdown-menu li').addClass('disabled');    //2017-10-28 del
+        $('.radioTest').attr("disabled",true);
         $('.areaSelect select').attr('disabled','true');
         $('.tixin').attr('disabled','true');
+        $('.tixin2').attr('disabled','true');
         $('#priceNum').attr('disabled','true');
         $('#accoInfo').attr('disabled','true');
     }
@@ -309,7 +319,7 @@
                 initSelections(selecttions);
             }
             var tixin = data.tixin==null?"":data.tixin;
-            //填充体型选择框
+            //初始化下拉 - 填充体型选择框
             var tixinList = data.tixinList==null?"":data.tixinList;
             if(tixinList!="") {
                 initTixin(tixinList);
@@ -339,19 +349,21 @@
                     var tradeType = '1';//账号交易类别
                     var belongQf = ''; //涉事区服
                     var tixin = $('#tixin').val();//门派体型
+                    var tixin2 = $('#tixin2').val();//体型
                     var priceNum = $('#priceNum').val();//价格
                     var accoInfo = $('#accoInfo').val();//账号资料
 
-                    tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
+                    /*tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();   //2017-10-28 del
                     if(tradeType=="买号"){
                         tradeType=1;
                     }else if(tradeType=="卖号"){
                         tradeType=2;
                     }else{
                         tradeType=3;
-                    }
+                    }*/
+                    tradeType = $('input[name="tradeType"]:checked').val();     //2017-10-28 add
 
-                    $('.areaSelect').find('select').each(function () {
+                $('.areaSelect').find('select').each(function () {
                         var text = $(this).find('option:selected').text();
                         if(text.indexOf("请选择")==-1) {
                             belongQf += text;
@@ -366,6 +378,7 @@
                     console.log('输出----------->'+userId);
                     console.log('输出----------->'+belongQf);
                     console.log('输出tixin----------->'+tixin);
+                    console.log('输出tixin2----------->'+tixin2);
                     console.log('输出----------->'+priceNum);
                     console.log('输出----------->'+accoInfo);
 
@@ -393,6 +406,7 @@
                                     + '&tradeType=' + encodeURI(tradeType)
                                     + '&belongQf=' + encodeURI(belongQf)
                                     + '&tixin=' + encodeURI(tixin)
+                                    + '&tixin2=' + encodeURI(tixin2)
                                     + '&priceNum=' + encodeURI(priceNum)
                                     + '&accoInfo=' + encodeURI(accoInfo)
                                     + '&favorId=-1';
@@ -402,6 +416,7 @@
                                     + '&tradeType=' + encodeURI(tradeType)
                                     + '&belongQf=' + encodeURI(belongQf)
                                     + '&tixin=' + encodeURI(tixin)
+                                    + '&tixin2=' + encodeURI(tixin2)
                                     + '&priceNum=' + encodeURI(priceNum)
                                     + '&accoInfo=' + encodeURI(accoInfo)
                                     + '&favorId=' +getUrlParam('mainId');
@@ -415,6 +430,7 @@
                                 uploader.options.formData.tradeType = tradeType;
                                 uploader.options.formData.belongQf = belongQf;
                                 uploader.options.formData.tixin = tixin;
+                                uploader.options.formData.tixin2 = tixin2;
                                 uploader.options.formData.priceNum = priceNum;
                                 uploader.options.formData.accoInfo = accoInfo;
                                 uploader.options.formData.imgNum = imgNum;
@@ -428,6 +444,7 @@
                                 uploader.options.formData.tradeType = tradeType;
                                 uploader.options.formData.belongQf = belongQf;
                                 uploader.options.formData.tixin = tixin;
+                                uploader.options.formData.tixin2 = tixin2;
                                 uploader.options.formData.priceNum = priceNum;
                                 uploader.options.formData.accoInfo = accoInfo;
                                 uploader.options.formData.imgNum = imgNum;
@@ -442,87 +459,12 @@
             });
             $('#upedit').unbind("click");
             $('#upedit').click(function () {
-                // layer.load();
-                // var recordId = getUrlParam('mainId');
-                // var tradeType = '1';//账号交易类别
-                // var belongQf = ''; //涉事区服
-                // var tixin = $('#tixin').val();//门派体型
-                // var priceNum = $('#priceNum').val();//价格
-                // var accoInfo = $('#accoInfo').val();//账号资料
-                //
-                // tradeType = $('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
-                // if(tradeType=="买号"){
-                //     tradeType=1;
-                // }else if(tradeType=="卖号"){
-                //     tradeType=2;
-                // }else{
-                //     tradeType=3;
-                // }
-                //
-                // $('.areaSelect').find('select').each(function () {
-                //     var text = $(this).find('option:selected').text();
-                //     if(text.indexOf("请选择")==-1) {
-                //         belongQf += text;
-                //     }
-                // });
-                // /*if(belongQf.length>2) {
-                //  belongQf = belongQf.substring(0, belongQf.length - 1);
-                //  }else{
-                //  belongQf="";
-                //  }*/
-                // console.log('开始tradeType----------->'+tradeType);
-                // console.log('输出----------->'+userId);
-                // console.log('输出----------->'+belongQf);
-                // console.log('输出tixin----------->'+tixin);
-                // console.log('输出----------->'+priceNum);
-                // console.log('输出----------->'+accoInfo);
-                //
-                // //验证
-                // var submit=true;
-                // if($.trim(priceNum).length>0) {
-                //     var reg = /^[0-9]*$/;
-                //     if(!reg.test(priceNum)){
-                //         $('#msg1').text("* 请输入正整数!");
-                //         submit=false;
-                //     }else{
-                //         $('#msg1').text("*");
-                //     }
-                // }else{
-                //     $('#msg1').text("* 本项不可为空!");
-                //     submit=false;
-                // }
-                //
-                // /*url = reportApi + 'saveZhssInfo?operate=upedit&userId=' + encodeURI(userId)
-                //     + '&favorId=' + getUrlParam('mainId')
-                //     + '&tradeType=' + encodeURI(tradeType)
-                //     + '&belongQf=' + encodeURI(belongQf)
-                //     + '&tixin=' + encodeURI(tixin)
-                //     +'&priceNum=' + encodeURI(priceNum)
-                //     +'&accoInfo=' + encodeURI(accoInfo);*/
-                //
-                // if(submit){
-                //     //saveTable(url);
-                //     //uploader.upload();
-                //
-                //     // 数据封装
-                //     uploader.options.formData.operate = "upedit";
-                //     uploader.options.formData.favorId = getUrlParam('mainId');
-                //     uploader.options.formData.userId = userId;
-                //     uploader.options.formData.tradeType = tradeType;
-                //     uploader.options.formData.belongQf = belongQf;
-                //     uploader.options.formData.tixin = tixin;
-                //     uploader.options.formData.priceNum = priceNum;
-                //     uploader.options.formData.accoInfo = accoInfo;
-                //
-                //     uploader.upload();
-                //     saveTable();
-                // }else{
-                //     layer.closeAll();
-                // }
 
-                $('.dropdown-menu li').removeClass('disabled');
+                //$('.dropdown-menu li').removeClass('disabled');     //2017-10-28 del
+                $('.radioTest').attr("disabled",false);
                 $('.areaSelect select').removeAttr('disabled');
                 $('.tixin').removeAttr('disabled');
+                $('.tixin2').removeAttr('disabled');
                 $('#priceNum').removeAttr('disabled');
                 $('#accoInfo').removeAttr('disabled');
 

@@ -88,15 +88,20 @@
               <table class="mt15">
                   <tr>
                       <td align="right" class="wr ft1">交易类型：</td>
-                      <td><ul class="nav nav-pills w250">
+                      <td><!--<ul class="nav nav-pills w250">
                           <li class="dropdown all-camera-dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">买号<b class="caret"></b> </a>
                               <ul class="dropdown-menu">
                                   <li data-filter-camera-type="all"><a data-toggle="tab" href="#" value="1">买号</a></li>
                                   <li data-filter-camera-type="Alpha"><a data-toggle="tab" href="#" value="2">卖号</a></li>
-                                  <!--<li data-filter-camera-type="Alpha"><a data-toggle="tab" href="#" value="3">换号</a></li>-->
+                                  !--<li data-filter-camera-type="Alpha"><a data-toggle="tab" href="#" value="3">换号</a></li>--
                               </ul>
                           </li>
-                      </ul></td>
+                      </ul>-->
+                          <input class='radioTest' name="tradeType" type="radio" checked value="1" />
+                          买号
+                          <input class='radioTest' name="tradeType" type="radio" value="2" />
+                          卖号
+                      </td>
                       <td align="right" class="wr ft1"></td>
                       <td></td>
                       <td align="right" class="wr ft1"></td>
@@ -121,10 +126,17 @@
                     </td>
                 </tr>
                 <tr>
-                  <td align="right" class="wr ft1">体型：</td>
+                  <td align="right" class="wr ft1">门派：</td>
                   <td>
                       <select class="js-example-basic-single tixin" id="tixin"  style="width: 200px;">
                           <option value=""></option>
+                      </select>
+                      <select class="js-example-basic-single tixin2" id="tixin2"  style="width: 200px;">
+                          <option value=""></option>
+                          <option value="成男">成男</option>
+                          <option value="成女">成女</option>
+                          <option value="萝莉">萝莉</option>
+                          <option value="正太">正太</option>
                       </select>
                   </td>
                   <td align="right" class="wr ft1"></td>
