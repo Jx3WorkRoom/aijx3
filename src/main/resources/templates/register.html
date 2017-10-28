@@ -31,7 +31,7 @@
 </head>
 <body>
 <!-- top logo -->
-<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 6px;right: 100px">   <h4>咨询客服：824460354，3032254434</h4> <h4>咨询外观：823515253</h4> <h4>QQ群号：296733805</h4></div>
+<div class="topLogo"><img th:src="@{/dist/css/images/jx3/logo_2.png}" /></div><div class="contactUs" style="position: absolute;top: 6px;right: 100px">   </div>
 <!-- navigation -->
 <div class="navCon">
  <div class="nav"><a href="index" class="cur">首页</a><a href="accountList">账号搜索</a><a href="appearanceSale">外观搜索</a><a href="propSale">道具搜索</a><!-- <a href="goldExchangeList">金币收售</a> --><a href="levelingList">代练代打</a><a href="blackList">剑三黑榜</a><a href="dataAndSecurity">用户中心</a><a class="last" href="login">登录 / 注册</a><a href="javascript:void(0)" id="exitUser" style="display: none;">            <form th:action="@{/logout}" method="post">                <input type="submit" class="btn btn-primary exit" value="退出"/>            </form>        </a>        <img class="gift" th:src="@{/dist/css/images/jx3/gift.png}"></div>
@@ -101,7 +101,8 @@
 <!-- foot -->
 <div class="footcontent">
  <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
- Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号
+ <div>Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号</div>
+ <div>QQ群：296733805</div>
 </div>
 </body>
 </html>

@@ -80,7 +80,7 @@ function initTable(url,keyNum) {
     $(".table").empty();
     $(".table").append("<div class=\"table-tr tablered\">\n" +
         "            <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
-        "            <div class=\"table-th\">门派体型</div>\n" +
+        "            <div class=\"table-th\">门派</div>\n" +
         "            <div class=\"table-th\">资料简介</div>\n" +
         "             <div class=\"table-th\">收/售</div>\n" +
         "            <div class=\"table-th\">价格（元）</div>\n" +
@@ -140,6 +140,9 @@ function initTable(url,keyNum) {
                 var TIXIN = value.TIXIN.replace("[", "");
                 TIXIN = TIXIN.replace("]", "");
                 TIXIN = TIXIN.split(',')[0];
+                if(TIXIN.length>=4){
+                    TIXIN = TIXIN.substring(2,TIXIN.length);
+                }
                 var REPLY_CONTENT = getNewline(value.REPLY_CONTENT);
                 function getNewline(val) {
                     var str = new String(val);
