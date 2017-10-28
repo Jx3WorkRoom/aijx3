@@ -34,7 +34,7 @@ function initTable(url,keyNum) {
         }else{
             areaSelection="";
         }
-        var shape = $('.tixin').find("option:selected").text();
+        var shape = $('.menpai').find("option:selected").text()+$('.tixin').find("option:selected").text();
         var info = $('.info').val();
         if(shape==""&&info==""&&areaSelection==""){
             url = api+'accountList?tradeType='+encodeURI(tradeType)+'&startNum='+encodeURI(startNum)+'&endNum='+encodeURI(endNum);
@@ -430,7 +430,7 @@ function initSeach() {
             }else{
                 clickSeachNum=0;
             }
-            var shape = $('.tixin').val();
+            var shape = $('.menpai').find("option:selected").text()+$('.tixin').find("option:selected").text();
             if(shape==""&&info==""&&areaSelection==""){
                 initTable();
             }else {
@@ -509,8 +509,8 @@ function initSeach() {
     }
     function initTixin(data) {
         $.each(data,function (i,value) {
-            var val1 = value.MENPAI_NAME;
-            $('.tixin').append("  <option value="+val1+">"+val1+"</option> ");
+            var val1 = value.menpai_name;
+            $('.menpai').append("  <option value="+val1+">"+val1+"</option> ");
         });
         $(".js-example-basic-single").select2();
     }
