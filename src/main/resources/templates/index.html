@@ -114,6 +114,10 @@
     .footcontent>a{
         color: aqua;
     }
+    .exitLogout{
+        margin-top: 8px;
+        margin-right: 20px;
+    }
 </style>
 <div class="wrapper">
   <header class="main-header">
@@ -128,9 +132,17 @@
           <li class="dropdown tasks-menu">
             <a href="../login">登陆</a>
           </li>
-          <li class="dropdown">
+          <li class="dropdown register">
             <a href="../register">注册</a>
           </li>
+            <li class="dropdown username" style="display: none">
+                <a href="../dataAndSecurity"><div id="userName">[[${#httpServletRequest.remoteUser}]]</div></a>
+            </li>
+            <li class="dropdown exitLogout" style="display: none">
+                <form action="/logout" method="post">
+                    <input type="submit" class="btn btn-primary exit" value="退出">
+                </form>
+            </li>
           <!-- Control Sidebar Toggle Button -->
         </ul>
       </div>

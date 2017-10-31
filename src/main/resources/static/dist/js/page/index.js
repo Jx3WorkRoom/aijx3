@@ -4,6 +4,15 @@ $(function () {
 
 
 function initPage() {
+
+    var username = $('#userName').text();
+    if(username!=""){
+        $('.tasks-menu').hide();
+        $('.register').hide();
+        $('.username').show();
+        $('.exitLogout').show();
+    }
+
     var url =api+'index/getSysLog';
     $.getJSON(url,function (data) {
         data = data.datas==null?'--':data.datas;
