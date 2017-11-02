@@ -27,10 +27,31 @@ function initDetail(favorId,sourceType,username) {
             if(data!="") {
                 $('.scrollimg').empty();
                 $.each(data, function (i, value) {
-                    $('.tbUrl').empty();
-                    $('.tbUrl').append("贴吧链接：<a href='"+value.PAGE_URL+"' target='_blank'>"+value.PAGE_URL+"</a>");
-                    $('.tbFloor').empty();
-                    $('.tbFloor').append("贴吧楼层："+value.BELONG_FLOOR);
+                    if(value.SOURCE_TYPE==1) {
+                        $('.tbUrl').empty();
+                        $('.tbUrl').append("贴吧链接：<a href='" + value.PAGE_URL + "' target='_blank'>" + value.PAGE_URL + "</a>");
+                        $('.tbFloor').empty();
+                        $('.tbFloor').append("贴吧楼层：" + value.BELONG_FLOOR);
+                    }else{
+                        var userId =value.USER_ID;
+                        var url2 =api+'User/getUserInfoByID?userId='+encodeURI(userId);
+                        $.getJSON(url2,function (data1) {
+                           data1=data1.datas[0]==null?'':data1.datas[0];
+                           if(data!=''){
+                               $('.tbUrl').empty();
+                               $('.tbFloor').empty();
+                               if(data1.USER_QQ!=null) {
+                                   $('.tbFloor').append("用户QQ：" + data1.USER_QQ);
+                               }else{
+                                   $('.tbFloor').append("用户QQ：--");
+                               }
+                           }else {
+                               $('.tbUrl').empty();
+                               $('.tbFloor').empty();
+                               $('.tbFloor').append("用户QQ：--");
+                           }
+                        });
+                    }
                     $('.account').empty();
                     $('.account').append("详情简介："+value.REPLY_CONTENT);
                     mainId = value.MAIN_ID==null?1:value.MAIN_ID;
