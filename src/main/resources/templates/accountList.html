@@ -16,6 +16,7 @@
 <script th:src="@{/dist/js/jx3/jquery.js}"></script>
 <script th:src="@{/dist/js/jx3/base.js}"></script>
 <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <script th:src="@{/dist/js/jx3/bootstrap.min.js}"></script>
     <script th:src="@{/dist/js/jx3/select2/select2.full.min.js}"></script>
     <script th:src="@{/dist/js/layer/layer.js}"></script>
     <script th:src="@{/dist/js/page/utils.js}"></script>
@@ -45,6 +46,27 @@
     .main li a
     {
         text-decoration: none;
+    }
+    .layui-layer-title{
+        display: none;
+    }
+    .layer-anim.layui-layer-dialog{
+        width: 420px!important;
+    }
+    .addQuery>div>label{
+        margin: 5px;
+        font-size: 18px;
+        float: left;
+    }
+    .addQuery{
+        margin-left: 30px;
+    }
+    .addQuery>div{
+        height: 40px;
+    }
+    .modal-content{
+        width: 1000px;
+        left: -180px;
     }
 </style>
 <body style="display: none">
@@ -198,15 +220,17 @@
            <td align="right" class="wr ft1">其他：</td>
            <td><textarea class="info" role="3" rows="3" placeholder="外观、稀有坐骑、奇趣、橙武、奇遇、珍稀挂件以及其他账号资料词。"></textarea></td>
           </tr>
-
          <tr>
            <td align="right" class="wr ft1">价格：</td>
            <td> <input type="number" class="lowPrice" style="width: 100px"> - <input type="number" class="highPrice" checked style="width: 100px">&nbsp;<input type="checkbox" class="hasPrice" checked style="width: 30px"/>显示价格不明确数据</td>
           </tr>
-
          <tr>
            <td class="wr ft1"></td>
-           <td colspan="2"><a href="javascript:void(0)" class="query-l">查询</a><a href="quickRelease" class="issue-l">我要发布</a></td>
+           <td colspan="2">
+               <a href="javascript:void(0)" class="query-l">查询</a>
+               <a href="quickRelease" class="issue-l">我要发布</a>
+               <a href="javascript:void(0)" class="issue-l keepQuery" style="width: 100px;">保存搜索条件</a>
+           </td>
            <td></td>
           </tr>
      </table>
@@ -241,6 +265,97 @@
     <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
     <div>Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号</div>
     <div>QQ群：296733805</div>
+</div>
+
+<div class="modal fade" id="keepQueryDetail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <span class="inputtitle"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">保存新的搜索方案</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="editQuery" style="display: none">
+                        修改
+                    </div>
+                    <div class="addQuery" style="display: none">
+                        <div>
+                            <label>收售:</label>&nbsp;
+                            <label class="queryTradeType"></label>
+                        </div>
+                        <div>
+                            <label>区服:</label>&nbsp;
+                            <label class="queryQufu"></label>
+                        </div>
+                        <div>
+                            <label>门派:</label>&nbsp;
+                            <label class="queryMenpai"></label>
+                        </div>
+                        <div>
+                            <label>体型:</label>&nbsp;
+                            <label class="queryTixin"></label>
+                        </div>
+                        <div>
+                            <label>发型:</label>&nbsp;
+                            <label class="queryFaxin"></label>
+                        </div>
+                        <div>
+                            <label>盒子:</label>&nbsp;
+                            <label class="queryHezi"></label>
+                        </div>
+                        <div>
+                            <label>披风:</label>&nbsp;
+                            <label class="queryPifeng"></label>
+                        </div>
+                        <div>
+                            <label>五限:</label>&nbsp;
+                            <label class="queryWuxian"></label>
+                        </div>
+                        <div>
+                            <label>六限:</label>&nbsp;
+                            <label class="queryLiuxian"></label>
+                        </div>
+                        <div>
+                            <label>成衣:</label>&nbsp;
+                            <label class="queryCY"></label>
+                        </div>
+                        <div>
+                            <label>奇遇:</label>&nbsp;
+                            <label class="queryQiyu"></label>
+                        </div>
+                        <div>
+                            <label>橙武:</label>&nbsp;
+                            <label class="queryChengwu"></label>
+                        </div>
+                        <div>
+                            <label>挂件:</label>&nbsp;
+                            <label class="queryGuanjian"></label>
+                        </div>
+                        <div>
+                            <label>价格:</label>&nbsp;
+                            <label class="queryPrice"></label>
+                        </div>
+                        <div>
+                            <label>其他:</label>&nbsp;
+                            <label class="queryInfo"></label>
+                        </div>
+                        <br>
+                        <div>
+                            <label>搜索方案名:</label>&nbsp;
+                            <input type="text" class="fanganName" style="height: 36px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="sureKeepBtn">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 </body>
 <script type="text/javascript">

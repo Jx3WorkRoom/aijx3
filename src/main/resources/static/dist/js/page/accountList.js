@@ -9,6 +9,7 @@ var pageClickNum = 1;
 $(function () {
     initTable();
     initSeach();
+    initKeepQuery();
     timer()
 });
 
@@ -877,4 +878,156 @@ function initPage(pageList,keyNum) {
             });
         }
     })
+}
+
+function initKeepQuery(){
+    $('.keepQuery').click(function () {
+       var username = $('#userName').text();
+       if(username==""){
+           layer.msg("请先登录!");
+       }else{
+           layer.confirm("搜索方案",{
+               btn: ['覆盖现有搜索方案', '保存新的搜索方案', '取消'],
+               btn3: function(index, layero){
+                  layer.closeAll();
+               }
+           }, function(index, layero){
+               layer.closeAll();
+               $('.addQuery').hide();
+               $('.editQuery').show();
+               $('#keepQueryDetail').modal('show');
+               initEditQuery();
+           }, function(index){
+               layer.closeAll();
+               $('.editQuery').hide();
+               $('.addQuery').show();
+               $('#keepQueryDetail').modal('show');
+               initAddQuery()
+           });
+       }
+    });
+}
+
+function initEditQuery() {
+
+}
+
+function initAddQuery() {
+    var tradeType =$('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
+    var areaSelection = "";
+    $('.areaSelect').find('select').each(function () {
+        var text = $(this).find('option:selected').text();
+        if(text.indexOf("请选择")==-1) {
+            areaSelection += text + ' ,';
+        }
+    });
+    areaSelection = areaSelection.substring(0,areaSelection.length-1);
+
+    var menpai = $('.menpai').find("option:selected").text();
+    var tixin = $('.tixin').find("option:selected").text();
+
+    var faxin = $('.faxin').val()==null?"":$('.faxin').val();
+    var faxin2 = "";
+    $.each(faxin,function (i,value) {
+        faxin2 += $('.faxin').find('option[value="'+value+'"]').text()+',';
+    });
+    faxin2 = faxin2.substring(0,faxin2.length-1);
+
+    var hezi = $('.hezi').val()==null?"":$('.hezi').val();
+    var hezi2 = "";
+    $.each(hezi,function (i,value) {
+        hezi2 += $('.hezi').find('option[value="'+value+'"]').text()+',';
+    });
+    hezi2 = hezi2.substring(0,hezi2.length-1);
+
+    var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val();
+    var pifeng2 = "";
+    $.each(pifeng,function (i,value) {
+        pifeng2 += $('.pifeng').find('option[value="'+value+'"]').text()+',';
+    });
+    pifeng2 = pifeng2.substring(0,pifeng2.length-1);
+
+    var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val();
+    var wuxian2 = "";
+    $.each(wuxian,function (i,value) {
+        wuxian2 += $('.wuxian').find('option[value="'+value+'"]').text()+',';
+    });
+    wuxian2 = wuxian2.substring(0,wuxian2.length-1);
+
+    var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val();
+    var liuxian2 = "";
+    $.each(liuxian,function (i,value) {
+        liuxian2 += $('.liuxian').find('option[value="'+value+'"]').text()+',';
+    });
+    liuxian2 = liuxian2.substring(0,liuxian2.length-1);
+
+    var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val();
+    var chengyi2 = "";
+    $.each(chengyi,function (i,value) {
+        chengyi2 += $('.chengyi').find('option[value="'+value+'"]').text()+',';
+    });
+    chengyi2 = chengyi2.substring(0,chengyi2.length-1);
+
+    var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString();
+    var chengwu = $('.chengwu').val()==null?"":$('.chengwu').val().toString();
+    var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString();
+    var info = $('.info').val();
+    var lowPrice = $('.lowPrice').val();
+    var highPrice = $('.highPrice').val();
+    var username = $('#userName').text();
+
+    $('.queryTradeType').text(tradeType);
+    $('.queryQufu').text(areaSelection);
+    $('.queryMenpai').text(menpai);
+    $('.queryTixin').text(tixin);
+    $('.queryFaxin').text(faxin2);
+    $('.queryHezi').text(hezi2);
+    $('.queryPifeng').text(pifeng2);
+    $('.queryWuxian').text(wuxian2);
+    $('.queryLiuxian').text(liuxian2);
+    $('.queryCY').text(chengyi2);
+    $('.queryQiyu').text(qiyu);
+    $('.queryChengwu').text(chengwu);
+    $('.queryGuanjian').text(guajia);
+    $('.queryPrice').text(lowPrice+'-'+highPrice);
+    $('.queryInfo').text(info);
+
+    var fanganName = $('.fanganName').val();
+
+    $('#sureKeepBtn').unbind('click');
+    $('#sureKeepBtn').click(function () {
+        fanganName = $('.fanganName').val();
+        if(fanganName==""){
+            layer.msg("请输入搜索方案名!");
+        }else {
+            var url = api + 'keepQuery?tradeType=' + encodeURI(tradeType) +
+                '&areaSelection=' + encodeURI(areaSelection) +
+                '&menpai=' + encodeURI(menpai) +
+                '&tixin=' + encodeURI(tixin) +
+                '&faxin=' + encodeURI(faxin.toString()) +
+                '&hezi=' + encodeURI(hezi.toString()) +
+                '&pifeng=' + encodeURI(pifeng.toString()) +
+                '&wuxian=' + encodeURI(wuxian.toString()) +
+                '&liuxian=' + encodeURI(liuxian.toString()) +
+                '&chengyi=' + encodeURI(chengyi.toString()) +
+                '&qiyu=' + encodeURI(qiyu) +
+                '&chengwu=' + encodeURI(chengwu) +
+                '&guajia=' + encodeURI(guajia) +
+                '&lowPrice=' + encodeURI(lowPrice) +
+                '&highPrice=' + encodeURI(highPrice) +
+                '&info=' + encodeURI(info) +
+                '&username=' + encodeURI(username) +
+                '&fanganName=' + encodeURI(fanganName) ;
+            layer.load();
+            $.getJSON(url, function (data) {
+                layer.closeAll();
+                if(data.info==1){
+                    layer.msg("保存成功!");
+                    $('#keepQueryDetail').modal('hide');
+                }else{
+                    layer.msg("保存失败")
+                }
+            });
+        }
+    });
 }

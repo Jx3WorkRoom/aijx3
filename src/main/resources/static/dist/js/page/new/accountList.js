@@ -532,7 +532,8 @@ function initSeach() {
         }
     }
     function initTixin(data) {
-        $.each(data,function (i,value) {
+        var menpai = data.tixin;
+        $.each(menpai,function (i,value) {
             var val1 = value.menpai_name;
             $('.menpai').append("  <option value="+val1+">"+val1+"</option> ");
         });
