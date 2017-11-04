@@ -78,7 +78,7 @@ function initTable(url,keyNum) {
 
         var lowPrice = $('.lowPrice').val();
         var highPrice = $('.highPrice').val();
-
+        var hasChecked = $(".hasPrice").get(0).checked;
         if(shape==""&&info==""&&areaSelection==""&&lowPrice==""&&highPrice==""){
             url = api+'accountList?tradeType='+encodeURI(tradeType)+'&startNum='+encodeURI(startNum)+'&endNum='+encodeURI(endNum);
         }else{
@@ -93,6 +93,7 @@ function initTable(url,keyNum) {
                     + '&info=' + encodeURI(info)
                     + '&lowPrice=' + encodeURI(lowPrice)
                     + '&highPrice=' + encodeURI(highPrice)
+                    + '&hasChecked=' + encodeURI(hasChecked)
                     + '&startNum=' + encodeURI(startNum)
                     + '&endNum=';
                 +encodeURI(endNum);
@@ -477,6 +478,7 @@ function initSeach() {
             var chengyu = $('.chengwu').val()==null?"":$('.chengwu').val().toString().replace(",","");
             var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString().replace(",","");
             var info = faxin+hezi+pifeng+wuxian+liuxian+chengyi+qiyu+chengyu+guajia+$('.info').val();
+            var hasChecked = $(".hasPrice").get(0).checked;
             if(info!=""){
                 clickSeachNum++;
             }else{
@@ -493,6 +495,7 @@ function initSeach() {
                     +'&info=' + encodeURI(info)
                     + '&lowPrice=' + encodeURI(lowPrice)
                     + '&highPrice=' + encodeURI(highPrice)
+                    + '&hasChecked=' + encodeURI(hasChecked)
                     +'&startNum=0&endNum=30';
                 initTable(url);
             }
