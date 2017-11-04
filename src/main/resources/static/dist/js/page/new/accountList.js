@@ -34,15 +34,28 @@ function initTable(url,keyNum) {
         }else{
             areaSelection="";
         }
+        var lowPrice = $('.lowPrice').val();
+        var highPrice = $('.highPrice').val();
         var shape = $('.menpai').find("option:selected").text()+$('.tixin').find("option:selected").text();
-        var info = $('.info').val();
-        if(shape==""&&info==""&&areaSelection==""){
+        var faxin = $('.faxin').val()==null?"":$('.faxin').val().toString().replace(",","");
+        var hezi = $('.hezi').val()==null?"":$('.hezi').val().toString().replace(",","");
+        var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val().toString().replace(",","");
+        var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val().toString().replace(",","");
+        var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val().toString().replace(",","");
+        var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val().toString().replace(",","");
+        var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString().replace(",","");
+        var chengyu = $('.chengwu').val()==null?"":$('.chengwu').val().toString().replace(",","");
+        var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString().replace(",","");
+        var info = faxin+hezi+pifeng+wuxian+liuxian+chengyi+qiyu+chengyu+guajia+$('.info').val();
+        if(shape==""&&info==""&&areaSelection==""&&lowPrice==""&&highPrice==""){
             url = api+'accountList?tradeType='+encodeURI(tradeType)+'&startNum='+encodeURI(startNum)+'&endNum='+encodeURI(endNum);
         }else{
             url = api + 'accountList?tradeType=' + encodeURI(tradeType)
                 + '&areaSelection=' + encodeURI(areaSelection)
                 + '&shape=' + encodeURI(shape)
                 +'&info=' + encodeURI(info)
+                + '&lowPrice=' + encodeURI(lowPrice)
+                + '&highPrice=' + encodeURI(highPrice)
                 +'&startNum=' + encodeURI(startNum)
                 +'&endNum='; + encodeURI(endNum);
         }
@@ -76,9 +89,7 @@ function initTable(url,keyNum) {
                     return arr;
                 }
                 $.each(sortArrary,function (i,value) {
-                    if((pageClickNum-1)*10<i&&i<pageClickNum*10) {
-                        initDiv(tableDatas[value[1]]);
-                    }
+                    initDiv(tableDatas[value[1]]);
                 });
             }else {
                 $.each(tableDatas, function (i, value) {
@@ -126,7 +137,7 @@ function initTable(url,keyNum) {
                     }
                     return s;
                 }
-                var price = value.PRICE_NUM.replace("[", "").replace("]", "");
+                var price = value.PRICE_NUM.toString().replace("[", "").replace("]", "");
                 var floor = value.BELONG_FLOOR==null?'--':value.BELONG_FLOOR;
                 var favorId = value.FAVOR_ID;
                 $("#dataTable tbody").append(" <tr>" +
@@ -401,11 +412,7 @@ function initSeach() {
         if(selecttions!="") {
             initSelections(selecttions);
         }
-        var tixin = data.tixin==null?"":data.tixin;
-        //填充体型选择框
-        if(tixin!="") {
-            initTixin(tixin);
-        }
+        initTixin(data);
     }).error(function () {
     }).complete(function () {
         $('.query-l').unbind("click");
@@ -424,20 +431,33 @@ function initSeach() {
             }else{
                 areaSelection="";
             }
-            var info = $('.info').val();
+            var faxin = $('.faxin').val()==null?"":$('.faxin').val().toString().replace(",","");
+            var hezi = $('.hezi').val()==null?"":$('.hezi').val().toString().replace(",","");
+            var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val().toString().replace(",","");
+            var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val().toString().replace(",","");
+            var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val().toString().replace(",","");
+            var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val().toString().replace(",","");
+            var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString().replace(",","");
+            var chengyu = $('.chengwu').val()==null?"":$('.chengwu').val().toString().replace(",","");
+            var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString().replace(",","");
+            var info = faxin+hezi+pifeng+wuxian+liuxian+chengyi+qiyu+chengyu+guajia+$('.info').val();
             if(info!=""){
                 clickSeachNum++;
             }else{
                 clickSeachNum=0;
             }
+            var lowPrice = $('.lowPrice').val();
+            var highPrice = $('.highPrice').val();
             var shape = $('.menpai').find("option:selected").text()+$('.tixin').find("option:selected").text();
-            if(shape==""&&info==""&&areaSelection==""){
+            if(shape==""&&info==""&&areaSelection==""&&lowPrice==""&&highPrice==""){
                 initTable();
             }else {
                 url = api + 'accountList?tradeType=' + encodeURI(tradeType)
                     + '&areaSelection=' + encodeURI(areaSelection)
                     + '&shape=' + encodeURI(shape)
                     +'&info=' + encodeURI(info)
+                    + '&lowPrice=' + encodeURI(lowPrice)
+                    + '&highPrice=' + encodeURI(highPrice)
                     +'&startNum=0&endNum=10';
                 initTable(url);
             }
@@ -513,6 +533,78 @@ function initSeach() {
             $('.menpai').append("  <option value="+val1+">"+val1+"</option> ");
         });
         $(".js-example-basic-single").select2();
+
+        var faxin = data.faxin;
+        $.each(faxin,function (i,value) {
+            $('.faxin').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".faxin").select2({
+            maximumSelectionLength: 50
+        });
+
+        var hezi = data.hezi;
+        $.each(hezi,function (i,value) {
+            $('.hezi').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".hezi").select2({
+            maximumSelectionLength: 50
+        });
+
+        var pifeng = data.pifeng;
+        $.each(pifeng,function (i,value) {
+            $('.pifeng').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".pifeng").select2({
+            maximumSelectionLength: 50
+        });
+
+        var wuxian = data.wuxian;
+        $.each(wuxian,function (i,value) {
+            $('.wuxian').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".wuxian").select2({
+            maximumSelectionLength: 50
+        });
+
+        var liuxian = data.liuxian;
+        $.each(liuxian,function (i,value) {
+            $('.liuxian').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".liuxian").select2({
+            maximumSelectionLength: 50
+        });
+
+        var chengyi = data.chengyi;
+        $.each(chengyi,function (i,value) {
+            $('.chengyi').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
+        });
+        $(".chengyi").select2({
+            maximumSelectionLength: 50
+        });
+
+        var qiyu = data.qiyu;
+        $.each(qiyu,function (i,value) {
+            $('.qiyu').append("  <option value="+value.stra_name+">"+value.stra_name+"</option> ");
+        });
+        $(".qiyu").select2({
+            maximumSelectionLength: 50
+        });
+
+        var c5 = data.c5;
+        $.each(c5,function (i,value) {
+            $('.chengwu').append("  <option value="+value.arm_name+">"+value.arm_name+"</option> ");
+        });
+        $(".chengwu").select2({
+            maximumSelectionLength: 50
+        });
+
+        var guajian = data.guajian;
+        $.each(guajian,function (i,value) {
+            $('.guajian').append("  <option value="+value.pend_name+">"+value.pend_name+"</option> ");
+        });
+        $(".guajian").select2({
+            maximumSelectionLength: 50
+        });
     }
 }
 
