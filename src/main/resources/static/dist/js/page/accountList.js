@@ -490,15 +490,21 @@ function initSeach() {
             if(shape==""&&info==""&&areaSelection==""&&lowPrice==""&&highPrice==""){
                 initTable();
             }else {
-                url = api + 'accountList?tradeType=' + encodeURI(tradeType)
-                    + '&areaSelection=' + encodeURI(areaSelection)
-                    + '&shape=' + encodeURI(shape)
-                    +'&info=' + encodeURI(info)
-                    + '&lowPrice=' + encodeURI(lowPrice)
-                    + '&highPrice=' + encodeURI(highPrice)
-                    + '&hasChecked=' + encodeURI(hasChecked)
-                    +'&startNum=0&endNum=30';
-                initTable(url);
+                if(parseInt(highPrice)<parseInt(lowPrice)) {
+                    layer.closeAll();
+                    layer.msg("高价必须比低价高!");
+                    return false;
+                }else{
+                    url = api + 'accountList?tradeType=' + encodeURI(tradeType)
+                        + '&areaSelection=' + encodeURI(areaSelection)
+                        + '&shape=' + encodeURI(shape)
+                        + '&info=' + encodeURI(info)
+                        + '&lowPrice=' + encodeURI(lowPrice)
+                        + '&highPrice=' + encodeURI(highPrice)
+                        + '&hasChecked=' + encodeURI(hasChecked)
+                        + '&startNum=0&endNum=30';
+                    initTable(url);
+                }
             }
         });
     });
@@ -880,26 +886,102 @@ function initPage(pageList,keyNum) {
     })
 }
 
+var keepQueryDatas = null;
 function initKeepQuery(){
+    var username = $('#userName').text();
+    if(username!=""){
+        $('.querySelect').show();
+        var url = api+'getKeepQuery?username='+encodeURI(username);
+        $.getJSON(url,function (data) {
+            data = data.datas;
+            keepQueryDatas = data;
+            $.each(data,function (i,value) {
+                $('.querySelect').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
+            });
+        }).complete(function () {
+            $('.querySelect').unbind('change');
+            $('.querySelect').change(function () {
+                var selectId = $('.querySelect').val();
+                $.each(keepQueryDatas,function (i,value) {
+                    if(value.user_seq==selectId){
+                        var tradeType = value.trade_type;
+                        if(tradeType==1){
+                            $('.dropdown-menu li').eq(0).click();
+                        }else{
+                            $('.dropdown-menu li').eq(1).click();
+                        }
+                        var qufu1 = value.qf_factor_1.trim();
+                        $("#pre").find("option:selected").text(qufu1);
+                        var qufu2 = value.qf_factor_2.trim();
+                        $("#city").find("option:selected").text(qufu2);
+                        var qufu3 = value.qf_factor_3.trim();
+                        $("#area").find("option:selected").text(qufu3);
+                        var menpai = value.menpai_factor;
+                        $('.menpai').val(menpai).trigger("change");
+                        var tixin = value.tixin_factor;
+                        $('.tixin').val(tixin).trigger("change");
+                        var faxin = value.faxin.split(',');
+                        $('.faxin').val(faxin).trigger("change");
+                        var hezi = value.hezhi.split(',');
+                        $('.hezi').val(hezi).trigger("change");
+                        var pifeng = value.pifeng.split(',');
+                        $('.pifeng').val(pifeng).trigger("change");
+                        var wuxian = value.wuxian.split(',');
+                        $('.wuxian').val(wuxian).trigger("change");
+                        var liuxian = value.liuxian.split(',');
+                        $('.liuxian').val(liuxian).trigger("change");
+                        var chengyi = value.chenyi.split(',');
+                        $('.chengyi').val(chengyi).trigger("change");
+                        var qiyu = value.qiyu.split(',');
+                        $('.qiyu').val(qiyu).trigger("change");
+                        var chengwu = value.chenwu.split(',');
+                        $('.chengwu').val(chengwu).trigger("change");
+                        var guajian = value.gujian.split(',');
+                        $('.guajian').val(guajian).trigger("change");
+                        var info = value.search_factor;
+                        $('.info').val(info);
+                        var lowPrice = value.price_low;
+                        if(lowPrice!=0) {
+                            $('.lowPrice').val(lowPrice);
+                        }
+                        var highPrice = value.price_up;
+                        if(highPrice!=0) {
+                            $('.highPrice').val(highPrice);
+                        }
+
+                    }
+                });
+            });
+        });
+    }
     $('.keepQuery').click(function () {
-       var username = $('#userName').text();
        if(username==""){
            layer.msg("请先登录!");
        }else{
            layer.confirm("搜索方案",{
-               btn: ['覆盖现有搜索方案', '保存新的搜索方案', '取消'],
+               btn: ['覆盖现有搜索方案', '保存新的搜索方案', '删除搜索方案'],
                btn3: function(index, layero){
-                  layer.closeAll();
+                   layer.closeAll();
+                   $('.addQuery').hide();
+                   $('.editQuery').hide();
+                   $('.modal-footer').hide();
+                   $('.delQuery').show();
+                   $('#keepQueryDetail').modal('show');
+                   initDelQuery();
                }
            }, function(index, layero){
                layer.closeAll();
+               $('.delQuery').hide();
                $('.addQuery').hide();
+               $('.modal-footer').show();
                $('.editQuery').show();
                $('#keepQueryDetail').modal('show');
                initEditQuery();
            }, function(index){
                layer.closeAll();
+               $('.delQuery').hide();
                $('.editQuery').hide();
+               $('.modal-footer').show();
                $('.addQuery').show();
                $('#keepQueryDetail').modal('show');
                initAddQuery()
@@ -908,8 +990,75 @@ function initKeepQuery(){
     });
 }
 
-function initEditQuery() {
+function initDelQuery() {
+    var username = $('#userName').text();
+    var url = api+'getKeepQuery?username='+encodeURI(username);
+    $.getJSON(url,function (data) {
+        data = data.datas;
+        keepQueryDatas = data;
+        $('.delQueryTable tbody').empty();
+        $.each(data,function (i,value) {
+            $('.delQueryTable tbody').append(
+                "<tr><td>"+value.user_seq+"</td>"+
+                "<td>"+value.fang_an_name+"</td>"+
+                "<td><span class='delQueryList'>X</span></td></tr>"
+            );
+        });
+    }).complete(function () {
+        $('.delQueryList').unbind('click');
+        $('.delQueryList').click(function () {
+            var thisObj = $(this);
+            layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
+                var seq = thisObj.parent().parent().find('td').eq(0).text();
+                var url = api+'delQuery?seq='+encodeURI(seq);
+                $.getJSON(url,function (data) {
+                    if(data.info!=0){
+                        layer.msg("删除成功!");
+                    }else{
+                        layer.msg("删除失败!");
+                    }
+                }).complete(function () {
+                    var username = $('#userName').text();
+                    var url = api+'getKeepQuery?username='+encodeURI(username);
+                    $.getJSON(url,function (data) {
+                        data = data.datas;
+                        keepQueryDatas = data;
+                        $('.delQueryTable tbody').empty();
+                        $.each(data,function (i,value) {
+                            $('.delQueryTable tbody').append(
+                                "<tr><td>"+value.user_seq+"</td>"+
+                                "<td>"+value.fang_an_name+"</td>"+
+                                "<td><span class='delQueryList'>X</span></td></tr>"
+                            );
+                        });
+                    });
+                });
+                layer.closeAll();
+            });
+        })
+    });
+}
 
+function initEditQuery() {
+    var username = $('#userName').text();
+    var url = api+'getKeepQuery?username='+encodeURI(username);
+    $.getJSON(url,function (data) {
+        data = data.datas;
+        keepQueryDatas = data;
+        $('.editKeep').empty();
+        $.each(data,function (i,value) {
+            $('.editKeep').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
+        });
+        $('.editKeep').select2();
+    }).complete(function () {
+        var selectId = $('.editKeep').val();
+        editQuery(selectId);
+        $('.editKeep').unbind('change');
+        $('.editKeep').change(function () {
+            var selectId = $('.editKeep').val();
+            editQuery(selectId);
+        });
+    });
 }
 
 function initAddQuery() {
@@ -1000,7 +1149,8 @@ function initAddQuery() {
         if(fanganName==""){
             layer.msg("请输入搜索方案名!");
         }else {
-            var url = api + 'keepQuery?tradeType=' + encodeURI(tradeType) +
+            var url = "";
+            url = api + 'keepQuery?tradeType=' + encodeURI(tradeType) +
                 '&areaSelection=' + encodeURI(areaSelection) +
                 '&menpai=' + encodeURI(menpai) +
                 '&tixin=' + encodeURI(tixin) +
@@ -1027,7 +1177,259 @@ function initAddQuery() {
                 }else{
                     layer.msg("保存失败")
                 }
+            }).complete(function () {
+                $('.querySelect').show();
+                var url = api+'getKeepQuery?username='+encodeURI(username);
+                $.getJSON(url,function (data) {
+                    data = data.datas;
+                    keepQueryDatas = data;
+                    $('.querySelect').empty();
+                    $('.querySelect').append("<option value=\"0\">&nbsp;可选择保存的搜索方案</option>");
+                    $.each(data,function (i,value) {
+                        $('.querySelect').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
+                    });
+                }).complete(function () {
+                    $('.querySelect').unbind('change');
+                    $('.querySelect').change(function () {
+                        var selectId = $('.querySelect').val();
+                        $.each(keepQueryDatas,function (i,value) {
+                            if(value.user_seq==selectId){
+                                var tradeType = value.trade_type;
+                                if(tradeType==1){
+                                    $('.dropdown-menu li').eq(0).click();
+                                }else{
+                                    $('.dropdown-menu li').eq(1).click();
+                                }
+                                var qufu1 = value.qf_factor_1.trim();
+                                $("#pre").find("option:selected").text(qufu1);
+                                var qufu2 = value.qf_factor_2.trim();
+                                $("#city").find("option:selected").text(qufu2);
+                                var qufu3 = value.qf_factor_3.trim();
+                                $("#area").find("option:selected").text(qufu3);
+                                var menpai = value.menpai_factor;
+                                $('.menpai').val(menpai).trigger("change");
+                                var tixin = value.tixin_factor;
+                                $('.tixin').val(tixin).trigger("change");
+                                var faxin = value.faxin.split(',');
+                                $('.faxin').val(faxin).trigger("change");
+                                var hezi = value.hezhi.split(',');
+                                $('.hezi').val(hezi).trigger("change");
+                                var pifeng = value.pifeng.split(',');
+                                $('.pifeng').val(pifeng).trigger("change");
+                                var wuxian = value.wuxian.split(',');
+                                $('.wuxian').val(wuxian).trigger("change");
+                                var liuxian = value.liuxian.split(',');
+                                $('.liuxian').val(liuxian).trigger("change");
+                                var chengyi = value.chenyi.split(',');
+                                $('.chengyi').val(chengyi).trigger("change");
+                                var qiyu = value.qiyu.split(',');
+                                $('.qiyu').val(qiyu).trigger("change");
+                                var chengwu = value.chenwu.split(',');
+                                $('.chengwu').val(chengwu).trigger("change");
+                                var guajian = value.gujian.split(',');
+                                $('.guajian').val(guajian).trigger("change");
+                                var info = value.search_factor;
+                                $('.info').val(info);
+                                var lowPrice = value.price_low;
+                                if(lowPrice!=0) {
+                                    $('.lowPrice').val(lowPrice);
+                                }
+                                var highPrice = value.price_up;
+                                if(highPrice!=0) {
+                                    $('.highPrice').val(highPrice);
+                                }
+
+                            }
+                        });
+                    });
+                });
             });
         }
+    });
+}
+
+function editQuery(selectId) {
+    var tradeType =$('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
+    var areaSelection = "";
+    $('.areaSelect').find('select').each(function () {
+        var text = $(this).find('option:selected').text();
+        if(text.indexOf("请选择")==-1) {
+            areaSelection += text + ' ,';
+        }
+    });
+    areaSelection = areaSelection.substring(0,areaSelection.length-1);
+
+    var menpai = $('.menpai').find("option:selected").text();
+    var tixin = $('.tixin').find("option:selected").text();
+
+    var faxin = $('.faxin').val()==null?"":$('.faxin').val();
+    var faxin2 = "";
+    $.each(faxin,function (i,value) {
+        faxin2 += $('.faxin').find('option[value="'+value+'"]').text()+',';
+    });
+    faxin2 = faxin2.substring(0,faxin2.length-1);
+
+    var hezi = $('.hezi').val()==null?"":$('.hezi').val();
+    var hezi2 = "";
+    $.each(hezi,function (i,value) {
+        hezi2 += $('.hezi').find('option[value="'+value+'"]').text()+',';
+    });
+    hezi2 = hezi2.substring(0,hezi2.length-1);
+
+    var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val();
+    var pifeng2 = "";
+    $.each(pifeng,function (i,value) {
+        pifeng2 += $('.pifeng').find('option[value="'+value+'"]').text()+',';
+    });
+    pifeng2 = pifeng2.substring(0,pifeng2.length-1);
+
+    var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val();
+    var wuxian2 = "";
+    $.each(wuxian,function (i,value) {
+        wuxian2 += $('.wuxian').find('option[value="'+value+'"]').text()+',';
+    });
+    wuxian2 = wuxian2.substring(0,wuxian2.length-1);
+
+    var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val();
+    var liuxian2 = "";
+    $.each(liuxian,function (i,value) {
+        liuxian2 += $('.liuxian').find('option[value="'+value+'"]').text()+',';
+    });
+    liuxian2 = liuxian2.substring(0,liuxian2.length-1);
+
+    var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val();
+    var chengyi2 = "";
+    $.each(chengyi,function (i,value) {
+        chengyi2 += $('.chengyi').find('option[value="'+value+'"]').text()+',';
+    });
+    chengyi2 = chengyi2.substring(0,chengyi2.length-1);
+
+    var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString();
+    var chengwu = $('.chengwu').val()==null?"":$('.chengwu').val().toString();
+    var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString();
+    var info = $('.info').val();
+    var lowPrice = $('.lowPrice').val();
+    var highPrice = $('.highPrice').val();
+    var username = $('#userName').text();
+
+    $('.queryTradeType').text(tradeType);
+    $('.queryQufu').text(areaSelection);
+    $('.queryMenpai').text(menpai);
+    $('.queryTixin').text(tixin);
+    $('.queryFaxin').text(faxin2);
+    $('.queryHezi').text(hezi2);
+    $('.queryPifeng').text(pifeng2);
+    $('.queryWuxian').text(wuxian2);
+    $('.queryLiuxian').text(liuxian2);
+    $('.queryCY').text(chengyi2);
+    $('.queryQiyu').text(qiyu);
+    $('.queryChengwu').text(chengwu);
+    $('.queryGuanjian').text(guajia);
+    $('.queryPrice').text(lowPrice+'-'+highPrice);
+    $('.queryInfo').text(info);
+
+    $('#sureKeepBtn').unbind('click');
+    $('#sureKeepBtn').click(function () {
+        var fanganName = $('.fanganName2').val();
+        if(fanganName==""){
+            fanganName = $('.querySelect').find('option:selected').text();
+            if(fanganName.indexOf("可选择保存的搜索方案")>-1){
+                fanganName = $('.editKeep').find('option:selected').text();
+            }
+        }
+        var url = api + 'keepQuery2?tradeType=' + encodeURI(tradeType) +
+            '&areaSelection=' + encodeURI(areaSelection) +
+            '&menpai=' + encodeURI(menpai) +
+            '&tixin=' + encodeURI(tixin) +
+            '&faxin=' + encodeURI(faxin.toString()) +
+            '&hezi=' + encodeURI(hezi.toString()) +
+            '&pifeng=' + encodeURI(pifeng.toString()) +
+            '&wuxian=' + encodeURI(wuxian.toString()) +
+            '&liuxian=' + encodeURI(liuxian.toString()) +
+            '&chengyi=' + encodeURI(chengyi.toString()) +
+            '&qiyu=' + encodeURI(qiyu) +
+            '&chengwu=' + encodeURI(chengwu) +
+            '&guajia=' + encodeURI(guajia) +
+            '&lowPrice=' + encodeURI(lowPrice) +
+            '&highPrice=' + encodeURI(highPrice) +
+            '&info=' + encodeURI(info) +
+            '&username=' + encodeURI(username) +
+            '&fanganName=' + encodeURI(fanganName)+
+            '&selectId=' + encodeURI(selectId);
+        layer.load();
+        $.getJSON(url, function (data) {
+            layer.closeAll();
+            if(data.info==1){
+                layer.msg("保存成功!");
+                $('#keepQueryDetail').modal('hide');
+            }else{
+                layer.msg("保存失败")
+            }
+        }).complete(function () {
+            $('.querySelect').show();
+            var url = api+'getKeepQuery?username='+encodeURI(username);
+            $.getJSON(url,function (data) {
+                data = data.datas;
+                keepQueryDatas = data;
+                $('.querySelect').empty();
+                $('.querySelect').append("<option value=\"0\">&nbsp;可选择保存的搜索方案</option>");
+                $.each(data,function (i,value) {
+                    $('.querySelect').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
+                });
+            }).complete(function () {
+                $('.querySelect').unbind('change');
+                $('.querySelect').change(function () {
+                    var selectId = $('.querySelect').val();
+                    $.each(keepQueryDatas,function (i,value) {
+                        if(value.user_seq==selectId){
+                            var tradeType = value.trade_type;
+                            if(tradeType==1){
+                                $('.dropdown-menu li').eq(0).click();
+                            }else{
+                                $('.dropdown-menu li').eq(1).click();
+                            }
+                            var qufu1 = value.qf_factor_1.trim();
+                            $("#pre").find("option:selected").text(qufu1);
+                            var qufu2 = value.qf_factor_2.trim();
+                            $("#city").find("option:selected").text(qufu2);
+                            var qufu3 = value.qf_factor_3.trim();
+                            $("#area").find("option:selected").text(qufu3);
+                            var menpai = value.menpai_factor;
+                            $('.menpai').val(menpai).trigger("change");
+                            var tixin = value.tixin_factor;
+                            $('.tixin').val(tixin).trigger("change");
+                            var faxin = value.faxin.split(',');
+                            $('.faxin').val(faxin).trigger("change");
+                            var hezi = value.hezhi.split(',');
+                            $('.hezi').val(hezi).trigger("change");
+                            var pifeng = value.pifeng.split(',');
+                            $('.pifeng').val(pifeng).trigger("change");
+                            var wuxian = value.wuxian.split(',');
+                            $('.wuxian').val(wuxian).trigger("change");
+                            var liuxian = value.liuxian.split(',');
+                            $('.liuxian').val(liuxian).trigger("change");
+                            var chengyi = value.chenyi.split(',');
+                            $('.chengyi').val(chengyi).trigger("change");
+                            var qiyu = value.qiyu.split(',');
+                            $('.qiyu').val(qiyu).trigger("change");
+                            var chengwu = value.chenwu.split(',');
+                            $('.chengwu').val(chengwu).trigger("change");
+                            var guajian = value.gujian.split(',');
+                            $('.guajian').val(guajian).trigger("change");
+                            var info = value.search_factor;
+                            $('.info').val(info);
+                            var lowPrice = value.price_low;
+                            if(lowPrice!=0) {
+                                $('.lowPrice').val(lowPrice);
+                            }
+                            var highPrice = value.price_up;
+                            if(highPrice!=0) {
+                                $('.highPrice').val(highPrice);
+                            }
+                        }
+                    });
+                });
+            });
+        });
     });
 }

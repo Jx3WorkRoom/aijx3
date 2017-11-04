@@ -12,6 +12,7 @@
     <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
 <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/bootstrap.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/dist/js/jx3/select2/select2.min.css}">
 <script th:src="@{/dist/js/jx3/jquery.js}"></script>
 <script th:src="@{/dist/js/jx3/base.js}"></script>
@@ -51,7 +52,7 @@
         display: none;
     }
     .layer-anim.layui-layer-dialog{
-        width: 420px!important;
+        width: 480px!important;
     }
     .addQuery>div>label{
         margin: 5px;
@@ -67,6 +68,23 @@
     .modal-content{
         width: 1000px;
         left: -180px;
+    }
+    .delQueryTable>thead>tr>th,.delQueryTable>tbody>tr>td{
+        text-align: center;
+        border: 1px solid black;
+        padding: 0px 5px;
+    }
+    .delQueryTable{
+        width: 80%;
+        margin: 0% 10%;
+        height: 200px;
+        font-size: 20px;
+    }
+    .delQueryList{
+        font-size: 27px;
+        font-weight: 900;
+        cursor: pointer;
+        color: brown;
     }
 </style>
 <body style="display: none">
@@ -95,7 +113,13 @@
   <div class="searchcon">
    <div class="s_top">
      <ul>
-      <li class="cur">账号搜索</li><td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可以搜索全百度贴吧剑三账号）</div></td>
+      <li class="cur">账号搜索</li>
+         <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可以搜索全百度贴吧剑三账号）</div></td>
+         <td>
+             <select class="querySelect" style="width: 200px;float: right;font-size: 16px;padding-top: 0px;margin-top: -30px;height: 40px;margin-right: 60px;">
+                <option value="0">&nbsp;可选择保存的搜索方案</option>
+             </select>
+         </td>
      </ul>
      <div class="clear"></div>
      <div class="sline"></div>
@@ -146,10 +170,10 @@
            <td>
                <select class="js-example-basic-single tixin"  style="width: 100px;">
                    <option value=""></option>
-                   <option value="">成男</option>
-                   <option value="">成女</option>
-                   <option value="">萝莉</option>
-                   <option value="">正太</option>
+                   <option value="成男">成男</option>
+                   <option value="成女">成女</option>
+                   <option value="萝莉">萝莉</option>
+                   <option value="正太">正太</option>
                 </select>
            </td>
          </tr>
@@ -222,7 +246,7 @@
           </tr>
          <tr>
            <td align="right" class="wr ft1">价格：</td>
-           <td> <input type="number" class="lowPrice" style="width: 100px"> - <input type="number" class="highPrice" checked style="width: 100px">&nbsp;<input type="checkbox" class="hasPrice" checked style="width: 30px"/>显示价格不明确数据</td>
+           <td> <input type="number" min="1" class="lowPrice" style="width: 100px"> - <input type="number" class="highPrice" checked style="width: 100px">&nbsp;<input type="checkbox" class="hasPrice" checked style="width: 30px"/>显示价格不明确数据</td>
           </tr>
          <tr>
            <td class="wr ft1"></td>
@@ -277,7 +301,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="editQuery" style="display: none">
-                        修改
+                        <label style="margin-left: 20px;margin-right: 20px;">请选择要覆盖的保存方案</label> <select class="editKeep" style="margin-left: 20px;width: 200px"></select>
+                        <div style="margin-top: 20px">
+                            <label style="margin-left: 20px;margin-right: 20px;">可修改方案名:</label>&nbsp;
+                            <input type="text" class="fanganName2" style="height: 26px;"/>
+                        </div>
                     </div>
                     <div class="addQuery" style="display: none">
                         <div>
@@ -344,6 +372,22 @@
                         <div>
                             <label>搜索方案名:</label>&nbsp;
                             <input type="text" class="fanganName" style="height: 36px"/>
+                        </div>
+                    </div>
+                    <div class="delQuery" style="display: none">
+                        <div>
+                            <table class="delQueryTable">
+                                <thead>
+                                <tr>
+                                    <th>搜索方案序号</th>
+                                    <th>搜索方案名</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
