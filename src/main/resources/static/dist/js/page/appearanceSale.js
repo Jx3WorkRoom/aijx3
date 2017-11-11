@@ -100,6 +100,7 @@ function initTable(url,keyNum) {
     $(".table").empty();
     $(".table").append("<div class=\"table-tr tablered\">\n" +
         "        <div class=\"table-th table-th1\" style=\"width: 11% !important;padding-left: 30px;\">区服</div>\n" +
+        "        <div class=\"table-th\">来源贴吧</div>\n" +
         "        <div class=\"table-th\">介绍说明</div>\n" +
         "        <div class=\"table-th\">上架时间</div>\n" +
         "        <div class=\"table-th\">收藏</div>\n" +
@@ -159,6 +160,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                            "        <div class=\"table-td\">" + value.POST_BAR + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save\"></i></div>\n" +
@@ -170,6 +172,7 @@ function initTable(url,keyNum) {
                             "        <div class=\"table-td sourceType\" style='display: none'>" + value.SOURCE_TYPE + "</div>\n" +
                             "        <div class=\"table-td userId\" style='display: none'>" + value.USER_ID + "</div>\n" +
                             "        <div class=\"table-td\">" + belongOf + "</div>\n" +
+                            "        <div class=\"table-td\">" + value.POST_BAR + "</div>\n" +
                             "        <div class=\"table-td table_lw\"><a class=\"modalBtn\" href=\"javascript:;\">" + postContent + "</a></div>\n" +
                             "        <div class=\"table-td\">" + time + "</div>\n" +
                             "        <div class=\"table-td\"><i class=\"icon-save cur\"></i></div>\n" +
