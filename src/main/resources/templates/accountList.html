@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
     <meta name="discription" content="剑三交易快速搜索">
-    <title>账号交易-爱剑三</title>
+    <title>账号搜索-爱剑三</title>
     <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
 <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
@@ -73,6 +73,7 @@
         text-align: center;
         border: 1px solid black;
         padding: 0px 5px;
+        height: 100px;
     }
     .delQueryTable{
         width: 80%;
@@ -114,10 +115,10 @@
    <div class="s_top">
      <ul>
       <li class="cur">账号搜索</li>
-         <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可以搜索全百度贴吧剑三账号）</div></td>
+         <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可搜全贴吧剑三账号，欢迎加Q群：296733805）</div></td>
          <td>
-             <select class="querySelect" style="width: 200px;float: right;font-size: 16px;padding-top: 0px;margin-top: -30px;height: 40px;margin-right: 60px;">
-                <option value="0">&nbsp;可选择保存的搜索方案</option>
+             <select class="querySelect" style="display:none;width: 160px;float: right;font-size: 12px;padding-top: 0px;margin-top: -30px;height: 40px;margin-right: 60px;">
+                <option value="0">&nbsp;使用已保存的搜索条件</option>
              </select>
          </td>
      </ul>
@@ -246,7 +247,7 @@
           </tr>
          <tr>
            <td align="right" class="wr ft1">价格：</td>
-           <td> <input type="number" min="1" class="lowPrice" style="width: 100px"> - <input type="number" class="highPrice" checked style="width: 100px">&nbsp;<input type="checkbox" class="hasPrice" checked style="width: 30px"/>显示价格不明确数据</td>
+           <td> <input type="number" min="1" class="lowPrice" style="width: 100px"> - <input type="number" min="2" class="highPrice" checked style="width: 100px">&nbsp;<input type="checkbox" class="hasPrice" checked style="width: 30px"/>显示价格不明确数据</td>
           </tr>
          <tr>
            <td class="wr ft1"></td>
@@ -379,7 +380,7 @@
                             <table class="delQueryTable">
                                 <thead>
                                 <tr>
-                                    <th>搜索方案序号</th>
+                                    <th style="width: 20%">搜索方案</th>
                                     <th>搜索方案名</th>
                                     <th>操作</th>
                                 </tr>

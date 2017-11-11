@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
       <meta name="baidu-site-verification" content="D9ewcv2z8f" />
-      <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三金币">
-    <meta name="discription" content="剑三交易快速搜索">
-    <title>爱剑三_剑三交易_剑三交易信息聚合_爱剑三</title>
+      <meta name="keywords" content="剑网三交易,剑网3,剑网三,剑网三账号,剑三蹲号">
+      <meta name="discription" content="剑三蹲号">
+      <title>爱剑三_剑三交易_剑三蹲号_爱剑三</title>
     <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/bootstrap.css}"/>
     <!--jqueryUI -->
@@ -34,14 +34,12 @@
     }
     .zh,.wg,.dj,.dl,.hb,.yh{
         padding: 0 10px;
-        height: 200px;
-        border: 2px solid cadetblue;
-        margin: 20px 0px;
+        height: 160px;
+        margin: 19px 0px;
         cursor: pointer;
-        background-color: cadetblue;
     }
     .zh:hover,.wg:hover,.dj:hover,.dl:hover,.hb:hover,.yh:hover{
-        background-color: chocolate;
+        background-size: 95%;
     }
     .wg,.yh{
         padding: 0px;
@@ -53,19 +51,25 @@
         padding: 0px;
         text-align: center;
     }
-    .logTitle,.log,.contactUsTitle,.contactUs,.more{
-        margin: 20px 0px;
-        font-size: 26px;
-        margin-bottom: 5px;
+    .logTitle,.log{
+        float: left;
+    }
+    .logTitle{
+        height: 120px;
+        background-color: #222d32;
+        color: #fff;
+        font-size: 35px;
         text-align: center;
-        background-color: cadetblue;
-        color: currentColor;
-        border: 2px solid darkcyan;
+        padding: 10px;
     }
     .log{
         font-size: 18px;
+        height: 120px;
+        padding: 10px 0px;
         margin: 0;
         text-align: left;
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 8px;
     }
     .log>Ul{
         padding-left: 15px;
@@ -88,18 +92,23 @@
     }
     .friendShip{
         height: 40px;
-        background-color: cadetblue;
         font-size: 20px;
         line-height: 40px;
         padding-left: 20px;
         margin-top: 12px;
     }
     .friendShip>a{
-        color: aqua;
+        font-family: PingFang-SC-Bold;
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 40px;
+        letter-spacing: 0px;
+        color: #333333;
         text-decoration: underline;
     }
     .friendShip>a:hover,.footcontent>a:hover{
-        color: cornsilk;
+        color: #aaaaaa;
     }
     .friendShip>label,.friendShip>a{
         float: left;
@@ -107,16 +116,96 @@
     }
     .footcontent{
         margin-top: 20px;
-        background-color: cadetblue;
+        background-color: #2b2b2b;
         font-size: 18px;
+        color: #fff;
         text-align: center;
     }
     .footcontent>a{
-        color: aqua;
+        color: #fff;
     }
     .exitLogout{
         margin-top: 8px;
         margin-right: 20px;
+    }
+    .navbar-static-top{
+        background-color: #2b2b2b!important;
+    }
+    .content{
+        padding: 0px 15px;
+        background-image: url("/dist/css/images/index/background.png");
+    }
+    .topEntrance{
+        background: url("/dist/css/images/index/logo.png") no-repeat;
+        height: 100px;
+        margin-left: 20px;
+        margin-top: 40px;
+    }
+    .zh{
+        background: url("/dist/css/images/index/AccountSearch.png") no-repeat;
+        background-position: -10px -16px;
+    }
+    .wg{
+        background: url("/dist/css/images/index/AppearanceSearch.png") no-repeat;
+        background-position: -10px -8px;
+    }
+    .dj{
+        background: url("/dist/css/images/index/PropsSearch.png") no-repeat;
+        background-position: 6px -18px;
+    }
+    .dl{
+        background: url("/dist/css/images/index/LevelingHitter.png") no-repeat;
+        background-position: -6px -18px;
+    }
+    .dl:hover{
+        background-size: 95%;
+    }
+    .hb:hover{
+        background-size: 90%;
+    }
+    .hb{
+        background: url("/dist/css/images/index/BlackList.png") no-repeat;
+        background-position: 6px 3px;
+    }
+    .yh{
+        background: url("/dist/css/images/index/Release.png") no-repeat;
+        background-position: 0px -22px;
+    }
+    .logFooter{
+        font-size: 18px;
+        height: 120px;
+        margin: 0;
+        text-align: left;
+        background-color: rgba(0,0,0,0.4);
+        background-image: url("/dist/css/images/index/Recruit.png");
+        background-repeat: no-repeat;
+        background-position: 40px 10px;
+    }
+    @media screen and (max-width: 800px) {
+        .logFooter{
+            display: none;
+        }
+        .logTitle{
+            height: 70px;
+        }
+        .log{
+            height: auto;
+        }
+        .tipWord{
+            display: none;
+        }
+    }
+    .sidebar-menu{
+        margin: 10px 0px;
+        font-size: 18px;
+    }
+    .tipWord{
+        width: 70%;
+        margin-left: 20%;
+        margin-top: -10px;
+    }
+    .main-sidebar{
+        background-color: #2b2b2b!important;
     }
 </style>
 <div class="wrapper">
@@ -164,6 +253,9 @@
         <li>
           <a href="../accountList">
             <i class="fa fa-th"></i> <span>账号搜索</span>
+              <span class="pull-right-container">
+                            <small class="label pull-right bg-green">new</small>
+                        </span>
           </a>
         </li>
         <li>
@@ -206,113 +298,63 @@
       <div class="row" id="mainBox">
         <div class="col-md-12">
             <div class="topEntrance">
-                <h3 class="checkTit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【爱剑三】是由剑三忠实玩家基于兴趣搭建的交易信息聚合与黑榜信息网站，力求做到交易信息一键搜索、快速发布。网站当前还有很多不足，欢迎各位兴趣玩家提供意见和建议。
-                </h3>
-                <span class="checkDetail">特别提示：本网站只是信息聚合发布站点，不对交易风险负责，请剑网三玩家谨防欺诈。
-                </span>
+                <div class="tipWord">
+                    <h3 class="checkTit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【爱剑三】是由剑三忠实玩家基于兴趣搭建的交易信息聚合与黑榜信息网站，力求做到交易信息一键搜索、快速发布。网站当前还有很多不足，欢迎各位兴趣玩家提供意见和建议。
+                    </h3>
+                    <span class="checkDetail">特别提示：本网站只是信息聚合发布站点，不对交易风险负责，请剑网三玩家谨防欺诈。
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="col-md-9 col-xs-12">
-            <div class="col-md-6 col-xs-6">
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-4 col-xs-12">
                 <div class="zh">
-                    <br>
-                    <h3 class="title">账号搜索</h3>
-                    <br>
-                    <div>
-                        一键搜索全网剑三游戏账号，蹲号，比价必备利器。
-                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-4 col-xs-12">
                 <div class="wg">
-                    <br>
-                    <h3 class="title">外观搜索</h3>
-                    <br>
-                    <div>
-                        <div class="col-md-6 col-xs-6 wgTypes">贴吧外观</div>
-                        <div class="col-md-6 col-xs-6 wgTypes">个人收售</div>
-                        <div class="col-md-6 col-xs-6 wgTypes">外观成交价</div>
-                        <div class="col-md-6 col-xs-6 wgTypes">外观市价</div>
-                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-4 col-xs-12">
                 <div class="dj">
-                    <br>
-                    <h3 class="title">道具搜索</h3>
-                    <br>
-                    <div>
-                        一键搜索全网剑三除账号，外观之外的全部可交易道具，挂件，小玩意，代付，积分等。
-                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-4 col-xs-12">
                 <div class="dl">
-                    <br>
-                    <h3 class="title">代练代打</h3>
-                    <br>
-                    <div>
-                        由本站玩家自行发布的代练，代打，代清需求或想接的任务。
-                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-4 col-xs-12">
                 <div class="hb">
-                    <br>
-                    <h3 class="title">剑三黑榜</h3>
-                    <br>
-                    <div>
-                        本站玩家自行举报的剑三骗子，渣子，还剑三一个清明。
-                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-4 col-xs-12">
                 <div class="yh">
-                    <br>
-                    <h3 class="title">我要发布</h3>
-                    <br>
-                    <div>
-                        <div class="col-md-6 col-xs-6 yhTypes">账号发布</div>
-                        <div class="col-md-6 col-xs-6 yhTypes">外观发布</div>
-                        <div class="col-md-6 col-xs-6 yhTypes">代练发布</div>
-                        <div class="col-md-6 col-xs-6 yhTypes">道具发布</div>
-                        <div class="col-md-6 col-xs-6 yhTypes">举报黑鬼</div>
-                        <div class="col-md-6 col-xs-6 yhTypes">自动蹲号</div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-xs-12">
+
+        <div class="col-md-12 col-xs-12" style="margin-top: 20px;">
               <div class="col-md-12">
-                  <div class="logTitle">更新日志</div>
-              </div>
-              <div class="col-md-12">
-                  <div class="log">
+                  <div class="col-md-1 col-xs-12 logTitle"><div>更新</div><div>日志</div></div>
+                  <div class="col-md-8 col-xs-12 log">
                       <ul>
                       </ul>
                   </div>
+                  <div class="col-md-3 col-xs-12 logFooter"></div>
               </div>
-              <div class="col-md-12">
-                  <div class="contactUsTitle">小伙伴招募</div>
-                  <div class="more">
-                      <div class="col-md-6 col-xs-6">图片美编</div>
-                      <div class="col-md-6 col-xs-6">宣传文案</div>
-                      <div class="col-md-6 col-xs-6">运营</div>
-                      <div class="col-md-6 col-xs-6">JAVA开发</div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-12 col-xs-12">
+        </div>
+          <div class="col-md-12 col-xs-12" style="padding: 0px">
               <div class="friendShip">
                   <label>友情链接:</label>
+                  <a href="http://www.yayaquanzhidao.cn/" target='_blank'>鸭鸭全知道-剑网三宠物</a>
                   <a href="http://www.j3pz.com" target='_blank'>剑网3配装器</a>
                   <a href="http://www.jx3pve.com" target='_blank'>JX3PVE</a>
               </div>
           </div>
-          <div class="col-md-12 col-xs-12">
+          <div class="col-md-12 col-xs-12" style="padding: 0px">
               <div class="footcontent">
                   <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>
-                  <div>Powered by 爱剑三  © 2014-2018 Inc.       鄂ICP备17024657号</div>
+                  <div style="font-size: 16px;">Powered by 爱剑三©2014-2018Inc.    鄂ICP备17024657号</div>
                   <div>QQ群：296733805</div>
               </div>
           </div>
