@@ -97,9 +97,8 @@ function initBunding() {
     });
     $('#checkNum').click(function () {
         var telphone =$('#tel').val();
-        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if(canRegister) {
-            if (!myreg.test(telphone)) {
+            if (telphone.length!=11) {
                 layer.msg("请输入有效的手机号码！")
             } else {
                 $.ajax({
@@ -114,7 +113,6 @@ function initBunding() {
                         id1 = '#getcodetime';
                         id2 = '#checkNum';
                         t = setTimeout("timedCount()", 1000);
-                        layer.msg(info);
                         layer.msg(info);
                     }
                 })

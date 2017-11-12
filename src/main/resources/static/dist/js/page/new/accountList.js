@@ -75,23 +75,8 @@ function initTable(url,keyNum) {
             if(clickSeachNum!=0){
                 $.each(tableDatas,function (i,value) {
                     var matchingDegree = sumMatchingDegree(value,data.segMentWordMap);
-                    sortArrary.push([matchingDegree, i]);
-                });
-                sortArrary = sortarr(sortArrary);
-                function sortarr(arr){
-                    for(i=0;i<arr.length-1;i++){
-                        for(j=0;j<arr.length-1-i;j++){
-                            if(parseInt(arr[j][0])<parseInt(arr[j+1][0])){
-                                var temp=arr[j];
-                                arr[j]=arr[j+1];
-                                arr[j+1]=temp;
-                            }
-                        }
-                    }
-                    return arr;
-                }
-                $.each(sortArrary,function (i,value) {
-                    initDiv(tableDatas[value[1]]);
+                    value['matchDegree'] = matchingDegree;
+                    initDiv(value);
                 });
             }else {
                 $.each(tableDatas, function (i, value) {
@@ -102,7 +87,7 @@ function initTable(url,keyNum) {
                 var time = sumTime(value.REPLY_TIME);
                 var matchingDegree = '--';
                 if (clickSeachNum != 0) {
-                    matchingDegree = sumMatchingDegree(value, data.segMentWordMap) + '%';
+                    matchingDegree = value.matchDegree + '%';
                 }
                 var belongOf = value.BELONG_QF.replace("[", "");
                 belongOf = belongOf.replace("]", "");
@@ -163,70 +148,12 @@ function initTable(url,keyNum) {
             }
             //计算匹配度
             function sumMatchingDegree(value,map) {
-                var m = 0;
-                var n = 0;
-                $.each(map,function (i,values) {
-                    if(i=='title'){
-                        var strs = value.TITLE_NAME;
-                        m++;
-                        $.each(values,function (num,obj) {
-                            m = m+values.length;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else if(i=='waiguan'){
-                        var strs = value.WAIGUAN_NAME;
-                        $.each(values,function (num,obj) {
-                            m++;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else if(i=='horse'){
-                        var strs = value.HORSE_NAME;
-                        $.each(values,function (num,obj) {
-                            m++;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else if(i=='arm'){
-                        var strs = value.ARM_NAME;
-                        $.each(values,function (num,obj) {
-                            m++;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else if(i=='stra'){
-                        var strs = value.STRA_NAME;
-                        $.each(values,function (num,obj) {
-                            m++;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else if(i=='pend'){
-                        var strs = value.PEND_NAME;
-                        $.each(values,function (num,obj) {
-                            m++;
-                            if(strs.indexOf(obj)>-1){
-                                n++;
-                            }
-                        });
-                    }else {
-                        m++;
-                        if(value.REPLY_CONTENT.indexOf(values)>-1){
-                            n++;
-                        }
-                    }
-                });
-                if(m==0){
-                    return 100
-                }else{
-                    return (parseInt((100 * n) / m));
+                num = parseInt(num);
+                var sumNum = 0;
+                for(var i =1;i<=num;i++){
+                    sumNum += parseInt(value['rate'+i]);
                 }
+                return parseInt(sumNum*100/num);
             }
             //计算上架时间
             function sumTime(time) {
@@ -284,11 +211,12 @@ function initTable(url,keyNum) {
                 var username = $('#userName').text();
                 var url = api+'accountDetail?favorId='+encodeURI(mainId)+'&sourceType='+encodeURI(tradeType)+
                             '&userName='+encodeURI(username);
-                layer.load();
                 $.getJSON(url,function (data) {
                     data = data.datas[0]==null?'':data.datas[0];
                     var url =data.PAGE_URL;
-                    window.location.href= url;
+                    if(url!=1) {
+                        window.location.href = url;
+                    }
                 }).error(function () {
                     layer.closeAll();
                 }).complete(function () {
