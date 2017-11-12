@@ -533,6 +533,8 @@
             // swf文件路径
             swf:  './dist/js/uploader/Uploader.swf',
             threads:10,
+            fileSingleSizeLimit: 1*1024*1024,//限制大小1M，单文件
+            fileSizeLimit: 10*1024*1024,//限制大小10M，所有被选文件，超出选择不上
             // 文件接收服务端。
             server: reportApi + 'saveZhssInfo',
             // 选择文件的按钮。可选。
