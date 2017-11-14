@@ -547,7 +547,8 @@ function initForm() {
     function initTixin(data) {
         //门派体型初始数据
         $.each(data,function (i,value) {
-            var val1 = value.MENPAI_NAME;
+            var val1 = value.menpai_name;
+            console.log(value);
             $('.tixin').append("  <option value="+val1+">"+val1+"</option> ");
         });
         $(".js-example-basic-single").select2();
