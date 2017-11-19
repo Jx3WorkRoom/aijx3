@@ -395,16 +395,7 @@ function initSeach() {
                 areaSelection="";
             }
             var shape = $('.menpai').find("option:selected").text()+$('.tixin').find("option:selected").text();
-            var faxin = $('.faxin').val()==null?"":$('.faxin').val().toString().replace(",","");
-            var hezi = $('.hezi').val()==null?"":$('.hezi').val().toString().replace(",","");
-            var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val().toString().replace(",","");
-            var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val().toString().replace(",","");
-            var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val().toString().replace(",","");
-            var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val().toString().replace(",","");
-            var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString().replace(",","");
-            var chengyu = $('.chengwu').val()==null?"":$('.chengwu').val().toString().replace(",","");
-            var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString().replace(",","");
-            var info = faxin+hezi+pifeng+wuxian+liuxian+chengyi+qiyu+chengyu+guajia+$('.info').val();
+            var info = $('.selectedOption').text().toString().replace(",","")+$('.info').val();
             var hasChecked = $(".hasPrice").get(0).checked;
             if(info!=""){
                 clickSeachNum++;
@@ -514,6 +505,7 @@ function initSeach() {
 
     function initTixin(data) {
         var tixin = data.tixin;
+        $('.menpai').append("  <option value=''></option> ");
         $.each(tixin,function (i,value) {
             var val1 = value.menpai_name;
            $('.menpai').append("  <option value="+val1+">"+val1+"</option> ");
@@ -521,77 +513,83 @@ function initSeach() {
         $(".js-example-basic-single").select2();
 
         var faxin = data.faxin;
+        $('.faxin').append("  <option value=''></option> ");
         $.each(faxin,function (i,value) {
             $('.faxin').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".faxin").select2({
-            maximumSelectionLength: 50
-        });
 
         var hezi = data.hezi;
+        $('.hezi').append("  <option value=''></option> ");
         $.each(hezi,function (i,value) {
             $('.hezi').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".hezi").select2({
-            maximumSelectionLength: 50
-        });
 
         var pifeng = data.pifeng;
+        $('.pifeng').append("  <option value=''></option> ");
         $.each(pifeng,function (i,value) {
             $('.pifeng').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".pifeng").select2({
-            maximumSelectionLength: 50
-        });
 
         var wuxian = data.wuxian;
+        $('.wuxian').append("  <option value=''></option> ");
         $.each(wuxian,function (i,value) {
             $('.wuxian').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".wuxian").select2({
-            maximumSelectionLength: 50
-        });
 
         var liuxian = data.liuxian;
+        $('.liuxian').append("  <option value=''></option> ");
         $.each(liuxian,function (i,value) {
             $('.liuxian').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".liuxian").select2({
-            maximumSelectionLength: 50
-        });
 
         var chengyi = data.chengyi;
+        $('.chengyi').append("  <option value=''></option> ");
         $.each(chengyi,function (i,value) {
             $('.chengyi').append("  <option value="+value.WAIGUAN_NAME+">"+value.WAIGUAN_NAME+"("+value.WAIGUAN_NAME_2+")"+"</option> ");
         });
-        $(".chengyi").select2({
-            maximumSelectionLength: 50
-        });
 
         var qiyu = data.qiyu;
+        $('.qiyu').append("  <option value=''></option> ");
         $.each(qiyu,function (i,value) {
             $('.qiyu').append("  <option value="+value.stra_name+">"+value.stra_name+"</option> ");
         });
-        $(".qiyu").select2({
-            maximumSelectionLength: 50
-        });
 
         var c5 = data.c5;
+        $('.chengwu').append("  <option value=''></option> ");
         $.each(c5,function (i,value) {
             $('.chengwu').append("  <option value="+value.arm_name+">"+value.arm_name+"</option> ");
         });
-        $(".chengwu").select2({
-            maximumSelectionLength: 50
-        });
 
         var guajian = data.guajian;
+        $('.guajian').append("  <option value=''></option> ");
         $.each(guajian,function (i,value) {
             $('.guajian').append("  <option value="+value.pend_name+">"+value.pend_name+"</option> ");
         });
-        $(".guajian").select2({
-            maximumSelectionLength: 50
-        });
 
+        $('.faxin,.hezi,.pifeng,.wuxian,.liuxian,.chengyi,.qiyu,.chengwu,.guajian').change(function () {
+            var val = $(this).val();
+            var allVal = $('.selectedOption').text().toString().replace(",","");
+            if(allVal.indexOf(val)>-1){
+                $('.selectedOption').each(function () {
+                    var text = $(this).text();
+                    if(text==val){
+                        $(this).remove();
+                    }
+                })
+            }else {
+                $('.info2').append(
+                    '<div class="selectedOption">' +
+                    '<div>' + val + '</div>' +
+                    '<span class="deleteOption"></span>' +
+                    '</div>'
+                );
+                $('.selectedOption').unbind('click');
+                $('.selectedOption').click(function () {
+                    $(this).remove();
+                });
+            }
+
+        });
     }
 }
 

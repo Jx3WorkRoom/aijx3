@@ -91,6 +91,46 @@
         cursor: pointer;
         color: brown;
     }
+    .faxin,.hezi,.pifeng,.wuxian,.liuxian,.chengyi,.qiyu,.chengwu,.guajian{
+        width: 100px;height: 31px;border-radius: 5px;
+    }
+    .info2{
+        width: 400px;
+        height: auto;
+        border: 1px solid rgb(169, 169, 169);
+        border-radius: 5px;
+        cursor: text;
+        min-height: 200px;
+    }
+    .searccon textarea {
+        width: 500px;
+        height: 45px;
+        font-size: 15px;
+    }
+    .selectedOption>div{
+        float: left;
+        width: auto;
+        padding: 0 5px;
+        height: 31px;
+        background-color: #00a2d4;
+        cursor: pointer;
+        margin: 4px;
+        border-radius: 5px;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        line-height: 30px;
+    }
+    .deleteOption{
+        display: none;
+        width: 16px;
+        background: url(./dist/css/images/jx3/closeimg.png) no-repeat;
+        height: 16px;
+        position: absolute;
+        margin-left: -16px;
+        background-size: 16px 16px;
+        cursor: pointer;
+    }
 </style>
 <body style="display: none">
 <!-- top logo -->
@@ -186,66 +226,74 @@
          <tr>
              <td align="right" class="wr ft1">发型：</td>
            <td>
-               <select class="faxin" multiple="multiple" style="width: 800px;">
+               <select class="faxin"  style="width: 200px;float: left">
                 </select>
            </td>
           </tr>
          <tr>
              <td align="right" class="wr ft1">盒子：</td>
            <td>
-               <select class="hezi" multiple="multiple" style="width: 800px;">
+               <select class="hezi"  style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">披风：</td>
            <td>
-               <select class="pifeng" multiple="multiple" style="width: 800px;">
+               <select class="pifeng" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">五限：</td>
            <td>
-               <select class="wuxian" multiple="multiple" style="width: 800px;">
+               <select class="wuxian" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">六限：</td>
            <td>
-               <select class="liuxian" multiple="multiple" style="width: 800px;">
+               <select class="liuxian" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">成衣：</td>
            <td>
-               <select class="chengyi" multiple="multiple" style="width: 800px;">
+               <select class="chengyi" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">奇遇：</td>
            <td>
-               <select class="qiyu" multiple="multiple" style="width: 800px;">
+               <select class="qiyu" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">橙武：</td>
            <td>
-               <select class="chengwu" multiple="multiple" style="width: 800px;">
+               <select class="chengwu" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
          <tr>
              <td align="right" class="wr ft1">挂件：</td>
            <td>
-               <select class="guajian" multiple="multiple" style="width: 800px;">
+               <select class="guajian" style="width: 200px;float: left">
                 </select>
            </td>
          </tr>
+         <tr>
+           <td align="right" class="wr ft1">已选词：</td>
+           <td>
+               <div class="info2">
+
+               </div>
+           </td>
+          </tr>
          <tr>
            <td align="right" class="wr ft1">其他：</td>
            <td><textarea class="info" role="3" rows="3" placeholder="外观、稀有坐骑、奇趣、橙武、奇遇、珍稀挂件以及其他账号资料词。"></textarea></td>
