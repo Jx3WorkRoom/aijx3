@@ -40,7 +40,7 @@
     }
     .tradeType{
         float: left;
-        width: 20%;
+        width: 20%!important;
         margin: 0 3%;
     }
     label.tradeType{
@@ -48,7 +48,7 @@
         margin-left: 0px;
     }
     .tixin,.menpai{
-        width: 80%;
+        width: 36%;
     }
     .query-l{
         padding: 0;
@@ -87,6 +87,62 @@
         float: left;
         font-size: 20px;
         line-height: 40px;
+    }
+    .faxin,.hezi,.pifeng,.wuxian,.liuxian,.chengyi,.qiyu,.chengwu,.guajian{
+        width: 140px;height: 31px;border-radius: 5px;
+    }
+    .info2{
+        width: 400px;
+        height: auto!important;
+        border: 1px solid rgb(169, 169, 169);
+        border-radius: 5px;
+        padding: 2px!important;
+        cursor: text;
+        min-height: 84px;
+    }
+    .searccon textarea {
+        width: 500px;
+        height: 45px;
+        font-size: 15px;
+    }
+    .selectedOption>div{
+        float: left;
+        width: auto;
+        padding: 0 5px;
+        height: 31px;
+        background-color: #00a2d4;
+        cursor: pointer;
+        margin: 4px;
+        border-radius: 5px;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        line-height: 30px;
+    }
+    .deleteOption{
+        display: none;
+        width: 16px;
+        background: url(./dist/css/images/jx3/closeimg.png) no-repeat;
+        height: 16px;
+        position: absolute;
+        margin-left: -16px;
+        background-size: 16px 16px;
+        cursor: pointer;
+    }
+    .form-group{
+    }
+    .form-group>div{
+        height: 40px;
+        width: 100%;
+    }
+    .form-group>div>label{
+        float: left;
+        padding: 4px;
+        line-height: 26px;
+        margin-left: 10px;
+    }
+    .form-group>div>select{
+        float: left;
     }
 </style>
 <div class="wrapper">
@@ -199,54 +255,69 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>门派</label>
-                                <select class="form-control menpai">
-                                    <option value=""></option>
-                                </select>
-                                <label>体型</label>
-                                <select class="form-control tixin">
-                                    <option value=""></option>
-                                    <option value="">成男</option>
-                                    <option value="">成女</option>
-                                    <option value="">萝莉</option>
-                                    <option value="">正太</option>
-                                </select>
+                                <div>
+                                    <label>门派</label>
+                                    <select class="form-control menpai">
+                                        <option value=""></option>
+                                    </select>
+                                    <label style="margin-left: 10px">体型</label>
+                                    <select class="form-control tixin">
+                                        <option value=""></option>
+                                        <option value="">成男</option>
+                                        <option value="">成女</option>
+                                        <option value="">萝莉</option>
+                                        <option value="">正太</option>
+                                    </select>
+                                </div>
 
-                                <label>发型</label>
-                                <select class="form-control faxin" multiple="multiple">
-                                </select>
+                                <div>
+                                    <label>发型</label>
+                                    <select class="form-control faxin" >
+                                    </select>
+                                    <label>盒子</label>
+                                    <select class="form-control hezi" >
+                                    </select>
+                                </div>
 
-                                <label>盒子</label>
-                                <select class="form-control hezi" multiple="multiple">
+                                <div>
+                                    <label>披风</label>
+                                    <select class="form-control pifeng" >
                                 </select>
+                                    <label>五限</label>
+                                    <select class="form-control wuxian" >
+                                    </select>
+                                </div>
 
-                                <label>披风</label>
-                                <select class="form-control pifeng" multiple="multiple">
+                                <div>
+                                    <label>六限</label>
+                                    <select class="form-control liuxian" >
                                 </select>
+                                    <label>成衣</label>
+                                    <select class="form-control chengyi" >
+                                </select>
+                                </div>
 
-                                <label>五限</label>
-                                <select class="form-control wuxian" multiple="multiple">
+                                <div>
+                                    <label>奇遇</label>
+                                    <select class="form-control qiyu" >
                                 </select>
+                                    <label>橙武</label>
+                                    <select class="form-control chengwu" >
+                                </select>
+                                </div>
 
-                                <label>六限</label>
-                                <select class="form-control liuxian" multiple="multiple">
+                                <div>
+                                    <label>挂件</label>
+                                    <select class="form-control guajian" >
                                 </select>
+                                </div>
+                            </div>
 
-                                <label>成衣</label>
-                                <select class="form-control chengyi" multiple="multiple">
-                                </select>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding: 0px">可选项</label>
+                                <div class="info2">
 
-                                <label>奇遇</label>
-                                <select class="form-control qiyu" multiple="multiple">
-                                </select>
-
-                                <label>橙武</label>
-                                <select class="form-control chengwu" multiple="multiple">
-                                </select>
-
-                                <label>挂件</label>
-                                <select class="form-control guajian" multiple="multiple">
-                                </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
