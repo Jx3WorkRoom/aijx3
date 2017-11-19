@@ -196,11 +196,12 @@ function initTable(url,keyNum) {
             layer.closeAll();
             var pageList = dataTemp.pageList==null?"":dataTemp.pageList;
             if(pageList!=""){
-                initPage(pageList,keyNum);
+                // initPage(pageList,keyNum);
             }else{
                 $('.pagination').empty();
                 layer.msg("加载数据出错!");
             }
+            $('.pagination').remove();
         },
         error:function () {
             layer.closeAll();

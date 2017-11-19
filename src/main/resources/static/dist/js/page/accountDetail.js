@@ -41,9 +41,9 @@ function initDetail(favorId,sourceType,username) {
                                $('.tbUrl').empty();
                                $('.tbFloor').empty();
                                if(data1.USER_QQ!=null) {
-                                   $('.tbFloor').append("用户QQ：" + data1.USER_QQ);
+                                   $('.tbFloor').append("发布者QQ：" + data1.USER_QQ);
                                }else{
-                                   $('.tbFloor').append("用户QQ：--");
+                                   $('.tbFloor').append("发布者QQ：--");
                                }
                            }else {
                                $('.tbUrl').empty();
