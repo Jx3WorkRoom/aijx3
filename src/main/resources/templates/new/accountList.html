@@ -144,6 +144,34 @@
     .form-group>div>select{
         float: left;
     }
+    .areaSelect{
+        width: 80%!important;
+        float: left;
+        margin-left: 6px;
+    }
+    .tixin,.menpai{
+        width: 140px;
+        height: 31px;
+        border-radius: 5px;
+    }
+    label.tradeType{
+        line-height: 35px;
+        margin-left: 10px;
+    }
+    div.tradeType{
+        float: left;
+        width: 20%!important;
+        margin: 0 3%;
+        height: 30px!important;
+    }
+    .form-group {
+        margin-bottom: 4px!important;
+    }
+    .info{
+        font-size: 12px;
+        height: 40px!important;
+        margin-bottom: 16px;
+    }
 </style>
 <div class="wrapper">
     <header class="main-header">
@@ -241,7 +269,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>区服</label>
+                                <label style="float: left;margin-left: 10px;line-height: 36px;">区服</label>
                                 <div class="areaSelect">
                                     <select class="form-control" id="pre" onchange="chg(this);">
                                         <option value="-1">请选择</option>
@@ -314,15 +342,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" style="padding: 0px">可选项</label>
+                                <label class="col-sm-2 control-label" style="padding: 0px">已选</label>
                                 <div class="info2">
 
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" style="padding: 0px">资料</label>
-                                <textarea class="form-control info" role="3" rows="3" placeholder="外观、稀有坐骑、奇趣、橙武、奇遇、珍稀挂件以及其他账号资料词。"></textarea>
+                                <label class="col-sm-2 control-label" style="padding: 0px">其他</label>
+                                <textarea class="form-control info" role="3" rows="3" placeholder="不存在于上述选项中的其他账号描述词。"></textarea>
                             </div>
 
                             <div class="form-group">

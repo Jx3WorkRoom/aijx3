@@ -101,7 +101,8 @@ function initTable(url,keyNum) {
                 if(TIXIN.length>=4){
                     TIXIN = TIXIN.substring(2,TIXIN.length);
                 }
-                var REPLY_CONTENT = getNewline(value.REPLY_CONTENT);
+                // var REPLY_CONTENT = getNewline(value.REPLY_CONTENT);
+                var REPLY_CONTENT = value.REPLY_CONTENT;
                 function getNewline(val) {
                     var str = new String(val);
                     var bytesCount = 0;
