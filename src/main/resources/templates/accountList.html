@@ -10,13 +10,13 @@
     <meta name="discription" content="剑三交易快速搜索">
     <title>账号搜索-爱剑三</title>
     <link rel="icon" th:href="@{/dist/css/icon.ico}" type="image/x-icon">
-<link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/base.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/drop.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/jx3/bootstrap.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/dist/js/jx3/select2/select2.min.css}">
-<script th:src="@{/dist/js/jx3/jquery.js}"></script>
-<script th:src="@{/dist/js/jx3/base.js}"></script>
-<script th:src="@{/dist/js/jx3/dropdown.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/js/jx3/select2/select2.min.css}">
+    <script th:src="@{/dist/js/jx3/jquery.js}"></script>
+    <script th:src="@{/dist/js/jx3/base.js}"></script>
+    <script th:src="@{/dist/js/jx3/dropdown.js}"></script>
     <script th:src="@{/dist/js/jx3/bootstrap.min.js}"></script>
     <script th:src="@{/dist/js/jx3/select2/select2.full.min.js}"></script>
     <script th:src="@{/dist/js/layer/layer.js}"></script>
@@ -132,6 +132,13 @@
         background-size: 16px 16px;
         cursor: pointer;
     }
+    .logincon .ft1{width: 80px;}
+    .nav-pills > li > a{width: 200px;height: 31px;padding: 0 15px;line-height: 32px;background: #fff !important;color: #333 !important;border-color: #999;}
+    .menpai .select2-container{width: 200px;}
+    .tixin .select2-container{width: 200px;}
+    .searccon textarea{height: 76px;line-height: 20px;resize: none;width: 492px;}
+    .searccon input[type='number']{height: 31px;padding: 0 0 0 12px;line-height: 32px;}
+    .info2Td{width: 492px;}
 </style>
 <body style="display: none">
 <!-- top logo -->
@@ -152,29 +159,29 @@
 </div>
 
 <div id="maincontent">
- <div id="mcon">
+    <div id="mcon">
 
-<!-- top content -->
-<div class="topContent">
-  <div class="searchcon">
-   <div class="s_top">
-     <ul>
-      <li class="cur">账号搜索</li>
-         <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可搜全贴吧剑三账号，欢迎加Q群：296733805）</div></td>
-         <td>
-             <select class="querySelect" style="display:none;width: 200px;float: right;font-size: 16px;padding-top: 0px;margin-top: -30px;height: 40px;margin-right: 60px;">
-                <option value="0">&nbsp;使用已保存的搜索条件</option>
-             </select>
-         </td>
-     </ul>
-     <div class="clear"></div>
-     <div class="sline"></div>
-   </div>
-   <div class="searchinput">
-   <div class="logincon searccon">
+        <!-- top content -->
+        <div class="topContent">
+            <div class="searchcon">
+                <div class="s_top">
+                    <ul>
+                        <li class="cur">账号搜索</li>
+                        <td><div class="tipWord" style="    margin-left: -380px;font-size: 20px;    padding-top: 12px;">（可搜全贴吧剑三账号，欢迎加Q群：296733805）</div></td>
+                        <td>
+                            <select class="querySelect" style="display:none;width: 200px;float: right;font-size: 16px;padding-top: 0px;margin-top: -30px;height: 40px;margin-right: 60px;">
+                                <option value="0">&nbsp;使用已保存的搜索条件</option>
+                            </select>
+                        </td>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="sline"></div>
+                </div>
+                <div class="searchinput">
+                    <div class="logincon searccon">
     <span class="show0">
-     <table>
-         <tr>
+        <table>
+            <tr>
               <td align="right" class="wr ft1">收售：</td>
               <td>
                   <ul class="nav nav-pills">
@@ -203,18 +210,18 @@
                   </form>
            </td>
           </tr>
+        </table>
+     <table>
          <tr>
             <td align="right" class="wr ft1">门派：</td>
             <td>
-                 <select class="js-example-basic-single menpai"  style="width: 100px;">
+                 <select class="js-example-basic-single menpai"  style="width: 200px;">
                    <option value=""></option>
                 </select>
             </td>
-          </tr>
-         <tr>
-             <td align="right" class="wr ft1">体型：</td>
+              <td align="right" class="wr ft1">体型：</td>
            <td>
-               <select class="js-example-basic-single tixin"  style="width: 100px;">
+               <select class="js-example-basic-single tixin"  style="width: 200px;">
                    <option value=""></option>
                    <option value="成男">成男</option>
                    <option value="成女">成女</option>
@@ -222,30 +229,25 @@
                    <option value="正太">正太</option>
                 </select>
            </td>
-         </tr>
-
+          </tr>
          <tr>
              <td align="right" class="wr ft1">发型：</td>
            <td>
                <select class="faxin"  style="width: 200px;float: left">
                 </select>
            </td>
-          </tr>
-         <tr>
              <td align="right" class="wr ft1">盒子：</td>
            <td>
                <select class="hezi"  style="width: 200px;float: left">
                 </select>
            </td>
-         </tr>
+          </tr>
          <tr>
              <td align="right" class="wr ft1">披风：</td>
            <td>
                <select class="pifeng" style="width: 200px;float: left">
                 </select>
            </td>
-         </tr>
-         <tr>
              <td align="right" class="wr ft1">五限：</td>
            <td>
                <select class="wuxian" style="width: 200px;float: left">
@@ -258,8 +260,6 @@
                <select class="liuxian" style="width: 200px;float: left">
                 </select>
            </td>
-         </tr>
-         <tr>
              <td align="right" class="wr ft1">成衣：</td>
            <td>
                <select class="chengyi" style="width: 200px;float: left">
@@ -272,8 +272,6 @@
                <select class="qiyu" style="width: 200px;float: left">
                 </select>
            </td>
-         </tr>
-         <tr>
              <td align="right" class="wr ft1">橙武：</td>
            <td>
                <select class="chengwu" style="width: 200px;float: left">
@@ -287,12 +285,16 @@
                 </select>
            </td>
          </tr>
-         <tr>
-           <td align="right" class="wr ft1">已选词：</td>
+     </table>
+        <table>
+            <tr>
+           <td align="right" class="wr ft1">已选：</td>
            <td class="info2Td">
-               <div class="info2">
+               <div class="info2Td">
+                   <div class="info2">
 
-               </div>
+                   </div>
+                </div>
            </td>
           </tr>
          <tr>
@@ -312,33 +314,33 @@
            </td>
            <td></td>
           </tr>
-     </table>
+        </table>
     </span>
-    </div>
-   </div>
-  </div>
-  <div class="classifiedList">
+                    </div>
+                </div>
+            </div>
+            <div class="classifiedList">
     <span class="show0">
         <div class="table">
         </div>
     </span>
-  </div>
-  <div class="pagers">
-      <ul class="pagination">
-          <li class="disabled"><a href="#">首页</a></li>
-          <li class="disabled"><a href="#">上一页</a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#">40</a></li>
-          <li><a href="#">41</a></li>
-          <li><a href="#">下一页</a></li>
-          <li><a href="#">尾页</a></li>
-      </ul>
-  </div>
-</div>
-</div></div>
+            </div>
+            <div class="pagers">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#">首页</a></li>
+                    <li class="disabled"><a href="#">上一页</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">40</a></li>
+                    <li><a href="#">41</a></li>
+                    <li><a href="#">下一页</a></li>
+                    <li><a href="#">尾页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div></div>
 <!-- foot -->
 <div class="footcontent">
     <a href="aboutUs">关于我们</a> | <a href="servicePetorl">服务协议</a> | <a href="questions">常见问题</a><br>

@@ -241,84 +241,104 @@ function initTable(url,keyNum) {
                 var url = api+"accountDetail?favorId="+encodeURI(favorId)+
                     '&sourceType='+encodeURI(sourceType)+
                     '&userName='+encodeURI(username);
-                $.ajax({
-                    url:url,
-                    async:true,
-                    success:function (data) {
-                        data = data.datas==null?"":data.datas;
-                        if(data!="") {
-                            $.each(data, function (i, value) {
-                                if(i==0) {
-                                    var userId = value.USER_ID;
-                                    var url2 = api.replace("accountList/","") + 'User/getUserInfoByID?userId=' + encodeURI(userId);
-                                    $.getJSON(url2, function (data1) {
-                                        data1 = data1.datas[0] == null ? '' : data1.datas[0];
-                                        if (data != '') {
-                                            $('.tbUrl').empty();
-                                            $('.tbFloor').empty();
-                                            if (data1.USER_QQ != null) {
-                                                layer.alert("发布者QQ：" + data1.USER_QQ);
-                                            } else {
-                                                layer.alert("发布者QQ：--");
+                if(sourceType==2) {
+                    $.ajax({
+                        url: url,
+                        async: true,
+                        success: function (data) {
+                            data = data.datas == null ? "" : data.datas;
+                            if (data != "") {
+                                $.each(data, function (i, value) {
+                                    if (i == 0) {
+                                        var userId = value.USER_ID;
+                                        var url2 = api.replace("accountList/", "") + 'User/getUserInfoByID?userId=' + encodeURI(userId);
+                                        $.getJSON(url2, function (data1) {
+                                            data1 = data1.datas[0] == null ? '' : data1.datas[0];
+                                            if (data != '') {
+                                                $('.tbUrl').empty();
+                                                $('.tbFloor').empty();
+                                                if (data1.USER_QQ != null) {
+                                                    layer.alert("发布者QQ：" + data1.USER_QQ);
+                                                } else {
+                                                    layer.alert("发布者QQ：--");
+                                                }
                                             }
+                                        });
+                                    }
+                                });
+                            } else {
+                                layer.msg("请求数据有误或者数据库并未查询到相关数据!")
+                            }
+                        },
+                        complete: function () {
+                            //收藏
+                            $('.icon-save').unbind('click');
+                            $('.icon-save').click(function () {
+                                var isValided = null;
+                                var username = $('#userName').text();
+                                if (username == "") {
+                                    location.href = 'login';
+                                } else {
+                                    if ($(this).attr('class').indexOf("cur") == -1) {
+                                        $(this).addClass('cur');
+                                        $(this).parent().find('label').text('已收藏');
+                                        isValided = 1;
+                                    } else {
+                                        $(this).removeClass('cur');
+                                        $(this).parent().find('label').text('收藏');
+                                        isValided = 0;
+                                    }
+                                    replyTime = timeStamp2String(replyTime);
+
+                                    function timeStamp2String(time) {
+                                        var datetime = new Date();
+                                        datetime.setTime(time);
+                                        var year = datetime.getFullYear();
+                                        var month = datetime.getMonth() + 1;
+                                        var date = datetime.getDate();
+                                        var hour = datetime.getHours();
+                                        var min = datetime.getMinutes();
+                                        var second = datetime.getSeconds();
+                                        if (parseInt(month) < 10) {
+                                            month = '0' + month;
                                         }
+                                        if (parseInt(date) < 10) {
+                                            date = '0' + date;
+                                        }
+                                        return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + second;
+                                    };
+                                    var url = api + 'accountList/userIsvalid?userName=' + encodeURI(username) +
+                                        '&mainId=' + encodeURI(mainId) +
+                                        '&isValided=' + encodeURI(isValided) +
+                                        '&replyTime=' + encodeURI(replyTime);
+                                    $.getJSON(url, function (data) {
+                                        layer.msg(data.info);
+                                    }).error(function () {
+                                        layer.msg("提交到服务器失效!");
+                                        return false;
                                     });
                                 }
                             });
-                        }else {
-                            layer.msg("请求数据有误或者数据库并未查询到相关数据!")
                         }
-                    },
-                    complete:function () {
-                        //收藏
-                        $('.icon-save').unbind('click');
-                        $('.icon-save').click(function(){
-                            var isValided = null;
-                            var username = $('#userName').text();
-                            if(username==""){
-                                location.href = 'login';
-                            }else {
-                                if($(this).attr('class').indexOf("cur")==-1){
-                                    $(this).addClass('cur');
-                                    $(this).parent().find('label').text('已收藏');
-                                    isValided = 1;
-                                }else{
-                                    $(this).removeClass('cur');
-                                    $(this).parent().find('label').text('收藏');
-                                    isValided = 0;
-                                }
-                                replyTime =timeStamp2String(replyTime);
-                                function timeStamp2String (time){
-                                    var datetime = new Date();
-                                    datetime.setTime(time);
-                                    var year = datetime.getFullYear();
-                                    var month = datetime.getMonth() + 1;
-                                    var date = datetime.getDate();
-                                    var hour = datetime.getHours();
-                                    var min = datetime.getMinutes();
-                                    var second = datetime.getSeconds();
-                                    if(parseInt(month)<10){
-                                        month = '0'+month;
-                                    }
-                                    if(parseInt(date)<10){
-                                        date = '0'+date;
-                                    }
-                                    return year + "-" + month + "-" + date+" "+hour+":"+min+":"+second;
-                                };
-                                var url = api+'accountList/userIsvalid?userName='+encodeURI(username)+
-                                    '&mainId='+encodeURI(mainId)+
-                                    '&isValided='+encodeURI(isValided)+
-                                    '&replyTime='+encodeURI(replyTime);
-                                $.getJSON(url,function (data) {
-                                    layer.msg(data.info);
-                                }).error(function () {
-                                    layer.msg("提交到服务器失效!");
-                                    return false;
-                                });
-                            }
-                        });
-                    }
-                });
+                    });
+                }else{
+                    var mainId = $(this).find('label').attr('favorId');
+                    var tradeType = 1;
+                    var username = $('#userName').text();
+                    var url = api+'accountDetail?favorId='+encodeURI(mainId)+'&sourceType='+encodeURI(tradeType)+
+                        '&userName='+encodeURI(username);
+                    $.getJSON(url,function (data) {
+                        data = data.datas[0]==null?'':data.datas[0];
+                        var url =data.PAGE_URL;
+                        if(url!=1) {
+                            window.location.href = url;
+                        }
+                    }).error(function () {
+                        layer.closeAll();
+                    }).complete(function () {
+                        layer.closeAll();
+                    });
+                }
             });
         },
         error:function () {
