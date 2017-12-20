@@ -6,6 +6,7 @@ var cityEle = document.getElementById("city");
 var areaEle = document.getElementById("area");
 var clickSeachNum = 0;
 var pageClickNum = 1;
+var segDatas = null;
 $(function () {
     initTable();
     initSeach();
@@ -372,6 +373,7 @@ function initSeach() {
         }
         //填充体型选择框
         initTixin(data);
+        segDatas = data;
     }).error(function () {
     }).complete(function () {
         $('.query-l').unbind("click");
@@ -592,6 +594,14 @@ function initSeach() {
 
         });
     }
+
+    $('input[name="fanganType"]').click(function () {
+        if($(this).val()=='1'){
+            $('.pipeiDiv').hide();
+        }else{
+            $('.pipeiDiv').show();
+        }
+    });
 }
 
 //加载分页组件
@@ -825,6 +835,7 @@ function initPage(pageList,keyNum) {
 
 var keepQueryDatas = null;
 function initKeepQuery(){
+    $('#keepQueryDetail').find('.modal-title').text('新建搜索或蹲号方案');
     var username = $('#userName').text();
     if(username!=""){
         $('.querySelect').show();
@@ -895,9 +906,9 @@ function initKeepQuery(){
        if(username==""){
            layer.msg("登录后方可保存!");
        }else{
-           layer.confirm("搜索方案",{
-               btn: ['保存新的搜索方案','覆盖现有搜索方案', '删除搜索方案'],
-               btn3: function(index, layero){
+           layer.confirm("搜索或自动蹲号方案",{
+               btn: ['保存新的方案', '删除已有方案'],
+               btn2: function(index, layero){
                    layer.closeAll();
                    $('.addQuery').hide();
                    $('.editQuery').hide();
@@ -914,20 +925,13 @@ function initKeepQuery(){
                $('.addQuery').show();
                $('#keepQueryDetail').modal('show');
                initAddQuery();
-           }, function(index){
-               layer.closeAll();
-               $('.delQuery').hide();
-               $('.addQuery').hide();
-               $('.modal-footer').show();
-               $('.editQuery').show();
-               $('#keepQueryDetail').modal('show');
-               initEditQuery();
            });
        }
     });
 }
 
 function initDelQuery() {
+    $('#keepQueryDetail').find('.modal-title').text('管理已有方案');
     var username = $('#userName').text();
     var url = api+'getKeepQuery?username='+encodeURI(username);
     $.getJSON(url,function (data) {
@@ -935,10 +939,12 @@ function initDelQuery() {
         keepQueryDatas = data;
         $('.delQueryTable tbody').empty();
         $.each(data,function (i,value) {
+            var type = value.fang_an_type ==1?"搜索方案":"蹲号方案";
             $('.delQueryTable tbody').append(
                 "<tr><td>"+value.user_seq+"</td>"+
+                "<td>"+type+"</td>"+
                 "<td>"+value.fang_an_name+"</td>"+
-                "<td><span class='delQueryList'>X</span></td></tr>"
+                "<td><span class='delQueryList'>X</span></td></>"
             );
         });
     }).complete(function () {
@@ -976,34 +982,12 @@ function initDelQuery() {
     });
 }
 
-function initEditQuery() {
-    var username = $('#userName').text();
-    var url = api+'getKeepQuery?username='+encodeURI(username);
-    $.getJSON(url,function (data) {
-        data = data.datas;
-        keepQueryDatas = data;
-        $('.editKeep').empty();
-        $.each(data,function (i,value) {
-            $('.editKeep').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
-        });
-        $('.editKeep').select2();
-    }).complete(function () {
-        var selectId = $('.editKeep').val();
-        editQuery(selectId);
-        $('.editKeep').unbind('change');
-        $('.editKeep').change(function () {
-            var selectId = $('.editKeep').val();
-            editQuery(selectId);
-        });
-    });
-}
-
 function initAddQuery() {
     var tradeType =$('.dropdown.all-camera-dropdown').find("a").eq(0).text().trim();
     var areaSelection = "";
     $('.areaSelect').find('select').each(function () {
         var text = $(this).find('option:selected').text();
-        if(text.indexOf("请选择")==-1) {
+        if(text.indexOf("请选择")==-1||text.indexOf("")==-1) {
             areaSelection += text + ' ,';
         }
     });
@@ -1012,51 +996,57 @@ function initAddQuery() {
     var menpai = $('.menpai').find("option:selected").text();
     var tixin = $('.tixin').find("option:selected").text();
 
-    var faxin = $('.faxin').val()==null?"":$('.faxin').val();
     var faxin2 = "";
-    $.each(faxin,function (i,value) {
-        faxin2 += $('.faxin').find('option[value="'+value+'"]').text()+',';
+
+    var hezi2 = "";
+
+    var pifeng2 = "";
+
+    var wuxian2 = "";
+
+    var liuxian2 = "";
+
+    var chengyi2 = "";
+
+    var qiyu = "";
+
+    var chengwu = "";
+
+    var guajia = "";
+
+    $('.selectedOption div').each(function () {
+        var str = $(this).text();
+        var type = chergeType(str);
+        if(type=='faxin'){
+            faxin2 += str +',';
+        }else if(type == 'hezi'){
+            hezi2 += str +',';
+        }else if(type == 'pifeng'){
+            pifeng2 += str +',';
+        }else if(type == 'wuxian'){
+            wuxian2 += str +',';
+        }else if(type == 'liuxian'){
+            liuxian2 += str +',';
+        }else if(type == 'chengyi'){
+            chengyi2 += str +',';
+        }else if(type == 'qiyu'){
+            qiyu += str +',';
+        }else if(type == 'c5'){
+            chengwu += str +',';
+        }else if(type == 'guajian'){
+            guajia += str +',';
+        }
     });
     faxin2 = faxin2.substring(0,faxin2.length-1);
-
-    var hezi = $('.hezi').val()==null?"":$('.hezi').val();
-    var hezi2 = "";
-    $.each(hezi,function (i,value) {
-        hezi2 += $('.hezi').find('option[value="'+value+'"]').text()+',';
-    });
     hezi2 = hezi2.substring(0,hezi2.length-1);
-
-    var pifeng = $('.pifeng').val()==null?"":$('.pifeng').val();
-    var pifeng2 = "";
-    $.each(pifeng,function (i,value) {
-        pifeng2 += $('.pifeng').find('option[value="'+value+'"]').text()+',';
-    });
     pifeng2 = pifeng2.substring(0,pifeng2.length-1);
-
-    var wuxian = $('.wuxian').val()==null?"":$('.wuxian').val();
-    var wuxian2 = "";
-    $.each(wuxian,function (i,value) {
-        wuxian2 += $('.wuxian').find('option[value="'+value+'"]').text()+',';
-    });
     wuxian2 = wuxian2.substring(0,wuxian2.length-1);
-
-    var liuxian = $('.liuxian').val()==null?"":$('.liuxian').val();
-    var liuxian2 = "";
-    $.each(liuxian,function (i,value) {
-        liuxian2 += $('.liuxian').find('option[value="'+value+'"]').text()+',';
-    });
     liuxian2 = liuxian2.substring(0,liuxian2.length-1);
-
-    var chengyi = $('.chengyi').val()==null?"":$('.chengyi').val();
-    var chengyi2 = "";
-    $.each(chengyi,function (i,value) {
-        chengyi2 += $('.chengyi').find('option[value="'+value+'"]').text()+',';
-    });
     chengyi2 = chengyi2.substring(0,chengyi2.length-1);
+    qiyu = qiyu.substring(0,qiyu.length-1);
+    chengwu = chengwu.substring(0,chengwu.length-1);
+    guajia = guajia.substring(0,guajia.length-1);
 
-    var qiyu = $('.qiyu').val()==null?"":$('.qiyu').val().toString();
-    var chengwu = $('.chengwu').val()==null?"":$('.chengwu').val().toString();
-    var guajia = $('.guajian').val()==null?"":$('.guajian').val().toString();
     var info = $('.info').val();
     var lowPrice = $('.lowPrice').val();
     var highPrice = $('.highPrice').val();
@@ -1080,6 +1070,9 @@ function initAddQuery() {
 
     var fanganName = $('.fanganName').val();
 
+    var fanganType = parseInt($("input[name='fanganType']:checked").val());
+
+
     $('#sureKeepBtn').unbind('click');
     $('#sureKeepBtn').click(function () {
         fanganName = $('.fanganName').val();
@@ -1087,102 +1080,172 @@ function initAddQuery() {
             layer.msg("请输入搜索方案名!");
         }else {
             var url = "";
-            url = api + 'keepQuery?tradeType=' + encodeURI(tradeType) +
-                '&areaSelection=' + encodeURI(areaSelection) +
-                '&menpai=' + encodeURI(menpai) +
-                '&tixin=' + encodeURI(tixin) +
-                '&faxin=' + encodeURI(faxin.toString()) +
-                '&hezi=' + encodeURI(hezi.toString()) +
-                '&pifeng=' + encodeURI(pifeng.toString()) +
-                '&wuxian=' + encodeURI(wuxian.toString()) +
-                '&liuxian=' + encodeURI(liuxian.toString()) +
-                '&chengyi=' + encodeURI(chengyi.toString()) +
-                '&qiyu=' + encodeURI(qiyu) +
-                '&chengwu=' + encodeURI(chengwu) +
-                '&guajia=' + encodeURI(guajia) +
-                '&lowPrice=' + encodeURI(lowPrice) +
-                '&highPrice=' + encodeURI(highPrice) +
-                '&info=' + encodeURI(info) +
-                '&username=' + encodeURI(username) +
-                '&fanganName=' + encodeURI(fanganName) ;
-            layer.load();
-            $.getJSON(url, function (data) {
-                layer.closeAll();
-                if(data.info==1){
-                    layer.msg("保存成功!");
-                    $('#keepQueryDetail').modal('hide');
-                }else{
-                    layer.msg("保存失败")
-                }
-            }).complete(function () {
-                $('.querySelect').show();
-                var url = api+'getKeepQuery?username='+encodeURI(username);
-                $.getJSON(url,function (data) {
-                    data = data.datas;
-                    keepQueryDatas = data;
-                    $('.querySelect').empty();
-                    $('.querySelect').append("<option value=\"0\">&nbsp;可选择保存的搜索方案</option>");
-                    $.each(data,function (i,value) {
-                        $('.querySelect').append("<option value='"+value.user_seq+"'>&nbsp;"+value.fang_an_name+"</option>")
-                    });
-                }).complete(function () {
-                    $('.querySelect').unbind('change');
-                    $('.querySelect').change(function () {
-                        var selectId = $('.querySelect').val();
-                        $.each(keepQueryDatas,function (i,value) {
-                            if(value.user_seq==selectId){
-                                var tradeType = value.trade_type;
-                                if(tradeType==1){
-                                    $('.dropdown-menu li').eq(0).click();
-                                }else{
-                                    $('.dropdown-menu li').eq(1).click();
-                                }
-                                var qufu1 = value.qf_factor_1.trim();
-                                $("#pre").find("option:selected").text(qufu1);
-                                var qufu2 = value.qf_factor_2.trim();
-                                $("#city").find("option:selected").text(qufu2);
-                                var qufu3 = value.qf_factor_3.trim();
-                                $("#area").find("option:selected").text(qufu3);
-                                var menpai = value.menpai_factor;
-                                $('.menpai').val(menpai).trigger("change");
-                                var tixin = value.tixin_factor;
-                                $('.tixin').val(tixin).trigger("change");
-                                var faxin = value.faxin.split(',');
-                                $('.faxin').val(faxin).trigger("change");
-                                var hezi = value.hezhi.split(',');
-                                $('.hezi').val(hezi).trigger("change");
-                                var pifeng = value.pifeng.split(',');
-                                $('.pifeng').val(pifeng).trigger("change");
-                                var wuxian = value.wuxian.split(',');
-                                $('.wuxian').val(wuxian).trigger("change");
-                                var liuxian = value.liuxian.split(',');
-                                $('.liuxian').val(liuxian).trigger("change");
-                                var chengyi = value.chenyi.split(',');
-                                $('.chengyi').val(chengyi).trigger("change");
-                                var qiyu = value.qiyu.split(',');
-                                $('.qiyu').val(qiyu).trigger("change");
-                                var chengwu = value.chenwu.split(',');
-                                $('.chengwu').val(chengwu).trigger("change");
-                                var guajian = value.gujian.split(',');
-                                $('.guajian').val(guajian).trigger("change");
-                                var info = value.search_factor;
-                                $('.info').val(info);
-                                var lowPrice = value.price_low;
-                                if(lowPrice!=0) {
-                                    $('.lowPrice').val(lowPrice);
-                                }
-                                var highPrice = value.price_up;
-                                if(highPrice!=0) {
-                                    $('.highPrice').val(highPrice);
-                                }
+            var pipeidu = parseInt($('.pipeidu').val());
+            if(pipeidu>0&&pipeidu<=100) {
+                if (pipeidu != "" && tradeType == '出售') {
+                    url = api + 'keepQuery?tradeType=' + encodeURI(tradeType) +
+                        '&areaSelection=' + encodeURI(areaSelection) +
+                        '&menpai=' + encodeURI(menpai) +
+                        '&tixin=' + encodeURI(tixin) +
+                        '&faxin=' + encodeURI(faxin2.toString()) +
+                        '&hezi=' + encodeURI(hezi2.toString()) +
+                        '&pifeng=' + encodeURI(pifeng2.toString()) +
+                        '&wuxian=' + encodeURI(wuxian2.toString()) +
+                        '&liuxian=' + encodeURI(liuxian2.toString()) +
+                        '&chengyi=' + encodeURI(chengyi2.toString()) +
+                        '&qiyu=' + encodeURI(qiyu) +
+                        '&chengwu=' + encodeURI(chengwu) +
+                        '&guajia=' + encodeURI(guajia) +
+                        '&lowPrice=' + encodeURI(lowPrice) +
+                        '&highPrice=' + encodeURI(highPrice) +
+                        '&info=' + encodeURI(info) +
+                        '&username=' + encodeURI(username) +
+                        '&fanganName=' + encodeURI(fanganName) +
+                        '&fanganType=' + encodeURI(fanganType) +
+                        '&pipeidu=' + encodeURI(pipeidu);
+                    layer.load();
+                    $.getJSON(url, function (data) {
+                        layer.closeAll();
+                        if (data.info == 1) {
+                            layer.msg("保存成功!");
+                            $('#keepQueryDetail').modal('hide');
+                        } else {
+                            layer.msg("保存失败")
+                        }
+                    }).complete(function () {
+                        $('.querySelect').show();
+                        var url = api + 'getKeepQuery?username=' + encodeURI(username);
+                        $.getJSON(url, function (data) {
+                            data = data.datas;
+                            keepQueryDatas = data;
+                            $('.querySelect').empty();
+                            $('.querySelect').append("<option value=\"0\">&nbsp;可选择保存的搜索方案</option>");
+                            $.each(data, function (i, value) {
+                                $('.querySelect').append("<option value='" + value.user_seq + "'>&nbsp;" + value.fang_an_name + "</option>")
+                            });
+                        }).complete(function () {
+                            $('.querySelect').unbind('change');
+                            $('.querySelect').change(function () {
+                                var selectId = $('.querySelect').val();
+                                $.each(keepQueryDatas, function (i, value) {
+                                    if (value.user_seq == selectId) {
+                                        var tradeType = value.trade_type;
+                                        if (tradeType == 1) {
+                                            $('.dropdown-menu li').eq(0).click();
+                                        } else {
+                                            $('.dropdown-menu li').eq(1).click();
+                                        }
+                                        var qufu1 = value.qf_factor_1.trim();
+                                        $("#pre").find("option:selected").text(qufu1);
+                                        var qufu2 = value.qf_factor_2.trim();
+                                        $("#city").find("option:selected").text(qufu2);
+                                        var qufu3 = value.qf_factor_3.trim();
+                                        $("#area").find("option:selected").text(qufu3);
+                                        var menpai = value.menpai_factor;
+                                        $('.menpai').val(menpai).trigger("change");
+                                        var tixin = value.tixin_factor;
+                                        $('.tixin').val(tixin).trigger("change");
+                                        var faxin = value.faxin.split(',');
+                                        $('.faxin').val(faxin).trigger("change");
+                                        var hezi = value.hezhi.split(',');
+                                        $('.hezi').val(hezi).trigger("change");
+                                        var pifeng = value.pifeng.split(',');
+                                        $('.pifeng').val(pifeng).trigger("change");
+                                        var wuxian = value.wuxian.split(',');
+                                        $('.wuxian').val(wuxian).trigger("change");
+                                        var liuxian = value.liuxian.split(',');
+                                        $('.liuxian').val(liuxian).trigger("change");
+                                        var chengyi = value.chenyi.split(',');
+                                        $('.chengyi').val(chengyi).trigger("change");
+                                        var qiyu = value.qiyu.split(',');
+                                        $('.qiyu').val(qiyu).trigger("change");
+                                        var chengwu = value.chenwu.split(',');
+                                        $('.chengwu').val(chengwu).trigger("change");
+                                        var guajian = value.gujian.split(',');
+                                        $('.guajian').val(guajian).trigger("change");
+                                        var info = value.search_factor;
+                                        $('.info').val(info);
+                                        var lowPrice = value.price_low;
+                                        if (lowPrice != 0) {
+                                            $('.lowPrice').val(lowPrice);
+                                        }
+                                        var highPrice = value.price_up;
+                                        if (highPrice != 0) {
+                                            $('.highPrice').val(highPrice);
+                                        }
 
-                            }
+                                    }
+                                });
+                            });
                         });
                     });
-                });
-            });
+                } else {
+                    layer.msg("只能蹲出售的账号信息!");
+                }
+            }else{
+                layer.msg("匹配度应为0-100内的数字!");
+            }
         }
     });
+    
+    function chergeType(str) {
+        var faxin = segDatas.faxin;
+        var retStr = '';
+        $.each(faxin,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr =  'faxin';
+            }
+        });
+        var hezi = segDatas.hezi;
+        $.each(hezi,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr =  'hezi';
+            }
+        });
+        var pifeng = segDatas.pifeng;
+        $.each(pifeng,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr =  'pifeng';
+            }
+        });
+        var wuxian = segDatas.wuxian;
+        $.each(wuxian,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr =  'wuxian';
+            }
+        });
+        var liuxian = segDatas.liuxian;
+        $.each(liuxian,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr = 'liuxian';
+            }
+        });
+        var chengyi = segDatas.chengyi;
+        $.each(chengyi,function (i,value) {
+            if(str == value.WAIGUAN_NAME){
+                retStr = 'chengyi';
+            }
+        });
+        var qiyu = segDatas.qiyu;
+        $.each(qiyu,function (i,value) {
+            if(str == value.stra_name){
+                retStr = 'qiyu';
+            }
+        });
+        var c5 = segDatas.c5;
+        $.each(c5,function (i,value) {
+            if(str == value.arm_name){
+                retStr = 'c5';
+            }
+        });
+        var guajian = segDatas.guajian;
+        $.each(guajian,function (i,value) {
+            if(str == value.pend_name){
+                retStr = 'guajian';
+            }
+        });
+        return retStr;
+    }
 }
 
 function editQuery(selectId) {

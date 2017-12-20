@@ -52,7 +52,7 @@
         display: none;
     }
     .layer-anim.layui-layer-dialog{
-        width: 480px!important;
+        width: 280px!important;
     }
     .addQuery>div>label{
         margin: 5px;
@@ -136,7 +136,7 @@
     .nav-pills > li > a{width: 200px;height: 31px;padding: 0 15px;line-height: 32px;background: #fff !important;color: #333 !important;border-color: #999;}
     .menpai .select2-container{width: 200px;}
     .tixin .select2-container{width: 200px;}
-    .searccon textarea{height: 76px;line-height: 20px;resize: none;width: 492px;}
+    .searccon textarea{height: 36px;line-height: 20px;resize: none;width: 492px;}
     .searccon input[type='number']{height: 31px;padding: 0 0 0 12px;line-height: 32px;}
     .info2Td{width: 492px;}
 </style>
@@ -233,7 +233,7 @@
          <tr>
              <td align="right" class="wr ft1">发型：</td>
            <td>
-               <select class="faxin"  style="width: 200px;float: left">
+               <select class="faxin"  style="width: 200px;float: left" >
                 </select>
            </td>
              <td align="right" class="wr ft1">盒子：</td>
@@ -290,7 +290,7 @@
             <tr>
            <td align="right" class="wr ft1">已选：</td>
            <td class="info2Td">
-               <div class="info2Td">
+               <div class="">
                    <div class="info2">
 
                    </div>
@@ -310,7 +310,7 @@
            <td colspan="2">
                <a href="javascript:void(0)" class="query-l">查询</a>
                <a href="quickRelease" class="issue-l">我要发布</a>
-               <a href="javascript:void(0)" class="issue-l keepQuery" style="width: 100px;">保存搜索条件</a>
+               <a href="javascript:void(0)" class="issue-l keepQuery" style="width: 160px;">保存为搜索或蹲号方案</a>
            </td>
            <td></td>
           </tr>
@@ -353,18 +353,16 @@
         <div class="modal-content">
             <div class="modal-header"> <span class="inputtitle"></span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">保存新的搜索方案</h4>
+                <h4 class="modal-title">保存新的方案</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="editQuery" style="display: none">
-                        <label style="margin-left: 20px;margin-right: 20px;">请选择要覆盖的保存方案</label> <select class="editKeep" style="margin-left: 20px;width: 200px"></select>
-                        <div style="margin-top: 20px">
-                            <label style="margin-left: 20px;margin-right: 20px;">可修改方案名:</label>&nbsp;
-                            <input type="text" class="fanganName2" style="height: 26px;"/>
-                        </div>
-                    </div>
                     <div class="addQuery" style="display: none">
+                        <div>
+                            <label>类型:</label>&nbsp;
+                            <input type="radio" name = "fanganType" checked value="1"/> <label style="float: none">仅搜索方案</label>
+                            <input type="radio" name = "fanganType" value="2"/><label style="float: none">仅蹲号方案</label>
+                        </div>
                         <div>
                             <label>收售:</label>&nbsp;
                             <label class="queryTradeType"></label>
@@ -426,8 +424,12 @@
                             <label class="queryInfo"></label>
                         </div>
                         <br>
+                        <div class="pipeiDiv" style="display: none">
+                            <label>匹配度要求:</label>&nbsp;
+                            <input type="number" class="pipeidu" min = 1 max = 100 style="height: 30px;width: 50px;margin-top: 4px;border-radius: 5px;border: 1px solid;"/>&nbsp;%
+                        </div>
                         <div>
-                            <label>搜索方案名:</label>&nbsp;
+                            <label>新建方案名:</label>&nbsp;
                             <input type="text" class="fanganName" style="height: 36px"/>
                         </div>
                     </div>
@@ -436,8 +438,9 @@
                             <table class="delQueryTable">
                                 <thead>
                                 <tr>
-                                    <th style="width: 12%">搜索方案</th>
-                                    <th>搜索方案名</th>
+                                    <th style="width: 12%">方案序号</th>
+                                    <th style="width: 16%;">方案类型</th>
+                                    <th>方案名</th>
                                     <th style="width: 12%;">操作</th>
                                 </tr>
                                 </thead>
