@@ -135,7 +135,7 @@ function initTable(url,keyNum) {
                 var time = sumTime(value.REPLY_TIME);
                 var tradeType = value.TRADE_TYPE == 1 ? "求购" : "出售";
                 var matchingDegree = '--';
-                if (clickSeachNum != 0) {
+                if (clickSeachNum != 0&&!isNaN(value.matchDegree)) {
                     matchingDegree = value.matchDegree + '%';
                 }
                 var belongOf = value.BELONG_QF.replace("[", "");

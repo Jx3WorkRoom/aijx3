@@ -86,9 +86,9 @@
                   </ul>
               </td>
           </tr>
-      <tr class="belongOf">
+      <tr class="belongOf" style="display: none;">
        <td align="right" class="wr ft1">区服：</td>
-      <td onLoad="setup()" style="margin:0">
+        <td onLoad="setup()" style="margin:0;">
               <form name="frm" class="areaSelect">
                   <select style="width: 100px;" id="pre" onchange="chg(this);">
                       <option value="-1">请选择</option>
@@ -99,18 +99,13 @@
                   <select style="width: 100px;" id="area">
                       <option value="-1">请选择</option>
                   </select>
-
+              </form>
+        </td>
       </tr>
-         <tr class="table4Show" style="display: none;">
-             <td align="right" class="wr ft1">区服：</td>
-             <td colspan="7" class="qufu">
-                 <span><i class="icon0"></i>电点</span>
-                 <span><i class="icon0"></i>电月</span>
-                 <span><i class="icon0"></i>双点</span>
-                 <span><i class="icon0"></i>双月</span>
-                 <span><i class="icon0"></i>全选</span>
-             </td>
-         </tr>
+         <tr class="belongOf2">
+         <td align="right" class="wr ft1">来源贴吧：</td>
+       <td colspan="2"><input type="text" placeholder=""  class="tieba"/></td>
+      <tr>
       <tr>
        <td align="right" class="wr ft1">外观：</td>
        <td colspan="2"><input type="text" placeholder="6红五红、一代白、青盒子、鹤影天青等外观词。"  class="tixin"/></td>
